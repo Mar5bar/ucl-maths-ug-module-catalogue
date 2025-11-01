@@ -13,7 +13,15 @@
       "title": "Mathematics 11",
       "description": "Introduction to Mathematics covering basic concepts in algebra and calculus.",
       "prereqs": ["MATH0001"],
-      "themes": ["Algebra", "Calculus"],
+      "leads": ["Dr. Ben Walker"],
+      "level": 5
+    },
+    {
+      "code": "MATH0012",
+      "title": "Mathematics 12",
+      "description": "Introduction to Mathematics covering basic concepts in algebra and calculus.",
+      "prereqs": ["MATH0001"],
+      "themes": ["Calculus", "Geometry"],
       "leads": ["Dr. Ben Walker"],
       "level": 5
     },
@@ -21,7 +29,7 @@
       "code": "MATH0002",
       "title": "Mathematics 2",
       "description": "Introduction to Mathematics covering advanced concepts in algebra and calculus.",
-      "prereqs": ["MATH0001"],
+      "prereqs": ["MATH0001", "MATH0012"],
       "themes": ["Calculus", "Geometry"],
       "leads": ["Dr. Ben Stiller"],
       "level": 6

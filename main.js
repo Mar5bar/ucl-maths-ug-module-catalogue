@@ -39,7 +39,9 @@ function processModuleData(moduleData) {
     const level = module.level;
     // Record levels and themes.
     levels.add(level);
-    module.themes.forEach((theme) => themes.add(theme));
+    if (module.themes) {
+      module.themes.forEach((theme) => themes.add(theme));
+    }
     // Record this module in the corresponding level.
     if (!modulesAtLevel[level]) {
       modulesAtLevel[level] = [];
@@ -83,14 +85,6 @@ function processModuleData(moduleData) {
                 <h4>${module.title} (${module.code})</h4>
                 <p>${module.description}</p>
             `;
-      const themeElement = document.createElement("p");
-      themeElement.innerHTML = "<strong>Themes:</strong> ";
-      // Add each theme as a button.
-      for (const theme of module.themes) {
-        const themeButton = createThemeButton(theme);
-        themeElement.appendChild(themeButton);
-      }
-      moduleElement.appendChild(themeElement);
 
       // Add prerequisite information.
       if (module.prereqs && module.prereqs.length > 0) {
@@ -99,6 +93,28 @@ function processModuleData(moduleData) {
           ", ",
         )}`;
         moduleElement.appendChild(prereqElement);
+      }
+
+      // Add dependent modules information.
+      const dependents = requiredForMap[moduleCode];
+      if (dependents && dependents.length > 0) {
+        const dependentElement = document.createElement("p");
+        dependentElement.innerHTML = `<strong>Required for:</strong> ${dependents.join(
+          ", ",
+        )}`;
+        moduleElement.appendChild(dependentElement);
+      }
+
+      // Add themes information.
+      if (module.themes) {
+        const themeElement = document.createElement("p");
+        themeElement.innerHTML = "<strong>Themes:</strong> ";
+        // Add each theme as a button.
+        for (const theme of module.themes) {
+          const themeButton = createThemeButton(theme);
+          themeElement.appendChild(themeButton);
+        }
+        moduleElement.appendChild(themeElement);
       }
 
       // Make the module element clickable to highlight it.
@@ -147,7 +163,7 @@ function activateTheme(theme) {
   for (const moduleCode in moduleData) {
     const module = moduleData[moduleCode];
     const moduleElement = module.element;
-    if (module.themes.includes(theme)) {
+    if (module.themes && module.themes.includes(theme)) {
       moduleElement.classList.add("active-theme");
       moduleElement.classList.remove("inactive-theme");
     } else {
@@ -219,8 +235,8 @@ function createThemeButton(theme) {
 }
 
 function highlightRelatedModules(moduleCode) {
-    const modulesConsidered = new Set();
-    modulesConsidered.add(moduleCode);
+  const modulesConsidered = new Set();
+  modulesConsidered.add(moduleCode);
   const prereqCodes = prereqsMap[moduleCode] || [];
   const dependentCodes = requiredForMap[moduleCode] || [];
   lines = [];
@@ -238,12 +254,12 @@ function highlightRelatedModules(moduleCode) {
       modulesConsidered.add(code);
     }
   }
-    // Dim all other modules.
-    for (const code in moduleData) {
-        if (!modulesConsidered.has(code)) {
-            moduleData[code].element.classList.add("inactive-module");
-        }
+  // Dim all other modules.
+  for (const code in moduleData) {
+    if (!modulesConsidered.has(code)) {
+      moduleData[code].element.classList.add("inactive-module");
     }
+  }
   clearLines();
   drawLines(lines);
 }
