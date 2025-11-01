@@ -1,0 +1,361 @@
+let moduleData = {};
+
+let themes = new Set();
+let levels = new Set();
+let prereqsMap = {};
+let requiredForMap = {};
+let modulesAtLevel = {};
+let themeButtons = {};
+
+let userActivatedTheme = null;
+let activeTheme = null;
+
+let activeModule = null;
+
+// Fetch module_data.
+fetch("module_data.json")
+  .then((response) => response.json())
+  .then((data) => {
+    for (const module of data.modules) {
+      moduleData[module.code] = module;
+    }
+    processModuleData(moduleData);
+    // If there's a theme in the URL query string, activate it.
+    const urlParams = new URLSearchParams(window.location.search);
+    const themeParam = urlParams.get("theme");
+    if (themeParam && themes.includes(themeParam)) {
+      userActivatedTheme = themeParam;
+      activateTheme(themeParam);
+    }
+  })
+  .catch((error) => {
+    console.error("Error fetching module data:", error);
+  });
+
+function processModuleData(moduleData) {
+  // Loop through the modules and populate lists of metadata.
+  for (const moduleCode in moduleData) {
+    const module = moduleData[moduleCode];
+    const level = module.level;
+    // Record levels and themes.
+    levels.add(level);
+    module.themes.forEach((theme) => themes.add(theme));
+    // Record this module in the corresponding level.
+    if (!modulesAtLevel[level]) {
+      modulesAtLevel[level] = [];
+    }
+    modulesAtLevel[level].push(moduleCode);
+    if (module.prereqs) {
+      prereqsMap[moduleCode] = module.prereqs;
+      // Populate a reverse mapping of prerequisites.
+      for (const prereq of module.prereqs) {
+        if (!requiredForMap[prereq]) {
+          requiredForMap[prereq] = [];
+        }
+        requiredForMap[prereq].push(moduleCode);
+      }
+    }
+  }
+
+  // Convert levels and themes to sorted arrays.
+  levels = Array.from(levels).sort();
+  themes = Array.from(themes).sort();
+
+  // Build the grid of modules. Each level gets its own section.
+  const moduleGrid = document.getElementById("module-grid");
+  for (const level of levels) {
+    const levelSection = document.createElement("div");
+    levelSection.className = "level-section";
+    levelSection.innerHTML = `<h3>Level ${level}</h3>`;
+    const moduleGroup = document.createElement("div");
+    moduleGroup.className = "module-group";
+    levelSection.appendChild(moduleGroup);
+    moduleGrid.appendChild(levelSection);
+
+    const moduleCodes = modulesAtLevel[level] || [];
+    for (const moduleCode of moduleCodes) {
+      const module = moduleData[moduleCode];
+      const moduleElement = document.createElement("div");
+      moduleElement.id = `module-${moduleCode}`;
+      moduleElement.className = "module";
+      // Add the title, code, description, etc.
+      moduleElement.innerHTML = `
+                <h4>${module.title} (${module.code})</h4>
+                <p>${module.description}</p>
+            `;
+      const themeElement = document.createElement("p");
+      themeElement.innerHTML = "<strong>Themes:</strong> ";
+      // Add each theme as a button.
+      for (const theme of module.themes) {
+        const themeButton = createThemeButton(theme);
+        themeElement.appendChild(themeButton);
+      }
+      moduleElement.appendChild(themeElement);
+
+      // Add prerequisite information.
+      if (module.prereqs && module.prereqs.length > 0) {
+        const prereqElement = document.createElement("p");
+        prereqElement.innerHTML = `<strong>Prerequisites:</strong> ${module.prereqs.join(
+          ", ",
+        )}`;
+        moduleElement.appendChild(prereqElement);
+      }
+
+      // Make the module element clickable to highlight it.
+      moduleElement.addEventListener("click", () => {
+        const prereqCodes = prereqsMap[moduleCode] || [];
+        const dependentCodes = requiredForMap[moduleCode] || [];
+        clearHighlightedModules();
+        if (activeModule === moduleCode) {
+          // Deactivate the module.
+          activeModule = null;
+        } else {
+          // Activate the module.
+          activeModule = moduleCode;
+          moduleElement.classList.add("active-module");
+          highlightRelatedModules(activeModule);
+        }
+      });
+
+      moduleGroup.appendChild(moduleElement);
+      moduleData[moduleCode].element = moduleElement;
+    }
+  }
+  // Add in a row of buttons at the top for each theme.
+  const themeButtonRow = document.getElementById("theme-button-row");
+  for (const theme of themes) {
+    const themeButton = createThemeButton(theme);
+    themeButtonRow.appendChild(themeButton);
+  }
+}
+
+function toggleThemeOnClick(theme) {
+  // If the user is deactivating a theme they activated, deactivate it.
+  if (userActivatedTheme && userActivatedTheme === theme) {
+    userActivatedTheme = null;
+    deactivateTheme();
+  } else {
+    // Otherwise, the user is activating a theme.
+    userActivatedTheme = theme;
+    activateTheme(theme);
+  }
+}
+
+function activateTheme(theme) {
+  activeTheme = theme;
+  // Highlight modules matching the selected theme.
+  for (const moduleCode in moduleData) {
+    const module = moduleData[moduleCode];
+    const moduleElement = module.element;
+    if (module.themes.includes(theme)) {
+      moduleElement.classList.add("active-theme");
+      moduleElement.classList.remove("inactive-theme");
+    } else {
+      moduleElement.classList.remove("active-theme");
+      moduleElement.classList.add("inactive-theme");
+    }
+  }
+  // Highlight theme buttons.
+  for (const themeName in themeButtons) {
+    const buttons = themeButtons[themeName];
+    for (const button of buttons) {
+      if (themeName === theme) {
+        button.classList.add("active-theme");
+        button.classList.remove("inactive-theme");
+      } else {
+        button.classList.remove("active-theme");
+        button.classList.add("inactive-theme");
+      }
+    }
+  }
+}
+
+function deactivateTheme() {
+  // Remove highlighting from all modules.
+  for (const moduleCode in moduleData) {
+    const module = moduleData[moduleCode];
+    const moduleElement = module.element;
+    moduleElement.classList.remove("active-theme");
+    moduleElement.classList.remove("inactive-theme");
+  }
+  // Remove highlighting from all theme buttons.
+  for (const themeName in themeButtons) {
+    const buttons = themeButtons[themeName];
+    for (const button of buttons) {
+      button.classList.remove("active-theme");
+      button.classList.remove("inactive-theme");
+    }
+  }
+  activeTheme = null;
+}
+
+function createThemeButton(theme) {
+  const themeButton = document.createElement("button");
+  themeButton.className = "theme-button";
+  themeButton.textContent = theme;
+  themeButton.dataset.theme = theme;
+  themeButton.addEventListener("click", (event) => {
+    event.stopPropagation();
+    toggleThemeOnClick(theme);
+  });
+  themeButton.addEventListener("mouseover", () => {
+    // Don't override user selection.
+    if (userActivatedTheme) return;
+    activateTheme(theme);
+  });
+  themeButton.addEventListener("mouseout", () => {
+    // Deactivate the theme, then re-activate the user-selected theme if any.
+    deactivateTheme();
+    if (userActivatedTheme) {
+      activateTheme(userActivatedTheme);
+    }
+  });
+  // Store the button for later access.
+  if (!themeButtons[theme]) {
+    themeButtons[theme] = [];
+  }
+  themeButtons[theme].push(themeButton);
+  return themeButton;
+}
+
+function highlightRelatedModules(moduleCode) {
+    const modulesConsidered = new Set();
+    modulesConsidered.add(moduleCode);
+  const prereqCodes = prereqsMap[moduleCode] || [];
+  const dependentCodes = requiredForMap[moduleCode] || [];
+  lines = [];
+  for (const code of prereqCodes) {
+    if (moduleData[code]) {
+      moduleData[code].element.classList.add("prereq-module");
+      lines.push([moduleData[code].element, moduleData[moduleCode].element]);
+      modulesConsidered.add(code);
+    }
+  }
+  for (const code of dependentCodes) {
+    if (moduleData[code]) {
+      moduleData[code].element.classList.add("dependent-module");
+      lines.push([moduleData[code].element, moduleData[moduleCode].element]);
+      modulesConsidered.add(code);
+    }
+  }
+    // Dim all other modules.
+    for (const code in moduleData) {
+        if (!modulesConsidered.has(code)) {
+            moduleData[code].element.classList.add("inactive-module");
+        }
+    }
+  clearLines();
+  drawLines(lines);
+}
+
+function clearHighlightedModules() {
+  for (const moduleCode in moduleData) {
+    const module = moduleData[moduleCode];
+    module.element.classList.remove("active-module");
+    module.element.classList.remove("inactive-module");
+    module.element.classList.remove("prereq-module");
+    module.element.classList.remove("dependent-module");
+  }
+  lines = [];
+  clearLines();
+}
+
+function showAllConnections() {
+  lines = [];
+  for (const moduleCode in moduleData) {
+    const prereqCodes = prereqsMap[moduleCode] || [];
+    for (const prereqCode of prereqCodes) {
+      if (moduleData[prereqCode]) {
+        lines.push([
+          moduleData[prereqCode].element,
+          moduleData[moduleCode].element,
+        ]);
+      }
+    }
+  }
+  clearLines();
+  drawLines(lines);
+}
+
+function clearLines() {
+  const svg = document.getElementById("svg-lines");
+  while (svg && svg.firstChild) {
+    svg.removeChild(svg.firstChild);
+  }
+}
+
+function redrawLines() {
+  // Reset the size of the svg to match the document size.
+  const svg = document.getElementById("svg-lines");
+  svg.setAttribute("width", 0);
+  svg.setAttribute("height", 0);
+  clearLines();
+  drawLines(lines);
+}
+
+function drawLines(lines) {
+  // If there are no lines to draw, return.
+  if (!lines || lines.length === 0) {
+    return;
+  }
+  // Use a JQuery library to draw SVG paths between elements.
+  lines.forEach((line) => {
+    const el1 = line[0];
+    const el2 = line[1];
+
+    const rect1 = el1.getBoundingClientRect();
+    const rect2 = el2.getBoundingClientRect();
+
+    // We want to make the shortest path between any top/bottom of el1 to any top/bottom of el2. We could be intelligent about this, or we could loop through all combinations and pick the shortest.
+    const el1Points = [
+      { x: rect1.left + rect1.width / 2, y: rect1.top }, // top center
+      { x: rect1.left + rect1.width / 2, y: rect1.bottom }, // bottom center
+    ];
+    const el2Points = [
+      { x: rect2.left + rect2.width / 2, y: rect2.top }, // top center
+      { x: rect2.left + rect2.width / 2, y: rect2.bottom }, // bottom center
+    ];
+    let minDistance = Infinity;
+    let bestPair = [el1Points[0], el2Points[0]];
+    for (const p1 of el1Points) {
+      for (const p2 of el2Points) {
+        const dx = p2.x - p1.x;
+        const dy = p2.y - p1.y;
+        const distanceSquared = dx * dx + dy * dy;
+        if (distanceSquared < minDistance) {
+          minDistance = distanceSquared;
+          bestPair = [p1, p2];
+        }
+      }
+    }
+    const startX = bestPair[0].x + window.scrollX;
+    const startY = bestPair[0].y + window.scrollY;
+    const endX = bestPair[1].x + window.scrollX;
+    const endY = bestPair[1].y + window.scrollY;
+    const midX = (startX + endX) / 2;
+    const midY = (startY + endY) / 2;
+
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+
+    const d = `M ${startX} ${startY} C ${startX} ${endY} ${endX} ${startY} ${endX} ${endY}`;
+    path.setAttribute("d", d);
+    path.setAttribute("stroke", "black");
+    path.setAttribute("fill", "transparent");
+
+    const svg = document.getElementById("svg-lines");
+    svg.appendChild(path);
+  });
+  svgResize();
+}
+
+window.addEventListener("resize", () => {
+  svgResize();
+});
+
+function svgResize() {
+  const svg = document.getElementById("svg-lines");
+  svg.setAttribute("width", document.body.scrollWidth + window.scrollX);
+  svg.setAttribute("height", document.body.scrollHeight + window.scrollY);
+  svg.style.width = document.body.scrollWidth + "px";
+  svg.style.height = document.body.scrollHeight + "px";
+}
