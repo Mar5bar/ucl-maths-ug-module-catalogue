@@ -570,3 +570,68 @@ function checkAnyDetails() {
     .getElementById("module-grid")
     .classList.toggle("no-details-enabled", !anyOn);
 }
+
+function searchModules() {
+  const input = document.getElementById("search-input");
+  let query = input.value.trim().toUpperCase();
+  if (!query) {
+    return;
+  }
+  // If the query contains no letters, add in MATH as a prefix.
+  if (!/[A-Z]/.test(query)) {
+    // If the query has fewer than 4 digits, pad with leading zeros.
+    query = query.padStart(4, "0");
+    query = "MATH" + query;
+  }
+  const module = moduleData[query];
+  if (module) {
+    // If the module is not visible due to theme filtering, deactivate the theme.
+    if (
+      module.element.classList.contains("inactive-theme") &&
+      activeTheme
+    ) {
+      deactivateTheme();
+      userActivatedTheme = null;
+      activeTheme = null;
+    }
+    // Scroll to the module.
+    module.element.scrollIntoView({ behavior: "smooth", block: "center" });
+    // Highlight the module.
+    clearHighlightedModules();
+    activeModule = query;
+    module.element.classList.add("active-module");
+    highlightRelatedModules(activeModule);
+  } else {
+    // Module not found.
+    // Display a little tooltip.
+    displayTooltip(input, "Module not found");
+  }
+}
+
+function displayTooltip(element, message) {
+  // Create tooltip element.
+  const tooltip = document.createElement("div");
+  tooltip.className = "tooltip";
+  tooltip.textContent = message;
+  document.body.appendChild(tooltip);
+
+  // Position the tooltip above the element.
+  const rect = element.getBoundingClientRect();
+  tooltip.style.left = rect.left + window.scrollX + "px";
+  tooltip.style.top = rect.top + window.scrollY - tooltip.offsetHeight - 5 + "px";
+
+  // Remove the tooltip after 2 seconds.
+  setTimeout(() => {
+    document.body.removeChild(tooltip);
+  }, 2000);
+}
+
+const input = document.getElementById("search-input");
+const button = document.getElementById("search-button");
+
+input.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    event.preventDefault(); // Prevent form submission or page reload
+    button.click(); // Trigger the button's click event
+  }
+});

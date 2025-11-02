@@ -10,7 +10,8 @@ body {
 }
 
 #theme-button-row,
-#detail-button-row {
+#detail-button-row,
+#module-search {
   text-align: center;
   margin: 16px 0;
   line-height: 250%;
@@ -78,8 +79,8 @@ br.title-break {
   flex-grow: 1;
 }
 
-.no-details-enabled .top-container  {
-    align-content: center;
+.no-details-enabled .top-container {
+  align-content: center;
 }
 
 .description-low-detail .module .description {
@@ -216,6 +217,24 @@ main {
   color: #2d3a4a;
   margin-bottom: 18px;
   text-align: center;
+}
+
+.tooltip {
+  position: absolute;
+  padding-left: 5px;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 10;
+  max-width: 200px;
+}
+
+input[type="text"] {
+  padding: 6px 8px;
+  font-size: px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  width: 200px;
+  box-shadow: 0 1px 4px rgba(60, 80, 120, 0.07);
 }
 
 @media screen and (max-width: 768px) {
