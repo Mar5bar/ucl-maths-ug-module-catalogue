@@ -374,7 +374,7 @@ function highlightRelatedModules(moduleCode) {
       continue;
     }
     moduleData[code].element.classList.add("dependent-module");
-    lines.push([moduleData[code].element, moduleData[moduleCode].element]);
+    lines.push([moduleData[moduleCode].element, moduleData[code].element]);
     modulesConsidered.add(code);
   }
   // Dim all other modules.
@@ -416,9 +416,13 @@ function showAllConnections() {
 
 function clearLines() {
   const svg = document.getElementById("svg-lines");
-  while (svg && svg.firstChild) {
-    svg.removeChild(svg.firstChild);
-  }
+  // Get all the path elements that are direct descendants and remove them, whilst preserving the marker definitions.
+  const paths = Array.from(svg.children).filter(
+    (child) => child.tagName === "path",
+  );
+  paths.forEach((path) => {
+    svg.removeChild(path);
+  });
 }
 
 function redrawLines() {
@@ -488,6 +492,7 @@ function drawLines(lines) {
     path.setAttribute("d", d);
     path.setAttribute("stroke", "black");
     path.setAttribute("fill", "transparent");
+    path.setAttribute("marker-end", "url(#arrow)");
 
     const svg = document.getElementById("svg-lines");
     svg.appendChild(path);

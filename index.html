@@ -15,8 +15,9 @@
     <main>
       <div id="intro">
         <p>
-          Welcome to the UCL BSc/MSci Mathematics module catalogue.<br>
-          Select modules to see how they are connected as prerequisites of one another, or filter by theme.
+          Welcome to the UCL BSc/MSci Mathematics module catalogue.<br />
+          Select modules to see how they are connected as prerequisites of one
+          another, or filter by theme.
         </p>
         <div id="detail-button-row">
           Detail level:
@@ -58,13 +59,34 @@
         </div>
         <div id="theme-button-row">Theme:&nbsp;</div>
         <div id="module-search">
-          <input type="text" id="search-input" placeholder="Enter module code..."/>
-          <button id="search-button" type="button" onclick="searchModules()">Search</button>
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Enter module code..."
+          />
+          <button id="search-button" type="button" onclick="searchModules()">
+            Search
+          </button>
         </div>
       </div>
       <div id="module-grid"></div>
     </main>
-    <svg id="svg-lines"></svg>
+    <svg id="svg-lines">
+      <defs>
+        <!-- A marker to be used as an arrowhead -->
+        <marker
+          id="arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 0 L 10 5 L 0 10 z" />
+        </marker>
+      </defs>
+    </svg>
   </body>
   <script src="main.js"></script>
 </html>
