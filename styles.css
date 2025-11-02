@@ -111,19 +111,19 @@ br.title-break {
 
 .module.active-module {
   border-color: #ff9800;
-  background-color: #fff7e6;
+background-color: rgba(255, 247, 230, 0.92);
   z-index: 1;
 }
 
 .module.prereq-module {
   border-color: #2196f3;
-  background-color: #eaf4ff;
+background-color: rgba(234, 244, 255, 0.92);
   z-index: 1;
 }
 
 .module.dependent-module {
   border-color: #4caf50;
-  background-color: #f0fbe8;
+background-color: rgba(240, 251, 232, 0.92);
   z-index: 1;
 }
 
