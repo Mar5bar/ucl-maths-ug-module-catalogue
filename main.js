@@ -137,16 +137,9 @@ function processModuleData(moduleData) {
     levelSection.appendChild(moduleGroup);
     moduleGrid.appendChild(levelSection);
 
-    const moduleCodes = modulesAtLevel[level] || [];
-    // Sort module codes by Term and then alphabetically.
-    moduleCodes.sort((a, b) => {
-      const termA = moduleData[a].term || "4"; // Default to 4 if no term specified.
-      const termB = moduleData[b].term || "4";
-      if (termA !== termB) {
-        return termA - termB;
-      }
-      return a.localeCompare(b);
-    });
+    let moduleCodes = modulesAtLevel[level] || [];
+    // Sort module codes by prerequisites: a before b if a is a prerequisite of b.
+    moduleCodes = topologicalSort(moduleCodes);
     for (const moduleCode of moduleCodes) {
       const module = moduleData[moduleCode];
       const moduleElement = document.createElement("div");
@@ -630,6 +623,62 @@ function isModuleVisible(moduleCode) {
     moduleData[moduleCode] &&
     !moduleData[moduleCode].element.classList.contains("inactive-theme")
   );
+}
+
+function topologicalSort(codes) {
+  const incoming = new Map();
+  const graph = new Map();
+
+  for (const code of codes) {
+    incoming.set(code, 0);
+    graph.set(code, []);
+  }
+
+  // Edges are from prereq to module.
+  const edges = [];
+  for (const code of codes) {
+    const prereqs = prereqsMap[code] || [];
+    for (const prereq of prereqs) {
+      if (codes.includes(prereq)) {
+        edges.push([prereq, code]);
+      }
+    }
+  }
+
+  const nodes = Array.from(codes);
+
+  for (const [a, b] of edges) {
+    // a < b
+    graph.get(a).push(b);
+    incoming.set(b, (incoming.get(b) || 0) + 1);
+  }
+
+  // Start with all nodes with no incoming edges
+  let layer = nodes.filter((n) => incoming.get(n) === 0);
+  const result = [];
+
+  while (layer.length > 0) {
+    // Sort the current layer using the given compare function
+    layer.sort((a, b) => a.localeCompare(b));
+    result.push(...layer);
+
+    const nextLayer = [];
+
+    for (const node of layer) {
+      for (const neighbor of graph.get(node)) {
+        incoming.set(neighbor, incoming.get(neighbor) - 1);
+        if (incoming.get(neighbor) === 0) nextLayer.push(neighbor);
+      }
+    }
+
+    layer = nextLayer;
+  }
+
+  // Check for cycles
+  if (result.length !== nodes.length)
+    throw new Error("Cycle detected or invalid partial order");
+
+  return result;
 }
 
 const input = document.getElementById("search-input");
