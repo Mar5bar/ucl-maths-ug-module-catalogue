@@ -157,9 +157,9 @@ function processModuleData(moduleData) {
       if (module.prereqs && module.prereqs.length > 0) {
         const prereqElement = document.createElement("p");
         prereqElement.className = "prereqs-list";
-        prereqElement.innerHTML = `<strong>Requires:</strong> <span class="module-code">${module.prereqs.join(
-          ", ",
-        )}</span>`;
+        prereqElement.innerHTML = `<strong>Requires:</strong> <span class="module-code">${module.prereqs
+          .sort()
+          .join(", ")}</span>`;
         moduleElement.appendChild(prereqElement);
       }
 
@@ -168,9 +168,9 @@ function processModuleData(moduleData) {
       if (dependents && dependents.length > 0) {
         const dependentElement = document.createElement("p");
         dependentElement.className = "reqfors-list";
-        dependentElement.innerHTML = `<strong>Required for:</strong> ${dependents
+        dependentElement.innerHTML = `<strong>Required for:</strong> <span class="module-code">${dependents
           .sort()
-          .join(", ")}`;
+          .join(", ")}</span>`;
         moduleElement.appendChild(dependentElement);
       }
 

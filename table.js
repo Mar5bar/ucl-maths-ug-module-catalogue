@@ -153,8 +153,8 @@ function processModuleData(moduleData) {
           defaultSyllabusBaseURL + module.code.toLowerCase() + ".pdf"
         } target="_blank">${moduleCode.toUpperCase()} ${module.title}</a>`,
         term: module.term || "",
-        prereqs: prereqsMap[moduleCode]?.join(", ") || "",
-        reqfors: requiredForMap[moduleCode]?.join(", ") || "",
+        prereqs: prereqsMap[moduleCode]?.sort().join(", ") || "",
+        reqfors: requiredForMap[moduleCode]?.sort().join(", ") || "",
       };
       for (const field of ["module", "term", "prereqs", "reqfors"]) {
         const cell = document.createElement("td");
