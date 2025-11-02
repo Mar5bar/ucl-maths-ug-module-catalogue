@@ -1,56 +1,891 @@
 {
+  "themesToModules": {
+    "Algebra": [
+      "MATH0014",
+      "MATH0021",
+      "MATH0022",
+      "MATH0023",
+      "MATH0029",
+      "MATH0034",
+      "MATH0035",
+      "MATH0036",
+      "MATH0037",
+      "MATH0038",
+      "MATH0053",
+      "MATH0061",
+      "MATH0073",
+      "MATH0075",
+      "MATH0076",
+      "MATH0083",
+      "MATH0104",
+      "MATH0108",
+      "MATH0109"
+    ],
+    "Analysis": [
+      "MATH0051",
+      "MATH0017",
+      "MATH0019",
+      "MATH0018",
+      "MATH0020",
+      "MATH0070",
+      "MATH0074",
+      "MATH0069",
+      "MATH0092",
+      "MATH0090",
+      "MATH0107",
+      "MATH0071"
+    ],
+    "Applied": [
+      "MATH0056",
+      "MATH0055",
+      "MATH0025",
+      "MATH0027",
+      "MATH0054",
+      "MATH0024",
+      "MATH0077",
+      "MATH0118",
+      "MATH0080",
+      "MATH0115",
+      "MATH0119",
+      "MATH0106",
+      "MATH0078",
+      "MATH0079"
+    ],
+    "Modelling": [
+      "MATH0026",
+      "MATH0030",
+      "MATH0033",
+      "MATH0028",
+      "MATH0031",
+      "MATH0114",
+      "MATH0102",
+      "MATH0117",
+      "MATH0065",
+      "MATH0086",
+      "MATH0082",
+      "MATH0088"
+    ]
+  },
   "modules": [
     {
-      "code": "MATH0010",
-      "title": "Mathematics 1",
-      "description": "Introduction to Mathematics covering basic concepts in algebra and calculus.",
-      "themes": ["Algebra", "Calculus"],
-      "leads": ["Dr. Ben Walker"],
-      "level": 4
+      "code": "MATH0015",
+      "title": "Fluid Mechanics",
+      "level": "5",
+      "term": "1",
+      "description": "Principles of fluid motion, focusing on the mathematical analysis of fluid dynamics through applied mathematics.",
+      "themes": ["Analysis", "Computation", "Modelling"],
+      "prereqs": ["MATH0011"],
+      "lead": "Prof E Johnson"
     },
     {
-      "code": "MATH0011",
-      "title": "Mathematics 11",
-      "description": "Introduction to Mathematics covering basic concepts in algebra and calculus.",
-      "prereqs": ["MATH0010"],
-      "leads": ["Dr. Ben Walker"],
-      "level": 5
+      "code": "MATH0029",
+      "title": "Graph Theory and Combinatorics",
+      "level": "6",
+      "term": "1",
+      "description": "Discrete mathematics, including graph theory, combinatorics, and extremal results, primarily for mathematics students.",
+      "themes": ["Number Theory", "Geometry", "Modelling"],
+      "prereqs": ["MATH0057"],
+      "lead": "Dr A Girao"
     },
     {
-      "code": "MATH0012",
-      "title": "Mathematics 12",
-      "description": "Introduction to Mathematics covering basic concepts in algebra and calculus.",
-      "prereqs": ["MATH0010"],
-      "themes": ["Calculus", "Geometry"],
-      "leads": ["Dr. Ben Walker"],
-      "level": 5
+      "code": "MATH0028",
+      "title": "Combinatorial Optimisation",
+      "level": "6",
+      "term": "2",
+      "description": "Algorithms and their efficiency through the study of graph theory and combinatorial techniques.",
+      "themes": ["Number Theory", "Computation", "Modelling"],
+      "prereqs": ["MATH0014"],
+      "lead": "Dr A Pokrovskiy"
     },
     {
-      "code": "MATH0013",
-      "title": "Mathematics 12",
-      "description": "Introduction to Mathematics covering basic concepts in algebra and calculus.",
-      "prereqs": ["MATH0010"],
-      "themes": ["Calculus", "Geometry"],
-      "leads": ["Dr. Ben Walker"],
-      "level": 5
+      "code": "MATH0014",
+      "title": "Algebra 3: Further Linear Algebra",
+      "level": "5",
+      "term": "1",
+      "description": "Concepts in linear algebra through the study of polynomial rings, matrices, and vector spaces.",
+      "themes": ["Algebra", "Number Theory"],
+      "prereqs": ["MATH0006"],
+      "lead": "Dr R Reynolds"
+    },
+    {
+      "code": "MATH0016",
+      "title": "Mathematical Methods 3",
+      "level": "5",
+      "term": "1",
+      "description": "Core concepts including Fourier analysis, calculus of variations, partial differential equations, and vector calculus.",
+      "themes": ["Analysis", "Computation", "Number Theory"],
+      "prereqs": ["MATH0011"],
+      "lead": "Prof NR McDonald"
     },
     {
       "code": "MATH0002",
-      "title": "Mathematics 2",
-      "description": "Introduction to Mathematics covering advanced concepts in algebra and calculus.",
-      "prereqs": ["MATH0010", "MATH0012"],
-      "themes": ["Calculus", "Geometry"],
-      "leads": ["Dr. Ben Stiller"],
-      "level": 6
+      "title": "Economics 1 - Combined Studies",
+      "level": "4",
+      "term": "1",
+      "description": "Fundamentals of economic resource allocation and analysis, focusing on both individual and aggregate economic principles.",
+      "themes": ["Number Theory", "Modelling"],
+      "lead": "Dr G Peng / TBC"
     },
     {
       "code": "MATH0003",
-      "title": "Mathematics 3",
-      "description": "Introduction to Mathematics covering advanced concepts in algebra and calculus.",
+      "title": "Analysis 1",
+      "level": "4",
+      "term": "1",
+      "description": "Concepts in real analysis, focusing on proofs and rigorous mathematical techniques.",
+      "themes": ["Analysis", "Computation"],
+      "lead": "Associate Professor M Hadzic"
+    },
+    {
+      "code": "MATH0017",
+      "title": "Measure Theory",
+      "level": "6",
+      "term": "1",
+      "description": "Principles of measure theory and integral calculus, crucial for various mathematical fields.",
+      "themes": ["Analysis", "Computation", "Number Theory"],
+      "prereqs": ["MATH0051"],
+      "lead": "Dr A Doan"
+    },
+    {
+      "code": "MATH0013",
+      "title": "Analysis 3: Complex Analysis",
+      "level": "5",
+      "term": "1",
+      "description": "Rigorous study of complex functions, covering fundamental theorems and applications in analysis.",
+      "themes": ["Analysis", "Number Theory"],
+      "prereqs": ["MATH0003"],
+      "lead": "Prof A Sobolev"
+    },
+    {
+      "code": "MATH0007",
+      "title": "Algebra for Joint Honours",
+      "level": "4",
+      "term": "2",
+      "description": "Concepts of group theory and linear algebra, essential for understanding mathematics and its applications.",
+      "prereqs": ["MATH0003"],
+      "lead": "Prof N Kalaydzhieva"
+    },
+    {
+      "code": "MATH0006",
+      "title": "Level: 4",
+      "level": "4",
+      "term": "2",
+      "description": "Concepts of abstract algebra, focusing on groups, rings, fields, and vector spaces, building a foundation for advanced mathematical topics.",
+      "themes": ["Algebra"],
+      "prereqs": ["MATH0005"],
+      "lead": "Prof E Segal"
+    },
+    {
+      "code": "MATH0012",
+      "title": "Mathematical Methods for Arts and",
+      "level": "4",
+      "term": "1",
+      "description": "This course equips BASc students with fundamental calculus skills to prepare them for advanced studies and potential departmental placements.",
+      "themes": ["Analysis", "Computation"],
+      "lead": "Dr L Rila"
+    },
+    {
+      "code": "MATH0038",
+      "title": "History of Mathematics",
+      "level": "6",
+      "term": "2",
+      "description": "Evolution of mathematics from ancient times to the early 19th century, focusing on key figures and discoveries.",
+      "themes": ["Geometry"],
+      "lead": "Mr S Rose"
+    },
+    {
+      "code": "MATH0004",
+      "title": "Analysis 2",
+      "level": "4",
+      "term": "2",
+      "description": "Concepts in real analysis, including integration, sequences, and series.",
+      "themes": ["Analysis", "Computation"],
+      "prereqs": ["MATH0003"],
+      "lead": "Prof D Vassiliev"
+    },
+    {
+      "code": "MATH0010",
+      "title": "Mathematical Methods 1",
+      "level": "4",
+      "term": "1",
+      "description": "Mathematical skills across vectors, calculus, and differential equations.",
+      "themes": ["Analysis", "Computation"],
+      "lead": "Dr S Coskey"
+    },
+    {
+      "code": "MATH0011",
+      "title": "Mathematical Methods 2",
+      "level": "4",
+      "term": "2",
+      "description": "Programming fundamentals and multivariable calculus, emphasising practical application through computational problem-solving.",
+      "themes": ["Computation", "Analysis", "Modelling"],
       "prereqs": ["MATH0010"],
-      "themes": ["Calculus", "Numerics"],
-      "leads": ["Dr. Ben Stiller"],
-      "level": 6
+      "lead": "Dr M Towers and Prof R Halburd"
+    },
+    {
+      "code": "MATH0005",
+      "title": "Algebra 1",
+      "level": "4",
+      "term": "2",
+      "description": "Basics of inear algebra, including vectors, matrices, and their applications in mathematics and related fields.",
+      "themes": ["Algebra", "Number Theory"],
+      "lead": "Dr M. Towers"
+    },
+    {
+      "code": "MATH0039",
+      "title": "Differential and Integral Calculus",
+      "level": "4",
+      "term": "1",
+      "description": "Calculus concepts suitable for students with a basic understanding of mathematics.",
+      "themes": ["Analysis", "Computation"],
+      "lead": "Teymour Gray & Elvar Atlason"
+    },
+    {
+      "code": "STAT0001",
+      "title": "Economics 2 - Combined Studies",
+      "level": "5",
+      "term": "1",
+      "description": "Economic principles and modeling techniques.",
+      "prereqs": ["MATH0002"],
+      "lead": "Prof N Ovenden and Dr A Donov"
+    },
+    {
+      "code": "MATH0102",
+      "title": "Applied Stochastic Methods",
+      "level": "7",
+      "term": "2",
+      "description": "Applying stochastic differential equations to model physical, chemical, and biological systems using established analytical techniques.",
+      "themes": ["Analysis", "Computation", "Modelling"],
+      "lead": "Prof G Esler"
+    },
+    {
+      "code": "MATH0076",
+      "title": "Algebraic Geometry",
+      "level": "7",
+      "term": "1",
+      "description": "Algebraic geometry explores the study of algebraic varieties through polynomial equations, connecting it to diverse mathematical fields.",
+      "themes": ["Number Theory"],
+      "lead": "Dr D Beraldo"
+    },
+    {
+      "code": "MATH0077",
+      "title": "Real Fluids",
+      "level": "7",
+      "term": "1",
+      "description": "Analysing and solving the complex flow of incompressible, viscous fluids, particularly in applications like lubrication and industrial processes.",
+      "themes": ["Analysis", "Computation", "Modelling"],
+      "prereqs": ["MATH0015", "MATH0016", "MATH0056"],
+      "lead": "Prof J Vanden-Broeck"
+    },
+    {
+      "code": "MATH0088",
+      "title": "Quantitative and Computational",
+      "level": "7",
+      "term": "2",
+      "description": "Using numerical methods to price options through partial differential equations, primarily with Excel spreadsheets.",
+      "themes": ["Number Theory", "Computation", "Modelling"],
+      "prereqs": ["MATH0016"],
+      "lead": "Dr R Ahmad"
+    },
+    {
+      "code": "MATH0103",
+      "title": "Discrete Mathematics",
+      "level": "5",
+      "term": "1",
+      "description": "Developing a strong understanding of group theory and number theory through abstract concepts and rigorous proof techniques.",
+      "themes": ["Number Theory"],
+      "prereqs": ["MATH0012"],
+      "lead": "Dr R Reynolds"
+    },
+    {
+      "code": "MATH0117",
+      "title": "Spatial Mathematical Biology",
+      "level": "7",
+      "term": "2",
+      "description": "Mathematical modelling of biological systems, focusing on PDEs and spatial patterns.",
+      "prereqs": ["MATH0030"],
+      "lead": "Dr B Walker"
+    },
+    {
+      "code": "MATH0101",
+      "title": "Linear Algebra for Data Science",
+      "level": "5",
+      "term": "2",
+      "description": "Learn fundamental linear algebra concepts \u2013 vectors, matrices, and least squares \u2013 essential for data science applications.",
+      "themes": ["Number Theory", "Geometry", "Modelling"],
+      "lead": "Dr Luciano Rila"
+    },
+    {
+      "code": "MATH0115",
+      "title": "Solid Mechanics",
+      "level": "7",
+      "term": "2",
+      "description": "Modeling of elastic materials through partial differential equations and wave propagation.",
+      "prereqs": ["MATH0015", "MATH0056"],
+      "lead": "Dr Shane Cooper"
+    },
+    {
+      "code": "MATH0075",
+      "title": "Lie Groups and Lie Algebras",
+      "level": "7",
+      "term": "2",
+      "description": "Algebraic structure of Lie groups and their representations, utilizing tools from geometry and linear algebra.",
+      "themes": ["Geometry", "Number Theory"],
+      "prereqs": ["MATH0014", "MATH0053"],
+      "lead": "Dr Y Naqvi"
+    },
+    {
+      "code": "MATH0061",
+      "title": "Further topics in algebraic number theory",
+      "level": "7",
+      "term": "2",
+      "description": "Arithmetic of number fields, focusing on class numbers, analytic class numbers, and their applications to mathematical research.",
+      "themes": ["Number Theory", "Analysis"],
+      "prereqs": ["MATH0035", "MATH0022"],
+      "lead": "Dr C Busuoic"
+    },
+    {
+      "code": "MATH0048",
+      "title": "Mathematical Analysis",
+      "level": "5",
+      "term": "2",
+      "description": "This module introduces fundamental mathematical concepts, particularly rigorous proofs and definitions, crucial for advanced studies in economics and statistics.",
+      "themes": ["Number Theory", "Analysis", "Geometry"],
+      "lead": "Dr ML Roberts"
+    },
+    {
+      "code": "MATH0074",
+      "title": "Topology and Groups",
+      "level": "7",
+      "term": "1",
+      "description": "Group theory and its applications, focusing on group presentations, Cayley graphs, and topological spaces.",
+      "themes": ["Number Theory", "Geometry"],
+      "prereqs": ["MATH0051", "MATH0053"],
+      "lead": "Assoc Prof L Louder"
+    },
+    {
+      "code": "MATH0114",
+      "title": "Mathematics for Machine Learning",
+      "level": "6",
+      "term": "1",
+      "description": "Core principles and practical applications of machine learning and artificial intelligence through mathematical foundations and implementation.",
+      "themes": ["Number Theory", "Computation", "Modelling"],
+      "prereqs": ["MATH0057"],
+      "lead": "Dr Alejandro Dias and Dr Luca Grieco"
+    },
+    {
+      "code": "MATH0104",
+      "title": "Modular Forms",
+      "level": "7",
+      "term": "1",
+      "description": "Concepts and applications of modular forms, a crucial area in number theory and geometry.",
+      "themes": ["Number Theory", "Geometry"],
+      "prereqs": ["MATH0013", "MATH0014", "MATH0034"],
+      "lead": "Dr C Busuioc"
+    },
+    {
+      "code": "MATH0110",
+      "title": "Analysis for Joint Honours",
+      "level": "4",
+      "term": "1",
+      "description": "This module introduces fundamental concepts in mathematical analysis, focusing on rigorous proofs and logical thinking, essential for subsequent mathematics courses.",
+      "themes": ["Analysis", "Computation"],
+      "lead": "Dr M Karpukhin"
+    },
+    {
+      "code": "MATH0058",
+      "title": "Computational Methods",
+      "level": "5",
+      "term": "2",
+      "description": "Numerical methods in linear algebra and its applications through Python programming.",
+      "themes": ["Number Theory", "Computation", "Modelling"],
+      "prereqs": ["MATH0006"],
+      "lead": "Dr M Jensen"
+    },
+    {
+      "code": "MATH0070",
+      "title": "Linear Partial Differential Equations",
+      "level": "7",
+      "term": "1",
+      "description": "The mathematical tools used to analyze and solve linear partial differential equations, focusing on distributions, Fourier transforms, and harmonic functions.",
+      "themes": ["Number Theory", "Geometry", "Modelling"],
+      "prereqs": ["MATH0013", "MATH0016", "MATH0051"],
+      "lead": "Dr I Kamotski"
+    },
+    {
+      "code": "MATH0065",
+      "title": "Advanced Modelling Mathematical Techniques",
+      "level": "7",
+      "term": "1",
+      "description": "Techniques used to solve mathematical problems through modeling."
+    },
+    {
+      "code": "MATH0071",
+      "title": "Spectral Theory",
+      "level": "7",
+      "term": "1",
+      "description": "Concepts of spectral theory, focusing on operators, eigenvalues, and their applications in mathematics and physics.",
+      "prereqs": ["MATH0018", "MATH0019", "MATH0017"],
+      "lead": "Dr S Flynn"
+    },
+    {
+      "code": "MATH0107",
+      "title": "Probabilistic Method in Combinatorics",
+      "level": "7",
+      "term": "2",
+      "description": "Probabilistic method and its applications across combinatorics, number theory, and geometry.",
+      "themes": ["Number Theory", "Geometry", "Modelling"],
+      "prereqs": ["MATH0029", "MATH0028"],
+      "lead": "Dr S Letzter"
+    },
+    {
+      "code": "MATH0073",
+      "title": "Representation Theory",
+      "level": "7",
+      "term": "1",
+      "description": "Theory of group representations, focusing on their applications in various fields, particularly through the study of representations of finite groups and their connections to group algebras.",
+      "themes": ["Number Theory", "Geometry", "Modelling"],
+      "prereqs": ["MATH0053"],
+      "lead": "Dr E Segal"
+    },
+    {
+      "code": "MATH0080",
+      "title": "Waves and Wave Scattering",
+      "level": "7",
+      "term": "2",
+      "description": "Wave theory and techniques for analyzing wave propagation in various media.",
+      "themes": ["Analysis", "Geometry", "Modelling"],
+      "prereqs": ["MATH0016"],
+      "lead": "Prof V Smyshlyaev"
+    },
+    {
+      "code": "MATH0043",
+      "title": "Mathematics for Physics and Astronomy",
+      "level": "5",
+      "term": "2",
+      "description": "Advanced mathematical techniques crucial for theoretical physics and astronomy study.",
+      "themes": ["Analysis", "Computation", "Modelling"],
+      "prereqs": ["PHAS0025"],
+      "lead": "Dr A Pokrovskiy and Dr J Talbot"
+    },
+    {
+      "code": "MATH0057",
+      "title": "Probability and Statistics",
+      "level": "5",
+      "term": "2",
+      "description": "Principles of probability and statistical analysis using mathematical models.",
+      "themes": ["Number Theory", "Analysis", "Computation"],
+      "prereqs": ["MATH0011"],
+      "lead": "TBC"
+    },
+    {
+      "code": "MATH0056",
+      "title": "Mathematical Methods 4",
+      "level": "6",
+      "term": "2",
+      "description": "Methods for solving partial differential equations using separation of variables and transform techniques.",
+      "themes": ["Analysis", "Computation", "Modelling"],
+      "prereqs": ["MATH0013", "MATH0016"],
+      "lead": "Prof G Esler"
+    },
+    {
+      "code": "MATH0042",
+      "title": "Mathematical Methods in Chemistry",
+      "level": "5",
+      "term": "1",
+      "description": "Advanced mathematical techniques crucial for solving complex chemical problems.",
+      "themes": ["Number Theory", "Geometry"],
+      "prereqs": ["MATH0040", "MATH0041"],
+      "lead": "Dr Michal Kwasigroch"
+    },
+    {
+      "code": "MATH0108",
+      "title": "Commutative Rings and Algebras",
+      "level": "6",
+      "term": "2",
+      "description": "Mathematical techniques used to manipulate and analyze numbers and geometric shapes.",
+      "themes": ["Number Theory", "Geometry", "Modelling"],
+      "lead": "Prof A. Yafaev"
+    },
+    {
+      "code": "MATH0083",
+      "title": "Prime Numbers and their Distribution",
+      "level": "7",
+      "term": "1",
+      "description": "Properties of prime numbers through techniques in number theory and analysis.",
+      "themes": ["Number Theory", "Analysis"],
+      "lead": "Dr I Petrow"
+    },
+    {
+      "code": "MATH0054",
+      "title": "Analytical Dynamics",
+      "level": "6",
+      "term": "2",
+      "description": "Principles of Newtonian mechanics and its application to complex physical systems through rigorous mathematical modeling.",
+      "themes": ["Number Theory", "Geometry", "Modelling"],
+      "prereqs": ["MATH0009", "MATH0011"],
+      "lead": "Prof A Sokal"
+    },
+    {
+      "code": "MATH0040",
+      "title": "Mathematics for Science 1",
+      "level": "4",
+      "term": "1",
+      "description": "Strengthening A-level mathematics skills for students achieving high grades.",
+      "themes": ["Algebra", "Analysis", "Number Theory"],
+      "lead": "Dr T Vaidehee"
+    },
+    {
+      "code": "MATH0069",
+      "title": "Probability",
+      "level": "7",
+      "term": "2",
+      "description": "Core principles of probability theory, particularly the strong law of large numbers and the central limit theorem, through rigorous mathematical analysis.",
+      "themes": ["Analysis", "Number Theory"],
+      "prereqs": ["MATH0017"],
+      "lead": "Dr S Kittle"
+    },
+    {
+      "code": "MATH0041",
+      "title": "Mathematics for Science 2",
+      "level": "4",
+      "term": "2",
+      "description": "Advanced mathematical concepts, including 3D geometry, calculus, and linear algebra, focusing on solving problems with matrices and vectors.",
+      "themes": ["Geometry", "Computation", "Number Theory"],
+      "prereqs": ["MATH0040", "NSCI0005"],
+      "lead": "Prof E Burman"
+    },
+    {
+      "code": "MATH0055",
+      "title": "Mathematics of Electromagnetism and",
+      "level": "5",
+      "term": "2",
+      "description": "The fundamental principles of electromagnetism and relativity through mathematical analysis.",
+      "themes": ["Analysis", "Computation", "Number Theory"],
+      "prereqs": ["MATH0016"],
+      "lead": "Dr M Kwasigroch"
+    },
+    {
+      "code": "MATH0082",
+      "title": "Evolutionary Games and Population",
+      "level": "7",
+      "term": "2",
+      "description": "Evolutionary game theory and population genetics using mathematical modeling and analysis.",
+      "themes": ["Number Theory", "Modelling"],
+      "prereqs": ["MATH0008", "MATH0010", "MATH0003"],
+      "lead": "Prof SA Baigent"
+    },
+    {
+      "code": "MATH0109",
+      "title": "Theorem Proving in Lean",
+      "level": "6",
+      "term": "1",
+      "description": "Lean is a workshop-based course teaching students how to formally prove mathematical theorems interactively using the Lean programming language.",
+      "themes": ["Algebra", "Analysis", "Computation"]
+    },
+    {
+      "code": "MATH0119",
+      "title": "Dynamical Systems",
+      "level": "7",
+      "term": "2",
+      "description": "Tools and techniques for analyzing and modeling dynamic systems through topology, analysis, and measure theory.",
+      "themes": ["Analysis", "Geometry", "Modelling"],
+      "prereqs": ["MATH0017"],
+      "lead": "Dr S Ghazouani"
+    },
+    {
+      "code": "MATH0092",
+      "title": "Variational Methods for Partial",
+      "level": "7",
+      "term": "2",
+      "description": "Mathematical foundations of variational theory and numerical methods for partial differential equations.",
+      "themes": ["Analysis", "Computation", "Modelling"],
+      "prereqs": ["MATH0051"],
+      "lead": "Dr I Smears"
+    },
+    {
+      "code": "MATH0086",
+      "title": "Computational and Simulation Methods",
+      "level": "7",
+      "term": "1",
+      "description": "Computational methods for mathematical modeling, focusing on numerical solutions and simulation techniques.",
+      "themes": ["Computation", "Modelling"],
+      "prereqs": ["MATH0056"]
+    },
+    {
+      "code": "MATH0079",
+      "title": "Cosmology",
+      "level": "7",
+      "term": "2",
+      "description": "History and structure of the universe through the study of general relativity and its applications, including cosmology and its observational implications.",
+      "themes": ["Analysis", "Geometry", "Modelling"],
+      "prereqs": ["MATH0025"],
+      "lead": "Dr B Hartmann"
+    },
+    {
+      "code": "MATH0051",
+      "title": "Analysis 4: Real Analysis",
+      "level": "6",
+      "term": "2",
+      "description": "Concepts in mathematical analysis, focusing on convergence, continuity, and metric spaces, preparing students for advanced topics in functional analysis and related fields.",
+      "themes": ["Analysis", "Computation"],
+      "prereqs": ["MATH0004"],
+      "lead": "Prof D Hewett"
+    },
+    {
+      "code": "MATH0045",
+      "title": "Calculus and Linear Algebra",
+      "level": "4",
+      "term": "1",
+      "description": "Applying mathematical techniques to economics, statistics, and related fields through practical examples.",
+      "themes": ["Number Theory", "Analysis", "Modelling"],
+      "lead": "Prof J-M Vanden-Broeck"
+    },
+    {
+      "code": "MATH0050",
+      "title": "Logic",
+      "level": "6",
+      "term": "2",
+      "description": "Foundational concepts of logic, particularly computability and undecidability, through the study of mathematical logic.",
+      "themes": ["Number Theory", "Computation"],
+      "prereqs": ["MATH0047"],
+      "lead": "Dr I Strouthos"
+    },
+    {
+      "code": "MATH0078",
+      "title": "Asymptotic Approximation Methods",
+      "level": "7",
+      "term": "2",
+      "description": "Approximating complex problems using simplified methods, focusing on practical application across diverse fields.",
+      "themes": ["Number Theory", "Computation", "Modelling"],
+      "prereqs": ["MATH0056"],
+      "lead": "Dr V Smyshlyaev"
+    },
+    {
+      "code": "MATH0118",
+      "title": "Mathematics for Quantum Mechanics",
+      "level": "7",
+      "term": "1",
+      "description": "Mathematical foundations of quantum mechanics through approximation methods and key concepts like the Schr\u00f6dinger equation and quantum states.",
+      "themes": ["Number Theory", "Analysis", "Computation"],
+      "prereqs": ["MATH0056"],
+      "lead": "Prof. Rod Halburd"
+    },
+    {
+      "code": "MATH0046",
+      "title": "Calculus in Several Dimensions",
+      "level": "4",
+      "term": "2",
+      "description": "Mastering advanced mathematical techniques through problem-solving and application.",
+      "themes": ["Analysis", "Computation", "Modelling"],
+      "prereqs": ["MATH0045"],
+      "lead": "Dr T Vaidehee"
+    },
+    {
+      "code": "MATH0053",
+      "title": "Algebra 4: Groups and Rings",
+      "level": "6",
+      "term": "2",
+      "description": "Understanding and applying the principles of small order groups, particularly through the construction of subgroups, with a strong emphasis on fundamental concepts in ring theory.",
+      "themes": ["Number Theory", "Geometry", "Analysis"],
+      "prereqs": ["MATH0006"],
+      "lead": "Dr N Kalaydzhieva"
+    },
+    {
+      "code": "MATH0047",
+      "title": "Advanced Linear Algebra",
+      "level": "5",
+      "term": "1",
+      "description": "Mathematical concepts, particularly matrices and linear algebra, through examples and theoretical explanations.",
+      "themes": ["Algebra", "Number Theory"],
+      "prereqs": ["MATH0045", "MATH0046", "ECON0006", "ECON0010"],
+      "lead": "Dr. Isidoros Strouthos"
+    },
+    {
+      "code": "MATH0020",
+      "title": "Curves and Surfaces",
+      "level": "6",
+      "term": "2",
+      "description": "Geometry of smooth curves and surfaces using local properties and global theorems, focusing on minimal surfaces.",
+      "themes": ["Geometry", "Modelling"],
+      "prereqs": ["MATH0011", "MATH0003", "MATH0005"],
+      "lead": "Prof C Bellettini"
+    },
+    {
+      "code": "MATH0034",
+      "title": "Number Theory",
+      "level": "5",
+      "term": "2",
+      "description": "Concepts in elementary number theory, including equations, congruences, and the properties of integers and their rings.",
+      "themes": ["Number Theory", "Algebra"],
+      "lead": "Dr L Garcia"
+    },
+    {
+      "code": "MATH0008",
+      "title": "Applied Mathematics",
+      "level": "4",
+      "term": "1",
+      "description": "Mathematical techniques for modeling and analyzing systems in mechanical, biological, and other fields.",
+      "themes": ["Computation"],
+      "lead": "Professor H Wilson"
+    },
+    {
+      "code": "MATH0009",
+      "title": "Level: 4 (UG)",
+      "level": "4",
+      "term": "2",
+      "description": "The fundamental principles of Newtonian mechanics, including force, motion, and energy.",
+      "themes": ["Number Theory", "Geometry", "Modelling"],
+      "prereqs": ["MATH0008", "MATH0010"],
+      "lead": "Dr Rosemary Harris"
+    },
+    {
+      "code": "MATH0035",
+      "title": "Algebraic Number Theory",
+      "level": "6",
+      "term": "2",
+      "description": "Concepts and applications of algebraic number theory, focusing on the study of integers and their properties.",
+      "themes": ["Number Theory", "Algebra"],
+      "prereqs": ["MATH0034", "MATH0053"],
+      "lead": "Dr R Hill"
+    },
+    {
+      "code": "MATH0021",
+      "title": "Homological Algebra",
+      "level": "6",
+      "term": "2",
+      "description": "Theory of commutative rings and modules, focusing on foundational concepts and their applications in number theory and related fields.",
+      "themes": ["Number Theory", "Geometry"],
+      "prereqs": ["MATH0053"],
+      "lead": "Prof FEA Johnson"
+    },
+    {
+      "code": "MATH0037",
+      "title": "Logic",
+      "level": "6",
+      "term": "1",
+      "description": "Concepts of propositional and first-order logic, its applications to mathematics and related fields.",
+      "themes": ["Modelling"],
+      "prereqs": ["MATH0006"],
+      "lead": "Dr S Coskey"
+    },
+    {
+      "code": "MATH0023",
+      "title": "Algebraic Toplogy",
+      "level": "6",
+      "term": "1",
+      "description": "Algebraic topology and homology through the study of simplicial complexes and their applications to surfaces.",
+      "themes": ["Algebra", "Geometry"],
+      "prereqs": ["MATH0014"],
+      "lead": "Prof FEA Johnson"
+    },
+    {
+      "code": "MATH0022",
+      "title": "Galois Theory",
+      "level": "6",
+      "term": "1",
+      "description": "Elegant mathematics of Galois theory, focusing on ring theory, linear algebra, and the study of solutions to higher-degree equations using a set book and group theory.",
+      "themes": ["Number Theory", "Geometry", "Analysis"],
+      "prereqs": ["MATH0053"],
+      "lead": "Dr ML Roberts"
+    },
+    {
+      "code": "MATH0036",
+      "title": "Elliptic Curves",
+      "level": "6",
+      "term": "2",
+      "description": "Mathematical properties of elliptic curves through geometric and algebraic techniques, focusing on solutions and unsolved problems in number theory.",
+      "themes": ["Number Theory", "Geometry"],
+      "prereqs": ["MATH0053", "MATH0034"],
+      "lead": "Dr S Chan"
+    },
+    {
+      "code": "MATH0026",
+      "title": "Biomathematics",
+      "level": "6",
+      "term": "1",
+      "description": "Scientific modeling of living systems through mathematical analysis and application.",
+      "themes": ["Analysis", "Modelling"],
+      "prereqs": ["MATH0011"],
+      "lead": "Prof A Zaikin"
+    },
+    {
+      "code": "MATH0027",
+      "title": "Mathematical Methods 5",
+      "level": "6",
+      "term": "2",
+      "description": "Mastering analytical techniques for solving and understanding differential equations, particularly in applied mathematics.",
+      "themes": ["Analysis", "Computation", "Modelling"],
+      "prereqs": ["MATH0056"],
+      "lead": "Dr C Dunlop"
+    },
+    {
+      "code": "MATH0033",
+      "title": "Numerical Methods",
+      "level": "6",
+      "term": "1",
+      "description": "Numerical methods for solving mathematical problems using computational techniques and analysis.",
+      "themes": ["Computation", "Number Theory"],
+      "lead": "Dr I Smears"
+    },
+    {
+      "code": "MATH0019",
+      "title": "Multivariable Analysis",
+      "level": "6",
+      "term": "1",
+      "description": "Intersection of vector analysis and differential forms, building upon established classical theorems in advanced calculus.",
+      "themes": ["Analysis", "Computation"],
+      "prereqs": ["MATH0051"],
+      "lead": "Prof Y Petridis"
+    },
+    {
+      "code": "MATH0025",
+      "title": "Mathematics for General Relativity",
+      "level": "6",
+      "term": "1",
+      "description": "Einstein\u2019s revolutionary theories of relativity, including gravity and electromagnetism, through mathematical analysis and historical context.",
+      "themes": ["Analysis", "Number Theory", "Geometry"],
+      "prereqs": ["MATH0016", "MATH0043"],
+      "lead": "Dr B Hartmann"
+    },
+    {
+      "code": "MATH0031",
+      "title": "Financial Mathematics",
+      "level": "6",
+      "term": "2",
+      "description": "Mathematical foundations of financial derivatives using probability and stochastic calculus.",
+      "themes": ["Analysis", "Number Theory", "Computation"],
+      "prereqs": ["MATH0016", "MATH0057"],
+      "lead": "TBA"
+    },
+    {
+      "code": "MATH0030",
+      "title": "Mathematical Ecology",
+      "level": "6",
+      "term": "1",
+      "description": "Construction and analysis of mathematical models used to understand population dynamics in ecology.",
+      "themes": ["Number Theory", "Modelling"],
+      "prereqs": ["MATH0010"],
+      "lead": "Prof K Page"
+    },
+    {
+      "code": "MATH0024",
+      "title": "Geophysical Fluid Dynamics",
+      "level": "6",
+      "term": "2",
+      "description": "Application of mathematics to analyze atmospheric and oceanic phenomena, particularly focusing on climate patterns and ocean health.",
+      "themes": ["Number Theory", "Geometry", "Modelling"],
+      "prereqs": ["MATH0015", "MATH0016"],
+      "lead": "Prof ER Johnson"
+    },
+    {
+      "code": "MATH0018",
+      "title": "Functional Analysis",
+      "level": "6",
+      "term": "2",
+      "description": "The fundamental concepts of functional analysis, focusing on the study of functions and their spaces, crucial for various scientific and mathematical disciplines.",
+      "themes": ["Analysis", "Number Theory"],
+      "prereqs": ["MATH0051"],
+      "lead": "Prof N Sidorova"
     }
   ]
 }

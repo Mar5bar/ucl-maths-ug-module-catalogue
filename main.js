@@ -13,6 +13,9 @@ let activeTheme = null;
 let activeModule = null;
 let lines = [];
 
+let themesOverride = true;
+let themesToModules = {};
+
 const defaultSyllabusBaseURL =
   "https://www.ucl.ac.uk/mathematical-physical-sciences/sites/mathematical_physical_sciences/files/";
 const defaultDetailPreferences = {
@@ -30,6 +33,7 @@ fetch("module_data.json")
     for (const module of data.modules) {
       moduleData[module.code] = module;
     }
+    themesToModules = data.themesToModules;
     processModuleData(moduleData);
     // If there's a theme in the URL query string, activate it.
     const urlParams = new URLSearchParams(window.location.search);
@@ -72,6 +76,44 @@ function processModuleData(moduleData) {
     }
   }
 
+  // We will override the themes.
+  if (themesOverride) {
+    themes = Array.from(Object.keys(themesToModules)) || [];
+    // Clear existing themes from modules.
+    for (const moduleCode in moduleData) {
+      delete moduleData[moduleCode].themes;
+    }
+    // Update the themesToModules mapping to include prerequistites.
+    for (const theme in themesToModules) {
+      const moduleCodes = themesToModules[theme];
+      const toConsider = [...moduleCodes];
+      const allModuleCodes = new Set(moduleCodes);
+      while (toConsider.length > 0) {
+        const code = toConsider.pop();
+        const module = moduleData[code];
+        if (module && module.prereqs) {
+          module.prereqs.forEach((prereq) => {
+            allModuleCodes.add(prereq);
+            toConsider.push(prereq);
+          });
+        }
+      }
+      themesToModules[theme] = Array.from(allModuleCodes);
+    }
+
+    // Assign themes based on the themesToModules mapping.
+    for (const theme of themes) {
+      const moduleCodes = themesToModules[theme] || [];
+      moduleCodes.forEach((code) => {
+        const module = moduleData[code];
+        if (module) {
+          module.themes = module.themes || [];
+          module.themes.push(theme);
+        }
+      });
+    }
+  }
+
   // Convert levels and themes to sorted arrays.
   levels = Array.from(levels).sort();
   themes = Array.from(themes).sort();
@@ -88,6 +130,15 @@ function processModuleData(moduleData) {
     moduleGrid.appendChild(levelSection);
 
     const moduleCodes = modulesAtLevel[level] || [];
+    // Sort module codes by Term and then alphabetically.
+    moduleCodes.sort((a, b) => {
+      const termA = moduleData[a].term || "4"; // Default to 4 if no term specified.
+      const termB = moduleData[b].term || "4";
+      if (termA !== termB) {
+        return termA - termB;
+      }
+      return a.localeCompare(b);
+    });
     for (const moduleCode of moduleCodes) {
       const module = moduleData[moduleCode];
       const moduleElement = document.createElement("div");
@@ -95,30 +146,17 @@ function processModuleData(moduleData) {
       moduleElement.className = "module";
       // Add the title, code, description, etc.
       moduleElement.innerHTML = `
+                <div class='top-container'>
                 <h4>${module.title} <br class="title-break"> (${module.code})</h4>
                 <p class="description">${module.description}</p>
+                </div>
             `;
-
-      // If a syllabus link is provided, add it to the element.
-      if (module.syllabus || true) {
-        const syllabusElement = document.createElement("a");
-        syllabusElement.href =
-          module.syllabus ||
-          defaultSyllabusBaseURL + module.code.toLowerCase() + ".pdf";
-        syllabusElement.className = "syllabus";
-        syllabusElement.target = "_blank";
-        syllabusElement.onclick = (e) => {
-          e.stopPropagation();
-        };
-        syllabusElement.innerHTML = "Syllabus";
-        moduleElement.appendChild(syllabusElement);
-      }
 
       // Add prerequisite information.
       if (module.prereqs && module.prereqs.length > 0) {
         const prereqElement = document.createElement("p");
         prereqElement.className = "prereqs-list";
-        prereqElement.innerHTML = `<strong>Prerequisites:</strong> ${module.prereqs.join(
+        prereqElement.innerHTML = `<strong>Requires:</strong> ${module.prereqs.join(
           ", ",
         )}`;
         moduleElement.appendChild(prereqElement);
@@ -146,6 +184,21 @@ function processModuleData(moduleData) {
           themeElement.appendChild(themeButton);
         }
         moduleElement.appendChild(themeElement);
+      }
+
+      // If a syllabus link is provided, add it to the element.
+      if (module.syllabus || true) {
+        const syllabusElement = document.createElement("a");
+        syllabusElement.href =
+          module.syllabus ||
+          defaultSyllabusBaseURL + module.code.toLowerCase() + ".pdf";
+        syllabusElement.className = "syllabus";
+        syllabusElement.target = "_blank";
+        syllabusElement.onclick = (e) => {
+          e.stopPropagation();
+        };
+        syllabusElement.innerHTML = "Syllabus";
+        moduleElement.appendChild(syllabusElement);
       }
 
       // Make the module element clickable to highlight it.
@@ -215,6 +268,16 @@ function activateTheme(theme) {
       }
     }
   }
+  // If the selected theme hides the active module, clear the active module.
+  if (
+    activeModule &&
+    moduleData[activeModule] &&
+    moduleData[activeModule].element.classList.contains("inactive-theme")
+  ) {
+    clearHighlightedModules();
+    activeModule = null;
+  }
+  redrawLines();
 }
 
 function deactivateTheme() {
@@ -234,6 +297,7 @@ function deactivateTheme() {
     }
   }
   activeTheme = null;
+  redrawLines();
 }
 
 function createThemeButton(theme) {
@@ -246,11 +310,13 @@ function createThemeButton(theme) {
     toggleThemeOnClick(theme);
   });
   themeButton.addEventListener("mouseover", () => {
+    return;
     // Don't override user selection.
     if (userActivatedTheme) return;
     activateTheme(theme);
   });
   themeButton.addEventListener("mouseout", () => {
+    return;
     // Deactivate the theme, then re-activate the user-selected theme if any.
     deactivateTheme();
     if (userActivatedTheme) {
@@ -280,9 +346,12 @@ function highlightRelatedModules(moduleCode) {
     }
     // Record that we've seen this module to prevent duplication.
     modulesConsidered.add(parentModule);
-    // Loop over the prereqs of this module, marking them as prereqs and adding them to the stack.
+    // Loop over the prereqs of this module, marking them as prereqs and adding them to the stack. Skip any that are hidden.
     prereqCodes = prereqsMap[parentModule] || [];
     for (const prereq of prereqCodes) {
+      if (!moduleData[prereq] || moduleData[prereq].element.classList.contains("inactive-theme")) {
+        continue;
+      }
       moduleData[prereq].element.classList.add("prereq-module");
       lines.push([
         moduleData[prereq].element,
@@ -297,6 +366,9 @@ function highlightRelatedModules(moduleCode) {
 
   const dependentCodes = requiredForMap[moduleCode] || [];
   for (const code of dependentCodes) {
+    if (!moduleData[code] || moduleData[code].element.classList.contains("inactive-theme")) {
+      continue;
+    }
     moduleData[code].element.classList.add("dependent-module");
     lines.push([moduleData[code].element, moduleData[moduleCode].element]);
     modulesConsidered.add(code);
@@ -348,12 +420,15 @@ function clearLines() {
 }
 
 function redrawLines() {
-  // Reset the size of the svg to match the document size.
-  const svg = document.getElementById("svg-lines");
-  svg.setAttribute("width", 0);
-  svg.setAttribute("height", 0);
+  // Prune the lines to only those between visible modules.
+  let linesToDraw = lines.filter((line) => {
+    const el1 = line[0];
+    const el2 = line[1];
+    return el1.offsetParent !== null && el2.offsetParent !== null;
+  });
   clearLines();
-  drawLines(lines);
+  svgResize();
+  drawLines(linesToDraw);
 }
 
 function drawLines(lines) {
@@ -369,14 +444,18 @@ function drawLines(lines) {
     const rect1 = el1.getBoundingClientRect();
     const rect2 = el2.getBoundingClientRect();
 
-    // We want to make the shortest path between any top/bottom of el1 to any top/bottom of el2. We could be intelligent about this, or we could loop through all combinations and pick the shortest.
+    // We want to make the shortest path between any side of el1 to any side of el2. We could be intelligent about this, or we could loop through all combinations and pick the shortest.
     const el1Points = [
-      { x: rect1.left + rect1.width / 2, y: rect1.top }, // top center
-      { x: rect1.left + rect1.width / 2, y: rect1.bottom }, // bottom center
+      { x: rect1.left, y: rect1.top + rect1.height / 2, label: "lr" }, // left
+      { x: rect1.right, y: rect1.top + rect1.height / 2, label: "lr" }, // right
+      { x: rect1.left + rect1.width / 2, y: rect1.top, label: "tb" }, // top
+      { x: rect1.left + rect1.width / 2, y: rect1.bottom, label: "tb" }, // bottom
     ];
     const el2Points = [
-      { x: rect2.left + rect2.width / 2, y: rect2.top }, // top center
-      { x: rect2.left + rect2.width / 2, y: rect2.bottom }, // bottom center
+      { x: rect2.left, y: rect2.top + rect2.height / 2, label: "lr" }, // left
+      { x: rect2.right, y: rect2.top + rect2.height / 2, label: "lr" }, // right
+      { x: rect2.left + rect2.width / 2, y: rect2.top, label: "tb" }, // top
+      { x: rect2.left + rect2.width / 2, y: rect2.bottom, label: "tb" }, // bottom
     ];
     let minDistance = Infinity;
     let bestPair = [el1Points[0], el2Points[0]];
@@ -395,12 +474,15 @@ function drawLines(lines) {
     const startY = bestPair[0].y + window.scrollY;
     const endX = bestPair[1].x + window.scrollX;
     const endY = bestPair[1].y + window.scrollY;
-    const midX = (startX + endX) / 2;
-    const midY = (startY + endY) / 2;
+
+    const node1X = bestPair[0].label === "lr" ? endX : startX;
+    const node1Y = bestPair[0].label === "lr" ? startY : endY;
+    const node2X = bestPair[1].label === "lr" ? startX : endX;
+    const node2Y = bestPair[1].label === "lr" ? endY : startY;
 
     const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
 
-    const d = `M ${startX} ${startY} C ${startX} ${endY} ${endX} ${startY} ${endX} ${endY}`;
+    const d = `M ${startX} ${startY} C ${node1X} ${node1Y} ${node2X} ${node2Y} ${endX} ${endY}`;
     path.setAttribute("d", d);
     path.setAttribute("stroke", "black");
     path.setAttribute("fill", "transparent");
@@ -408,11 +490,10 @@ function drawLines(lines) {
     const svg = document.getElementById("svg-lines");
     svg.appendChild(path);
   });
-  svgResize();
 }
 
 window.addEventListener("resize", () => {
-  svgResize();
+  redrawLines();
 });
 
 function svgResize() {

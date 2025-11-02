@@ -19,22 +19,24 @@ body {
 .module-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 32px;
+  gap: 20px;
   justify-content: center;
   text-align: center;
 }
 
 .module {
   border: 1.5px solid #d1d5db;
-  padding: 18px 16px;
+  padding: 10px 10px;
   margin: 0;
   border-radius: 12px;
   background: #fff;
-  max-width: 260px;
+  width: 180px;
   box-shadow: 0 2px 12px rgba(60, 80, 120, 0.07);
   transition: box-shadow 0.2s;
   flex-shrink: 0;
   font-size: 14px;
+  display: flex;
+  flex-direction: column;
 }
 
 .module:hover {
@@ -47,13 +49,18 @@ body {
   color: #2d3a4a;
   font-weight: 600;
   text-align: center;
-  font-size: large;
+  font-size: 14px;
 }
 
 .module p {
   color: #4b5563;
   margin: 8px 0 0 0;
   line-height: 1.4;
+}
+
+.themes-list,
+#themes-detail-toggle {
+  display: none;
 }
 
 br.title-break {
@@ -65,6 +72,10 @@ br.title-break {
   text-align: center;
   font: inherit;
   font-size: 14px;
+}
+
+.module .top-container {
+  flex-grow: 1;
 }
 
 .description-low-detail .module .description {
@@ -90,16 +101,19 @@ br.title-break {
 .module.active-module {
   border-color: #ff9800;
   background-color: #fff7e6;
+  z-index: 1;
 }
 
 .module.prereq-module {
   border-color: #2196f3;
   background-color: #eaf4ff;
+  z-index: 1;
 }
 
 .module.dependent-module {
   border-color: #4caf50;
   background-color: #f0fbe8;
+  z-index: 1;
 }
 
 button {
@@ -116,11 +130,6 @@ button {
   background: #f7faff;
 }
 
-button:hover {
-  background: #eaf4ff;
-  box-shadow: 0 2px 8px rgba(60, 80, 120, 0.12);
-}
-
 button.theme-button {
   border: 2px solid #d1d5db;
   padding: 4px 10px;
@@ -129,6 +138,11 @@ button.theme-button {
   cursor: pointer;
   font-size: 15px;
   background: #f7faff;
+}
+
+button:hover {
+  background: #eaf4ff;
+  box-shadow: 0 2px 8px rgba(60, 80, 120, 0.12);
 }
 
 .module button.theme-button {
@@ -153,6 +167,10 @@ button[data-state="on"] {
 .inactive-theme,
 .inactive-module {
   opacity: 0.5;
+}
+
+.module.inactive-theme {
+  display: none;
 }
 
 #svg-lines {
@@ -199,9 +217,6 @@ main {
 @media screen and (max-width: 768px) {
   br.title-break {
     display: inline;
-  }
-  .module {
-    max-width: 40%;
   }
   .module h4 {
     font-size: 14px;
