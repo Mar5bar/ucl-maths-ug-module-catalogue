@@ -1,3 +1,6 @@
+let hideAncillaryModules = true;
+let themesOverride = true;
+
 let moduleData = {};
 
 let themes = new Set();
@@ -13,8 +16,8 @@ let activeTheme = null;
 let activeModule = null;
 let lines = [];
 
-let themesOverride = true;
 let themesToModules = {};
+let ancillaryModules;
 
 const defaultSyllabusBaseURL =
   "https://www.ucl.ac.uk/mathematical-physical-sciences/sites/mathematical_physical_sciences/files/";
@@ -30,7 +33,12 @@ const defaultDetailPreferences = {
 fetch("module_data.json")
   .then((response) => response.json())
   .then((data) => {
+    ancillaryModules = new Set(data.ancillaryModules || []);
     for (const module of data.modules) {
+      // Skip ancillary modules.
+      if (hideAncillaryModules && ancillaryModules.has(module.code)) {
+        continue;
+      }
       moduleData[module.code] = module;
     }
     themesToModules = data.themesToModules;
@@ -269,11 +277,7 @@ function activateTheme(theme) {
     }
   }
   // If the selected theme hides the active module, clear the active module.
-  if (
-    activeModule &&
-    moduleData[activeModule] &&
-    moduleData[activeModule].element.classList.contains("inactive-theme")
-  ) {
+  if (activeModule && !isModuleVisible(activeModule)) {
     clearHighlightedModules();
     activeModule = null;
   }
@@ -349,10 +353,7 @@ function highlightRelatedModules(moduleCode) {
     // Loop over the prereqs of this module, marking them as prereqs and adding them to the stack. Skip any that are hidden.
     prereqCodes = prereqsMap[parentModule] || [];
     for (const prereq of prereqCodes) {
-      if (
-        !moduleData[prereq] ||
-        moduleData[prereq].element.classList.contains("inactive-theme")
-      ) {
+      if (!moduleData[prereq] || !isModuleVisible(prereq)) {
         continue;
       }
       moduleData[prereq].element.classList.add("prereq-module");
@@ -369,10 +370,7 @@ function highlightRelatedModules(moduleCode) {
 
   const dependentCodes = requiredForMap[moduleCode] || [];
   for (const code of dependentCodes) {
-    if (
-      !moduleData[code] ||
-      moduleData[code].element.classList.contains("inactive-theme")
-    ) {
+    if (!moduleData[code] || !isModuleVisible(code)) {
       continue;
     }
     moduleData[code].element.classList.add("dependent-module");
@@ -406,12 +404,10 @@ function showAllConnections() {
   for (const moduleCode in moduleData) {
     const prereqCodes = prereqsMap[moduleCode] || [];
     for (const prereqCode of prereqCodes) {
-      if (moduleData[prereqCode]) {
-        lines.push([
-          moduleData[prereqCode].element,
-          moduleData[moduleCode].element,
-        ]);
-      }
+      lines.push([
+        moduleData[prereqCode].element,
+        moduleData[moduleCode].element,
+      ]);
     }
   }
   clearLines();
@@ -586,10 +582,7 @@ function searchModules() {
   const module = moduleData[query];
   if (module) {
     // If the module is not visible due to theme filtering, deactivate the theme.
-    if (
-      module.element.classList.contains("inactive-theme") &&
-      activeTheme
-    ) {
+    if (!isModuleVisible(module.code) && activeTheme) {
       deactivateTheme();
       userActivatedTheme = null;
       activeTheme = null;
@@ -618,12 +611,20 @@ function displayTooltip(element, message) {
   // Position the tooltip above the element.
   const rect = element.getBoundingClientRect();
   tooltip.style.left = rect.left + window.scrollX + "px";
-  tooltip.style.top = rect.top + window.scrollY - tooltip.offsetHeight - 5 + "px";
+  tooltip.style.top =
+    rect.top + window.scrollY - tooltip.offsetHeight - 5 + "px";
 
   // Remove the tooltip after 2 seconds.
   setTimeout(() => {
     document.body.removeChild(tooltip);
   }, 2000);
+}
+
+function isModuleVisible(moduleCode) {
+  return (
+    moduleData[moduleCode] &&
+    !moduleData[moduleCode].element.classList.contains("inactive-theme")
+  );
 }
 
 const input = document.getElementById("search-input");

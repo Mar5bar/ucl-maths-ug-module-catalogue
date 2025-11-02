@@ -1,4 +1,21 @@
 {
+  "ancillaryModules": [
+    "MATH0002",
+    "STAT0001",
+    "MATH0007",
+    "MATH0012",
+    "MATH0039",
+    "MATH0040",
+    "MATH0041",
+    "MATH0042",
+    "MATH0043",
+    "MATH0045",
+    "MATH0046",
+    "MATH0047",
+    "MATH0103",
+    "MATH0101",
+    "MATH0110"
+  ],
   "themesToModules": {
     "Algebra": [
       "MATH0014",
@@ -166,7 +183,7 @@
     },
     {
       "code": "MATH0006",
-      "title": "Level: 4",
+      "title": "Algebra 2",
       "level": "4",
       "term": "2",
       "description": "Concepts of abstract algebra, focusing on groups, rings, fields, and vector spaces, building a foundation for advanced mathematical topics.",
@@ -241,10 +258,10 @@
     },
     {
       "code": "STAT0001",
-      "title": "Economics 2 - Combined Studies",
+      "title": "Economics 2",
       "level": "5",
       "term": "1",
-      "description": "Economic principles and modeling techniques.",
+      "description": "Economic principles and modelling techniques.",
       "prereqs": ["MATH0002"],
       "lead": "Prof N Ovenden and Dr A Donov"
     },
@@ -255,6 +272,7 @@
       "term": "2",
       "description": "Applying stochastic differential equations to model physical, chemical, and biological systems using established analytical techniques.",
       "themes": ["Analysis", "Computation", "Modelling"],
+      "prereqs": ["MATH0065", "MATH0057"],
       "lead": "Prof G Esler"
     },
     {
@@ -319,7 +337,7 @@
       "title": "Solid Mechanics",
       "level": "7",
       "term": "2",
-      "description": "Modeling of elastic materials through partial differential equations and wave propagation.",
+      "description": "Modelling of elastic materials through partial differential equations and wave propagation.",
       "prereqs": ["MATH0015", "MATH0056"],
       "lead": "Dr Shane Cooper"
     },
@@ -328,14 +346,14 @@
       "title": "Lie Groups and Lie Algebras",
       "level": "7",
       "term": "2",
-      "description": "Algebraic structure of Lie groups and their representations, utilizing tools from geometry and linear algebra.",
+      "description": "Algebraic structure of Lie groups and their representations, utilising tools from geometry and linear algebra.",
       "themes": ["Geometry", "Number Theory"],
       "prereqs": ["MATH0014", "MATH0053"],
       "lead": "Dr Y Naqvi"
     },
     {
       "code": "MATH0061",
-      "title": "Further topics in algebraic number theory",
+      "title": "Further Topics in Algebraic Number Theory",
       "level": "7",
       "term": "2",
       "description": "Arithmetic of number fields, focusing on class numbers, analytic class numbers, and their applications to mathematical research.",
@@ -406,7 +424,7 @@
       "title": "Linear Partial Differential Equations",
       "level": "7",
       "term": "1",
-      "description": "The mathematical tools used to analyze and solve linear partial differential equations, focusing on distributions, Fourier transforms, and harmonic functions.",
+      "description": "The mathematical tools used to analyse and solve linear partial differential equations, focusing on distributions, Fourier transforms, and harmonic functions.",
       "themes": ["Number Theory", "Geometry", "Modelling"],
       "prereqs": ["MATH0013", "MATH0016", "MATH0051"],
       "lead": "Dr I Kamotski"
@@ -416,7 +434,7 @@
       "title": "Advanced Modelling Mathematical Techniques",
       "level": "7",
       "term": "1",
-      "description": "Techniques used to solve mathematical problems through modeling."
+      "description": "Techniques used to solve mathematical problems through modelling."
     },
     {
       "code": "MATH0071",
@@ -452,7 +470,7 @@
       "title": "Waves and Wave Scattering",
       "level": "7",
       "term": "2",
-      "description": "Wave theory and techniques for analyzing wave propagation in various media.",
+      "description": "Wave theory and techniques for analysing wave propagation in various media.",
       "themes": ["Analysis", "Geometry", "Modelling"],
       "prereqs": ["MATH0016"],
       "lead": "Prof V Smyshlyaev"
@@ -502,8 +520,9 @@
       "title": "Commutative Rings and Algebras",
       "level": "6",
       "term": "2",
-      "description": "Mathematical techniques used to manipulate and analyze numbers and geometric shapes.",
+      "description": "Principles of commutative algebra and algebraic geometry, focusing on the interplay between algebraic and geometric methods.",
       "themes": ["Number Theory", "Geometry", "Modelling"],
+      "prereqs": ["MATH0053"],
       "lead": "Prof A. Yafaev"
     },
     {
@@ -513,6 +532,7 @@
       "term": "1",
       "description": "Properties of prime numbers through techniques in number theory and analysis.",
       "themes": ["Number Theory", "Analysis"],
+      "prereqs": ["MATH0014", "MATH0051", "MATH0034"],
       "lead": "Dr I Petrow"
     },
     {
@@ -520,7 +540,7 @@
       "title": "Analytical Dynamics",
       "level": "6",
       "term": "2",
-      "description": "Principles of Newtonian mechanics and its application to complex physical systems through rigorous mathematical modeling.",
+      "description": "Principles of Newtonian mechanics and its application to complex physical systems through rigorous mathematical modelling.",
       "themes": ["Number Theory", "Geometry", "Modelling"],
       "prereqs": ["MATH0009", "MATH0011"],
       "lead": "Prof A Sokal"
@@ -556,7 +576,7 @@
     },
     {
       "code": "MATH0055",
-      "title": "Mathematics of Electromagnetism and",
+      "title": "Mathematics of Electromagnetism and Special Relativity",
       "level": "5",
       "term": "2",
       "description": "The fundamental principles of electromagnetism and relativity through mathematical analysis.",
@@ -569,7 +589,7 @@
       "title": "Evolutionary Games and Population Genetics",
       "level": "7",
       "term": "2",
-      "description": "Evolutionary game theory and population genetics using mathematical modeling and analysis.",
+      "description": "Evolutionary game theory and population genetics using mathematical modelling and analysis.",
       "themes": ["Number Theory", "Modelling"],
       "prereqs": ["MATH0008", "MATH0010", "MATH0003"],
       "lead": "Prof SA Baigent"
@@ -587,14 +607,14 @@
       "title": "Dynamical Systems",
       "level": "7",
       "term": "2",
-      "description": "Tools and techniques for analyzing and modeling dynamic systems through topology, analysis, and measure theory.",
+      "description": "Tools and techniques for analyzing and modelling dynamic systems through topology, analysis, and measure theory.",
       "themes": ["Analysis", "Geometry", "Modelling"],
       "prereqs": ["MATH0017"],
       "lead": "Dr S Ghazouani"
     },
     {
       "code": "MATH0092",
-      "title": "Variational Methods for Partial",
+      "title": "Variational Methods for PDEs",
       "level": "7",
       "term": "2",
       "description": "Mathematical foundations of variational theory and numerical methods for partial differential equations.",
@@ -607,7 +627,7 @@
       "title": "Computational and Simulation Methods",
       "level": "7",
       "term": "1",
-      "description": "Computational methods for mathematical modeling, focusing on numerical solutions and simulation techniques.",
+      "description": "Computational methods for mathematical modelling, focusing on numerical solutions and simulation techniques.",
       "themes": ["Computation", "Modelling"],
       "prereqs": ["MATH0056"]
     },
@@ -724,13 +744,13 @@
       "title": "Applied Mathematics",
       "level": "4",
       "term": "1",
-      "description": "Mathematical techniques for modeling and analyzing systems in mechanical, biological, and other fields.",
+      "description": "Mathematical techniques for modelling and analyzing systems in mechanical, biological, and other fields.",
       "themes": ["Computation"],
       "lead": "Professor H Wilson"
     },
     {
       "code": "MATH0009",
-      "title": "Level: 4 (UG)",
+      "title": "Newtonian Mechanics",
       "level": "4",
       "term": "2",
       "description": "The fundamental principles of Newtonian mechanics, including force, motion, and energy.",
@@ -803,7 +823,7 @@
       "title": "Biomathematics",
       "level": "6",
       "term": "1",
-      "description": "Scientific modeling of living systems through mathematical analysis and application.",
+      "description": "Scientific modelling of living systems through mathematical analysis and application.",
       "themes": ["Analysis", "Modelling"],
       "prereqs": ["MATH0011"],
       "lead": "Prof A Zaikin"

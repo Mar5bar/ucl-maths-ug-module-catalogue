@@ -162,7 +162,7 @@ button:hover {
 }
 
 .active-theme {
-  border-color: #2d3a4a;
+  /* border-color: #2d3a4a; */
 }
 
 button.theme-button.active-theme {
