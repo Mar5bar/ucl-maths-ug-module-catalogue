@@ -119,7 +119,7 @@
     },
     {
       "code": "MATH0002",
-      "title": "Economics 1 - Combined Studies",
+      "title": "Economics 1",
       "level": "4",
       "term": "1",
       "description": "Fundamentals of economic resource allocation and analysis, focusing on both individual and aggregate economic principles.",
@@ -176,7 +176,7 @@
     },
     {
       "code": "MATH0012",
-      "title": "Mathematical Methods for Arts and",
+      "title": "Mathematical Methods for Arts and Sciences",
       "level": "4",
       "term": "1",
       "description": "This course equips BASc students with fundamental calculus skills to prepare them for advanced studies and potential departmental placements.",
@@ -278,10 +278,10 @@
     },
     {
       "code": "MATH0088",
-      "title": "Quantitative and Computational",
+      "title": "Quantitative and Computational Finance",
       "level": "7",
       "term": "2",
-      "description": "Using numerical methods to price options through partial differential equations, primarily with Excel spreadsheets.",
+      "description": "Using numerical methods to price options through partial differential equations.",
       "themes": ["Number Theory", "Computation", "Modelling"],
       "prereqs": ["MATH0016"],
       "lead": "Dr R Ahmad"
@@ -566,7 +566,7 @@
     },
     {
       "code": "MATH0082",
-      "title": "Evolutionary Games and Population",
+      "title": "Evolutionary Games and Population Genetics",
       "level": "7",
       "term": "2",
       "description": "Evolutionary game theory and population genetics using mathematical modeling and analysis.",

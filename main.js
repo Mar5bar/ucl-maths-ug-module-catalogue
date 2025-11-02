@@ -147,7 +147,7 @@ function processModuleData(moduleData) {
       // Add the title, code, description, etc.
       moduleElement.innerHTML = `
                 <div class='top-container'>
-                <h4>${module.title} <br class="title-break"> (${module.code})</h4>
+                <h4>${module.title} <br class="title-break"> <span class="module-code">(${module.code})</span></h4>
                 <p class="description">${module.description}</p>
                 </div>
             `;
@@ -156,9 +156,9 @@ function processModuleData(moduleData) {
       if (module.prereqs && module.prereqs.length > 0) {
         const prereqElement = document.createElement("p");
         prereqElement.className = "prereqs-list";
-        prereqElement.innerHTML = `<strong>Requires:</strong> ${module.prereqs.join(
+        prereqElement.innerHTML = `<strong>Requires:</strong> <span class="module-code">${module.prereqs.join(
           ", ",
-        )}`;
+        )}</span>`;
         moduleElement.appendChild(prereqElement);
       }
 

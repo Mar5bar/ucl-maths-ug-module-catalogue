@@ -38,6 +38,7 @@ body {
   font-size: 14px;
   display: flex;
   flex-direction: column;
+  color: #2d3a4a;
 }
 
 .module:hover {
@@ -47,15 +48,20 @@ body {
 
 .module h4 {
   margin: 0;
-  color: #2d3a4a;
   font-weight: 600;
   text-align: center;
   font-size: 14px;
 }
 
+.module .module-code {
+  font-weight: 400;
+  font-size: 12px;
+  color: #6b7280;
+}
+
 .module p {
   color: #4b5563;
-  margin: 8px 0 0 0;
+  margin: 4px 0 2px 0;
   line-height: 1.4;
 }
 
@@ -65,7 +71,7 @@ body {
 }
 
 br.title-break {
-  display: none;
+  /* display: none; */
 }
 
 .module a {
@@ -240,6 +246,10 @@ input[type="text"] {
 @media screen and (max-width: 768px) {
   br.title-break {
     display: inline;
+  }
+
+  .module {
+    width: 140px;
   }
   .module h4 {
     font-size: 14px;
