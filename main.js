@@ -349,7 +349,10 @@ function highlightRelatedModules(moduleCode) {
     // Loop over the prereqs of this module, marking them as prereqs and adding them to the stack. Skip any that are hidden.
     prereqCodes = prereqsMap[parentModule] || [];
     for (const prereq of prereqCodes) {
-      if (!moduleData[prereq] || moduleData[prereq].element.classList.contains("inactive-theme")) {
+      if (
+        !moduleData[prereq] ||
+        moduleData[prereq].element.classList.contains("inactive-theme")
+      ) {
         continue;
       }
       moduleData[prereq].element.classList.add("prereq-module");
@@ -366,7 +369,10 @@ function highlightRelatedModules(moduleCode) {
 
   const dependentCodes = requiredForMap[moduleCode] || [];
   for (const code of dependentCodes) {
-    if (!moduleData[code] || moduleData[code].element.classList.contains("inactive-theme")) {
+    if (
+      !moduleData[code] ||
+      moduleData[code].element.classList.contains("inactive-theme")
+    ) {
       continue;
     }
     moduleData[code].element.classList.add("dependent-module");
@@ -520,6 +526,7 @@ function toggleDetailHandler(button, type) {
   );
   // Record the state of the button in local storage.
   localStorage.setItem("detail-" + type, button.getAttribute("data-state"));
+  checkAnyDetails();
 }
 
 function restoreDetailPreferences() {
@@ -540,4 +547,26 @@ function restoreDetailPreferences() {
     button.setAttribute("data-state", state);
     toggleDetailLevel(type + "-low-detail", state === "off");
   });
+  checkAnyDetails();
+}
+
+function checkAnyDetails() {
+  // If no details are enabled, add a class to module-grid to indicate this.
+  const detailTypes = [
+    "description",
+    "prereqs",
+    "reqfors",
+    "themes",
+    "syllabus",
+  ];
+  let anyOn = false;
+  detailTypes.forEach((dt) => {
+    const btn = document.getElementById(dt + "-detail-toggle");
+    if (btn && btn.getAttribute("data-state") === "on") {
+      anyOn = true;
+    }
+  });
+  document
+    .getElementById("module-grid")
+    .classList.toggle("no-details-enabled", !anyOn);
 }

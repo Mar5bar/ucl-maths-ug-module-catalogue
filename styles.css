@@ -78,6 +78,10 @@ br.title-break {
   flex-grow: 1;
 }
 
+.no-details-enabled .top-container  {
+    align-content: center;
+}
+
 .description-low-detail .module .description {
   display: none;
 }
