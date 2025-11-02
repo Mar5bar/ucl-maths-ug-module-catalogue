@@ -85,6 +85,13 @@
   },
   "modules": [
     {
+      "code": "MATH0084",
+      "title": "Project",
+      "level": "7",
+      "description": "A chance to experience independent research with a supervisor over two terms.",
+      "syllabus": "https://www.ucl.ac.uk/mathematical-physical-sciences/maths/current-students/current-undergraduates/degree-structures-and-options/year-4-project"
+    },
+    {
       "code": "MATH0015",
       "title": "Fluid Mechanics",
       "level": "5",
@@ -328,9 +335,10 @@
       "title": "Linear Algebra for Data Science",
       "level": "5",
       "term": "2",
-      "description": "Learn fundamental linear algebra concepts \u2013 vectors, matrices, and least squares \u2013 essential for data science applications.",
+      "description": "Learn fundamental linear algebra concepts (vectors, matrices, and least squares) essential for data science applications.",
       "themes": ["Number Theory", "Geometry", "Modelling"],
-      "lead": "Dr Luciano Rila"
+      "lead": "Dr Luciano Rila",
+      "syllabus": "https://www.ucl.ac.uk/mathematical-physical-sciences/sites/mathematical_physical_sciences/files/math0101_syllabus.pdf"
     },
     {
       "code": "MATH0115",
@@ -796,7 +804,8 @@
       "description": "Algebraic topology and homology through the study of simplicial complexes and their applications to surfaces.",
       "themes": ["Algebra", "Geometry"],
       "prereqs": ["MATH0014"],
-      "lead": "Prof FEA Johnson"
+      "lead": "Prof FEA Johnson",
+      "syllabus": "https://www.ucl.ac.uk/mathematical-physical-sciences/sites/mathematical_physical_sciences/files/math0023_2.pdf"
     },
     {
       "code": "MATH0022",
