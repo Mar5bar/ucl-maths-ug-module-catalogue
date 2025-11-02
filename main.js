@@ -11,6 +11,17 @@ let userActivatedTheme = null;
 let activeTheme = null;
 
 let activeModule = null;
+let lines = [];
+
+const defaultSyllabusBaseURL =
+  "https://www.ucl.ac.uk/mathematical-physical-sciences/sites/mathematical_physical_sciences/files/";
+const defaultDetailPreferences = {
+  description: "on",
+  syllabus: "on",
+  prereqs: "on",
+  reqfors: "off",
+  themes: "off",
+};
 
 // Fetch module_data.
 fetch("module_data.json")
@@ -27,6 +38,8 @@ fetch("module_data.json")
       userActivatedTheme = themeParam;
       activateTheme(themeParam);
     }
+    // Restore any preferences.
+    restoreDetailPreferences();
   })
   .catch((error) => {
     console.error("Error fetching module data:", error);
@@ -82,13 +95,29 @@ function processModuleData(moduleData) {
       moduleElement.className = "module";
       // Add the title, code, description, etc.
       moduleElement.innerHTML = `
-                <h4>${module.title} (${module.code})</h4>
-                <p>${module.description}</p>
+                <h4>${module.title} <br class="title-break"> (${module.code})</h4>
+                <p class="description">${module.description}</p>
             `;
+
+      // If a syllabus link is provided, add it to the element.
+      if (module.syllabus || true) {
+        const syllabusElement = document.createElement("a");
+        syllabusElement.href =
+          module.syllabus ||
+          defaultSyllabusBaseURL + module.code.toLowerCase() + ".pdf";
+        syllabusElement.className = "syllabus";
+        syllabusElement.target = "_blank";
+        syllabusElement.onclick = (e) => {
+          e.stopPropagation();
+        };
+        syllabusElement.innerHTML = "Syllabus";
+        moduleElement.appendChild(syllabusElement);
+      }
 
       // Add prerequisite information.
       if (module.prereqs && module.prereqs.length > 0) {
         const prereqElement = document.createElement("p");
+        prereqElement.className = "prereqs-list";
         prereqElement.innerHTML = `<strong>Prerequisites:</strong> ${module.prereqs.join(
           ", ",
         )}`;
@@ -99,18 +128,20 @@ function processModuleData(moduleData) {
       const dependents = requiredForMap[moduleCode];
       if (dependents && dependents.length > 0) {
         const dependentElement = document.createElement("p");
-        dependentElement.innerHTML = `<strong>Required for:</strong> ${dependents.join(
-          ", ",
-        )}`;
+        dependentElement.className = "reqfors-list";
+        dependentElement.innerHTML = `<strong>Required for:</strong> ${dependents
+          .sort()
+          .join(", ")}`;
         moduleElement.appendChild(dependentElement);
       }
 
       // Add themes information.
       if (module.themes) {
         const themeElement = document.createElement("p");
+        themeElement.className = "themes-list";
         themeElement.innerHTML = "<strong>Themes:</strong> ";
         // Add each theme as a button.
-        for (const theme of module.themes) {
+        for (const theme of module.themes.sort()) {
           const themeButton = createThemeButton(theme);
           themeElement.appendChild(themeButton);
         }
@@ -236,23 +267,39 @@ function createThemeButton(theme) {
 
 function highlightRelatedModules(moduleCode) {
   const modulesConsidered = new Set();
-  modulesConsidered.add(moduleCode);
-  const prereqCodes = prereqsMap[moduleCode] || [];
-  const dependentCodes = requiredForMap[moduleCode] || [];
+
   lines = [];
-  for (const code of prereqCodes) {
-    if (moduleData[code]) {
-      moduleData[code].element.classList.add("prereq-module");
-      lines.push([moduleData[code].element, moduleData[moduleCode].element]);
-      modulesConsidered.add(code);
+  // Maintain a stack of modules whose prereqs need connecting (checking for chains).
+  let toDo = [moduleCode];
+  let parentModule;
+  let prereqCodes;
+  while (toDo.length > 0) {
+    parentModule = toDo.pop();
+    if (modulesConsidered.has(parentModule)) {
+      continue;
+    }
+    // Record that we've seen this module to prevent duplication.
+    modulesConsidered.add(parentModule);
+    // Loop over the prereqs of this module, marking them as prereqs and adding them to the stack.
+    prereqCodes = prereqsMap[parentModule] || [];
+    for (const prereq of prereqCodes) {
+      moduleData[prereq].element.classList.add("prereq-module");
+      lines.push([
+        moduleData[prereq].element,
+        moduleData[parentModule].element,
+      ]);
+      // If we've not looked at the new module's own prereqs yet, add the module to the stack.
+      if (!modulesConsidered.has(prereq)) {
+        toDo.push(prereq);
+      }
     }
   }
+
+  const dependentCodes = requiredForMap[moduleCode] || [];
   for (const code of dependentCodes) {
-    if (moduleData[code]) {
-      moduleData[code].element.classList.add("dependent-module");
-      lines.push([moduleData[code].element, moduleData[moduleCode].element]);
-      modulesConsidered.add(code);
-    }
+    moduleData[code].element.classList.add("dependent-module");
+    lines.push([moduleData[code].element, moduleData[moduleCode].element]);
+    modulesConsidered.add(code);
   }
   // Dim all other modules.
   for (const code in moduleData) {
@@ -374,4 +421,42 @@ function svgResize() {
   svg.setAttribute("height", document.body.scrollHeight + window.scrollY);
   svg.style.width = document.body.scrollWidth + "px";
   svg.style.height = document.body.scrollHeight + "px";
+}
+
+function toggleDetailLevel(className, enable) {
+  document.getElementById("module-grid").classList.toggle(className, enable);
+  redrawLines();
+}
+
+function toggleDetailHandler(button, type) {
+  button.setAttribute(
+    "data-state",
+    button.getAttribute("data-state") === "on" ? "off" : "on",
+  );
+  toggleDetailLevel(
+    type + "-low-detail",
+    button.getAttribute("data-state") === "off",
+  );
+  // Record the state of the button in local storage.
+  localStorage.setItem("detail-" + type, button.getAttribute("data-state"));
+}
+
+function restoreDetailPreferences() {
+  const detailTypes = [
+    "description",
+    "prereqs",
+    "reqfors",
+    "themes",
+    "syllabus",
+  ];
+  detailTypes.forEach((type) => {
+    const button = document.getElementById(type + "-detail-toggle");
+    if (!button) return;
+    const state =
+      localStorage.getItem("detail-" + type) ||
+      defaultDetailPreferences[type] ||
+      "on";
+    button.setAttribute("data-state", state);
+    toggleDetailLevel(type + "-low-detail", state === "off");
+  });
 }

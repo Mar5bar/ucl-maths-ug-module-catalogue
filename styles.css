@@ -4,6 +4,16 @@ body {
   margin: 0;
   min-height: 100vh;
   margin-bottom: 20px;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#theme-button-row,
+#detail-button-row {
+  text-align: center;
+  margin: 16px 0;
+  line-height: 250%;
 }
 
 .module-group {
@@ -11,7 +21,7 @@ body {
   flex-wrap: wrap;
   gap: 32px;
   justify-content: center;
-  margin-top: 32px;
+  text-align: center;
 }
 
 .module {
@@ -20,30 +30,61 @@ body {
   margin: 0;
   border-radius: 12px;
   background: #fff;
-  width: 260px;
+  max-width: 260px;
   box-shadow: 0 2px 12px rgba(60, 80, 120, 0.07);
-  transition: box-shadow 0.2s, transform 0.2s;
+  transition: box-shadow 0.2s;
   flex-shrink: 0;
+  font-size: 14px;
 }
 
 .module:hover {
-  box-shadow: 0 4px 24px rgba(60, 80, 120, 0.15);
-  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 24px rgba(60, 80, 120, 0.35);
   cursor: pointer;
 }
 
 .module h4 {
-  margin-top: 0;
+  margin: 0;
   color: #2d3a4a;
   font-weight: 600;
   text-align: center;
+  font-size: large;
 }
 
 .module p {
-  font-size: 14px;
   color: #4b5563;
   margin: 8px 0 0 0;
   line-height: 1.4;
+}
+
+br.title-break {
+  display: none;
+}
+
+.module a {
+  color: inherit;
+  text-align: center;
+  font: inherit;
+  font-size: 14px;
+}
+
+.description-low-detail .module .description {
+  display: none;
+}
+
+.syllabus-low-detail .module .syllabus {
+  display: none;
+}
+
+.themes-low-detail .module .themes-list {
+  display: none;
+}
+
+.prereqs-low-detail .module .prereqs-list {
+  display: none;
+}
+
+.reqfors-low-detail .module .reqfors-list {
+  display: none;
 }
 
 .module.active-module {
@@ -62,17 +103,17 @@ body {
 }
 
 button {
-  background: linear-gradient(90deg, #e3e9f7 0%, #f0f4fc 100%);
-  border: 1.5px solid #d1d5db;
-  padding: 8px 18px;
-  margin: 6px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
   color: #2d3a4a;
   font-weight: 500;
   box-shadow: 0 1px 4px rgba(60, 80, 120, 0.07);
   transition: background 0.2s, box-shadow 0.2s;
+  border: 2px solid #d1d5db;
+  padding: 4px 10px;
+  margin: 0 2px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  background: #f7faff;
 }
 
 button:hover {
@@ -91,8 +132,8 @@ button.theme-button {
 }
 
 .module button.theme-button {
-    padding: 2px 6px;
-    font-size: 12px;
+  padding: 2px 6px;
+  font-size: 12px;
 }
 
 .active-theme {
@@ -100,6 +141,11 @@ button.theme-button {
 }
 
 button.theme-button.active-theme {
+  border-color: #2d3a4a;
+  background: #eaf4ff;
+}
+
+button[data-state="on"] {
   border-color: #2d3a4a;
   background: #eaf4ff;
 }
@@ -138,14 +184,30 @@ header h1 {
 }
 
 main {
-  max-width: 1100px;
+  max-width: max(1100px, 90%);
   margin: 0 auto;
   padding: 32px 16px 0 16px;
 }
 
-main p {
+#intro p {
   font-size: 1.2rem;
   color: #2d3a4a;
   margin-bottom: 18px;
   text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  br.title-break {
+    display: inline;
+  }
+  .module {
+    max-width: 40%;
+  }
+  .module h4 {
+    font-size: 14px;
+  }
+  .module p,
+  .module a {
+    font-size: 12px;
+  }
 }
