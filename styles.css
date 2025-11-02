@@ -177,8 +177,8 @@ header {
 
 header h1 {
   margin: 0;
-  font-size: 2.6rem;
-  font-weight: 700;
+  font-size: 1.3rem;
+  font-weight: 500;
   letter-spacing: 1px;
   text-shadow: 0 2px 8px rgba(60, 80, 120, 0.12);
 }
