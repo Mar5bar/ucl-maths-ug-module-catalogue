@@ -57,13 +57,13 @@ fetch("module_data.json")
       activateTheme(themeParam);
       setQueryParameter("theme", themeParam);
     }
+    // Restore any preferences.
+    restoreDetailPreferences();
     // If there's a module in the URL query string, activate it.
     const moduleParam = urlParams.get("module");
     if (moduleParam) {
       activateModule(moduleParam);
     }
-    // Restore any preferences.
-    restoreDetailPreferences();
   })
   .catch((error) => {
     console.error("Error fetching module data:", error);
@@ -519,18 +519,25 @@ function drawLines(lines) {
     const rect2 = el2.getBoundingClientRect();
 
     // We want to make the shortest path between any side of el1 to any side of el2. We could be intelligent about this, or we could loop through all combinations and pick the shortest.
+    // If Terms splitting is enabled, allow connections from all four sides; if not, limit to right/bottom of el1 and left/top of el2.
     const el1Points = [
-      // { x: rect1.left, y: rect1.top + rect1.height / 2, label: "lr" }, // left
       { x: rect1.right, y: rect1.top + rect1.height / 2, label: "lr" }, // right
-      // { x: rect1.left + rect1.width / 2, y: rect1.top, label: "tb" }, // top
       { x: rect1.left + rect1.width / 2, y: rect1.bottom, label: "tb" }, // bottom
     ];
     const el2Points = [
       { x: rect2.left, y: rect2.top + rect2.height / 2, label: "lr" }, // left
-      // { x: rect2.right, y: rect2.top + rect2.height / 2, label: "lr" }, // right
       { x: rect2.left + rect2.width / 2, y: rect2.top, label: "tb" }, // top
-      // { x: rect2.left + rect2.width / 2, y: rect2.bottom, label: "tb" }, // bottom
     ];
+    if (splitByTerm) {
+      el1Points.push(
+        { x: rect1.left, y: rect1.top + rect1.height / 2, label: "lr" }, // left
+        { x: rect1.left + rect1.width / 2, y: rect1.top, label: "tb" }, // top
+      );
+      el2Points.push(
+        { x: rect2.right, y: rect2.top + rect2.height / 2, label: "lr" }, // right
+        { x: rect2.left + rect2.width / 2, y: rect2.bottom, label: "tb" }, // bottom
+      );
+    }
     let minDistance = Infinity;
     let bestPair = [el1Points[0], el2Points[0]];
     for (const p1 of el1Points) {
@@ -696,8 +703,6 @@ function searchModules() {
       userActivatedTheme = null;
       activeTheme = null;
     }
-    // Scroll to the module.
-    module.element.scrollIntoView({ behavior: "smooth", block: "center" });
     // Highlight the module.
     activateModule(module.code);
   } else {
