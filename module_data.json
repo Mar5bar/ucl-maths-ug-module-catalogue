@@ -81,6 +81,27 @@
       "MATH0086",
       "MATH0082",
       "MATH0088"
+    ],
+    "Biology": [
+      "MATH0010",
+      "MATH0026",
+      "MATH0082",
+      "MATH0117"
+    ],
+    "Physics": [
+      "MATH0009",
+      "MATH0025",
+      "MATH0043",
+      "MATH0055",
+      "MATH0079",
+      "MATH0118"
+    ],
+    "Continuum Mechanics": [
+      "MATH0015",
+      "MATH0024",
+      "MATH0077",
+      "MATH0080",
+      "MATH0115"
     ]
   },
   "modules": [
