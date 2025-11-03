@@ -417,9 +417,9 @@
       "title": "Mathematics for Machine Learning",
       "level": "6",
       "term": "1",
-      "description": "Core principles and practical applications of machine learning and artificial intelligence through mathematical foundations and implementation.",
+      "description": "Core principles and practical applications of machine learning and artificial intelligence.",
       "themes": ["Number Theory", "Computation", "Modelling"],
-      "prereqs": ["MATH0057"],
+      "prereqs": ["MATH0004", "MATH0011", "MATH0014"],
       "lead": "Dr Alejandro Dias and Dr Luca Grieco"
     },
     {
@@ -638,7 +638,7 @@
       "title": "Theorem Proving in Lean",
       "level": "6",
       "term": "1",
-      "description": "Lean is a workshop-based course teaching students how to formally prove mathematical theorems interactively using the Lean programming language.",
+      "description": "A practical course teaching students how to formally prove mathematical theorems interactively using the Lean programming language.",
       "themes": ["Algebra", "Analysis", "Computation"]
     },
     {
@@ -849,7 +849,7 @@
       "title": "Galois Theory",
       "level": "6",
       "term": "1",
-      "description": "Introduction to Galois theory, which brings together ideas from groups, rings, and linear algebra.",
+      "description": "Introduction to Galois theory, bringing together ideas from groups, rings, and linear algebra.",
       "themes": ["Number Theory", "Geometry", "Analysis"],
       "prereqs": ["MATH0053"],
       "lead": "Dr ML Roberts",
@@ -895,7 +895,7 @@
       "term": "1",
       "description": "A rigorous analysis of accuracy and stability of computational methods, including those in linear algebra and ODEs.",
       "themes": ["Computation", "Number Theory"],
-      "prereqs": ["MATH0004", "MATH006", "MATH0011"],
+      "prereqs": ["MATH0004", "MATH0006", "MATH0011"],
       "lead": "Dr I Smears",
       "groups": "2"
     },
@@ -917,7 +917,7 @@
       "term": "1",
       "description": "Einstein’s revolutionary theories of relativity, including gravity and electromagnetism.",
       "themes": ["Analysis", "Number Theory", "Geometry"],
-      "prereqs": ["MATH0016", "MATH0043"],
+      "prereqs": ["MATH0016"],
       "lead": "Dr B Hartmann",
       "groups": "2"
     },
