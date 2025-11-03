@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>UCL Mathematics Undergraduate Module Catalogue</title>
     <link rel="stylesheet" href="styles.css" />
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: { "[+]": [["$", "$"]] },
+        },
+        startup: {
+          pageReady() {
+            return MathJax.startup.defaultPageReady().then(() => {
+              redrawLines();
+            });
+          },
+        }
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
   </head>
   <body>
     <header>

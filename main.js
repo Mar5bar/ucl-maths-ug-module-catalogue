@@ -64,6 +64,11 @@ fetch("module_data.json")
     if (moduleParam) {
       activateModule(moduleParam);
     }
+    if (window.MathJax) {
+      MathJax.typesetPromise().then(() => {
+        redrawLines();
+      });
+    }
   })
   .catch((error) => {
     console.error("Error fetching module data:", error);
@@ -844,3 +849,9 @@ input.addEventListener("keydown", function (event) {
     button.click(); // Trigger the button's click event
   }
 });
+
+// if (window.MathJax) {
+//   MathJax.typesetPromise().then(() => {
+//     redrawLines();
+//   });
+// }
