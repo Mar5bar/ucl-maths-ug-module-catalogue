@@ -113,7 +113,7 @@
       "title": "Fluid Mechanics",
       "level": "5",
       "term": "1",
-      "description": "Principles of fluid motion, focusing on the mathematical analysis of fluid dynamics through applied mathematics.",
+      "description": "Principles of fluid motion, focusing on planar flows, dynamics, and an introduction to surface waves.",
       "themes": ["Analysis", "Computation", "Modelling"],
       "prereqs": ["MATH0011"],
       "lead": "Prof E Johnson"
@@ -145,7 +145,7 @@
       "title": "Algebra 3: Further Linear Algebra",
       "level": "5",
       "term": "1",
-      "description": "Concepts in linear algebra through the study of polynomial rings, matrices, and vector spaces.",
+      "description": "Polynomial rings, linear maps and matrices, and inner product spaces.",
       "themes": ["Algebra", "Number Theory"],
       "prereqs": ["MATH0006"],
       "lead": "Dr R Reynolds"
@@ -194,7 +194,7 @@
       "title": "Analysis 3: Complex Analysis",
       "level": "5",
       "term": "1",
-      "description": "Rigorous study of complex functions, covering fundamental theorems and applications in analysis.",
+      "description": "Rigorous study of complex functions, covering fundamental theorems and applications.",
       "themes": ["Analysis", "Number Theory"],
       "prereqs": ["MATH0003"],
       "lead": "Prof A Sobolev"
@@ -213,7 +213,7 @@
       "title": "Algebra 2",
       "level": "4",
       "term": "2",
-      "description": "Concepts of abstract algebra, focusing on groups, rings, fields, and vector spaces, building a foundation for advanced mathematical topics.",
+      "description": "Introduction to groups, rings, fields, and vector spaces.",
       "themes": ["Algebra"],
       "prereqs": ["MATH0005"],
       "lead": "Prof E Segal"
@@ -241,7 +241,7 @@
       "title": "Analysis 2",
       "level": "4",
       "term": "2",
-      "description": "Concepts in real analysis, including integration, sequences, and series.",
+      "description": "Concepts in real analysis, including Riemann integration and power series.",
       "themes": ["Analysis", "Computation"],
       "prereqs": ["MATH0003"],
       "lead": "Prof D Vassiliev"
@@ -251,7 +251,7 @@
       "title": "Mathematical Methods 1",
       "level": "4",
       "term": "1",
-      "description": "Mathematical skills across vectors, calculus, and differential equations.",
+      "description": "Foundational skills across vectors, calculus, and differential equations.",
       "themes": ["Analysis", "Computation"],
       "lead": "Dr S Coskey"
     },
@@ -260,7 +260,7 @@
       "title": "Mathematical Methods 2",
       "level": "4",
       "term": "2",
-      "description": "Programming fundamentals in Python, and an introduction to multivariable calculus.",
+      "description": "Programming fundamentals in Python and an introduction to multivariable calculus.",
       "themes": ["Computation", "Analysis", "Modelling"],
       "prereqs": ["MATH0010"],
       "lead": "Dr M Towers and Prof R Halburd"
@@ -270,7 +270,7 @@
       "title": "Algebra 1",
       "level": "4",
       "term": "1",
-      "description": "Basics of linear algebra, including vectors, matrices, and their applications in mathematics and related fields.",
+      "description": "Basics of linear algebra, including vectors, matrices, and their applications.",
       "themes": ["Algebra", "Number Theory"],
       "lead": "Dr M. Towers"
     },
@@ -644,7 +644,7 @@
       "title": "Dynamical Systems",
       "level": "7",
       "term": "2",
-      "description": "Tools and techniques for analyzing and modelling dynamic systems through topology, analysis, and measure theory.",
+      "description": "Tools and techniques for analysing and modelling dynamic systems through topology, analysis, and measure theory.",
       "themes": ["Analysis", "Geometry", "Modelling"],
       "prereqs": ["MATH0017"],
       "lead": "Dr S Ghazouani"
@@ -783,7 +783,7 @@
       "title": "Applied Mathematics",
       "level": "4",
       "term": "1",
-      "description": "Mathematical techniques for modelling and analyzing systems in mechanical, biological, and other fields.",
+      "description": "Techniques for modelling and analysing systems in various contexts.",
       "themes": ["Computation"],
       "lead": "Professor H Wilson"
     },

@@ -21,8 +21,6 @@ let loadedThemesToModules;
 let themesToModules;
 let ancillaryModules;
 
-let splitByTerm = false;
-
 const defaultSyllabusBaseURL =
   "https://www.ucl.ac.uk/mathematical-physical-sciences/sites/mathematical_physical_sciences/files/";
 const defaultDetailPreferences = {
@@ -32,7 +30,10 @@ const defaultDetailPreferences = {
   reqfors: "off",
   themes: "off",
   splitByTerm: "off",
+  terms: "off",
 };
+
+let splitByTerm = defaultDetailPreferences["terms"] === "on";
 
 // Fetch module_data.
 fetch("module_data.json")
@@ -643,11 +644,12 @@ function restoreDetailPreferences() {
       "on";
     button.setAttribute("data-state", state);
     toggleDetailLevel(type + "-low-detail", state === "off");
+    if (type === "terms") {
+      splitByTerm = state === "on";
+    }
   });
   checkAnyDetails();
-
-  const defaultSplitByTerm = splitByTerm;
-  splitByTerm = localStorage.getItem("detail-terms") === "on";
+  const defaultSplitByTerm = defaultDetailPreferences["terms"] === "on";
   if (splitByTerm !== defaultSplitByTerm) {
     configureTermView();
   }
