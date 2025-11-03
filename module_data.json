@@ -250,7 +250,7 @@
       "title": "Algebra 1",
       "level": "4",
       "term": "2",
-      "description": "Basics of inear algebra, including vectors, matrices, and their applications in mathematics and related fields.",
+      "description": "Basics of linear algebra, including vectors, matrices, and their applications in mathematics and related fields.",
       "themes": ["Algebra", "Number Theory"],
       "lead": "Dr M. Towers"
     },
