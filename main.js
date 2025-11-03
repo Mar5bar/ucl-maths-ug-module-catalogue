@@ -445,16 +445,16 @@ function drawLines(lines) {
 
     // We want to make the shortest path between any side of el1 to any side of el2. We could be intelligent about this, or we could loop through all combinations and pick the shortest.
     const el1Points = [
-      { x: rect1.left, y: rect1.top + rect1.height / 2, label: "lr" }, // left
+      // { x: rect1.left, y: rect1.top + rect1.height / 2, label: "lr" }, // left
       { x: rect1.right, y: rect1.top + rect1.height / 2, label: "lr" }, // right
-      { x: rect1.left + rect1.width / 2, y: rect1.top, label: "tb" }, // top
+      // { x: rect1.left + rect1.width / 2, y: rect1.top, label: "tb" }, // top
       { x: rect1.left + rect1.width / 2, y: rect1.bottom, label: "tb" }, // bottom
     ];
     const el2Points = [
       { x: rect2.left, y: rect2.top + rect2.height / 2, label: "lr" }, // left
-      { x: rect2.right, y: rect2.top + rect2.height / 2, label: "lr" }, // right
+      // { x: rect2.right, y: rect2.top + rect2.height / 2, label: "lr" }, // right
       { x: rect2.left + rect2.width / 2, y: rect2.top, label: "tb" }, // top
-      { x: rect2.left + rect2.width / 2, y: rect2.bottom, label: "tb" }, // bottom
+      // { x: rect2.left + rect2.width / 2, y: rect2.bottom, label: "tb" }, // bottom
     ];
     let minDistance = Infinity;
     let bestPair = [el1Points[0], el2Points[0]];
