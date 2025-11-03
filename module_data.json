@@ -901,7 +901,7 @@
       "title": "Geophysical Fluid Dynamics",
       "level": "6",
       "term": "2",
-      "description": "Application of mathematics to analyze atmospheric and oceanic phenomena, particularly focusing on climate patterns and ocean health.",
+      "description": "Application of mathematics to analyse atmospheric and oceanic phenomena, particularly focusing on climate patterns and ocean health.",
       "themes": ["Number Theory", "Geometry", "Modelling"],
       "prereqs": ["MATH0015", "MATH0016"],
       "lead": "Prof ER Johnson"
