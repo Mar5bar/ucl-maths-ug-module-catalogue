@@ -487,6 +487,16 @@ function drawLines(lines) {
     path.setAttribute("fill", "transparent");
     path.setAttribute("marker-end", "url(#arrow)");
 
+    // Add a control point 5px from the end by sampling the current path, finishing the line with a straight segment.
+    const pathLength = path.getTotalLength();
+    const samplePoint = path.getPointAtLength(Math.max(0, pathLength - 5));
+    const controlX = samplePoint.x;
+    const controlY = samplePoint.y;
+
+    // Reconstruct the path with the additional control point
+    const newD = `M ${startX} ${startY} C ${node1X} ${node1Y} ${node2X} ${node2Y} ${controlX} ${controlY} L ${endX} ${endY}`;
+    path.setAttribute("d", newD);
+
     const svg = document.getElementById("svg-lines");
     svg.appendChild(path);
   });
