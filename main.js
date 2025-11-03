@@ -699,10 +699,7 @@ function searchModules() {
     // Scroll to the module.
     module.element.scrollIntoView({ behavior: "smooth", block: "center" });
     // Highlight the module.
-    clearHighlightedModules();
-    activeModule = query;
-    module.element.classList.add("active-module");
-    highlightRelatedModules(activeModule);
+    activateModule(module.code);
   } else {
     // Module not found.
     // Display a little tooltip.
@@ -793,6 +790,7 @@ function topologicalSort(codes) {
 }
 
 function activateModule(moduleCode) {
+  clearHighlightedModules();
   if (!moduleData[moduleCode] || !isModuleVisible(moduleCode)) {
     return;
   }
@@ -800,6 +798,17 @@ function activateModule(moduleCode) {
   moduleData[moduleCode].element.classList.add("active-module");
   highlightRelatedModules(activeModule);
   setQueryParameter("module", moduleCode);
+  // If the module isn't onscreen, scroll to it.
+  const rect = moduleData[moduleCode].element.getBoundingClientRect();
+  if (
+    rect.bottom < 0 ||
+    rect.top > (window.innerHeight || document.documentElement.clientHeight)
+  ) {
+    moduleData[moduleCode].element.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }
 }
 
 function deactivateModule() {
