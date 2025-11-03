@@ -109,6 +109,14 @@ br.title-break {
   display: none;
 }
 
+.group {
+  display: none;
+}
+
+.show-groups .group {
+  display: inline;
+}
+
 .module.active-module {
   border-color: #ff9800;
   background-color: rgba(255, 247, 230, 0.92);

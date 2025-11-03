@@ -17,27 +17,6 @@
     "MATH0110"
   ],
   "themesToModules": {
-    "Algebra": [
-      "MATH0014",
-      "MATH0021",
-      "MATH0022",
-      "MATH0023",
-      "MATH0029",
-      "MATH0034",
-      "MATH0035",
-      "MATH0036",
-      "MATH0037",
-      "MATH0038",
-      "MATH0053",
-      "MATH0061",
-      "MATH0073",
-      "MATH0075",
-      "MATH0076",
-      "MATH0083",
-      "MATH0104",
-      "MATH0108",
-      "MATH0109"
-    ],
     "Analysis": [
       "MATH0051",
       "MATH0017",
@@ -82,12 +61,7 @@
       "MATH0082",
       "MATH0088"
     ],
-    "Biology": [
-      "MATH0010",
-      "MATH0026",
-      "MATH0082",
-      "MATH0117"
-    ],
+    "Biology": ["MATH0010", "MATH0026", "MATH0082", "MATH0117"],
     "Physics": [
       "MATH0009",
       "MATH0025",
@@ -102,6 +76,27 @@
       "MATH0077",
       "MATH0080",
       "MATH0115"
+    ],
+    "Number Theory": [
+      "MATH0034",
+      "MATH0035",
+      "MATH0036",
+      "MATH0061",
+      "MATH0083",
+      "MATH0104"
+    ],
+    "Algebra": [
+      "MATH0005",
+      "MATH0006",
+      "MATH0014",
+      "MATH0022",
+      "MATH0036",
+      "MATH0053",
+      "MATH0073",
+      "MATH0074",
+      "MATH0075",
+      "MATH0076",
+      "MATH0108"
     ]
   },
   "modules": [
@@ -109,6 +104,7 @@
       "code": "MATH0084",
       "title": "Project",
       "level": "7",
+      "term": "1 & 2",
       "description": "A chance to experience independent research with a supervisor over two terms.",
       "syllabus": "https://www.ucl.ac.uk/mathematical-physical-sciences/maths/current-students/current-undergraduates/degree-structures-and-options/year-4-project"
     },
@@ -130,7 +126,8 @@
       "description": "Discrete mathematics, including graph theory, combinatorics, and extremal results, primarily for mathematics students.",
       "themes": ["Number Theory", "Geometry", "Modelling"],
       "prereqs": ["MATH0057"],
-      "lead": "Dr A Girao"
+      "lead": "Dr A Girao",
+      "groups": "1A 1B"
     },
     {
       "code": "MATH0028",
@@ -140,7 +137,8 @@
       "description": "Algorithms and their efficiency through the study of graph theory and combinatorial techniques.",
       "themes": ["Number Theory", "Computation", "Modelling"],
       "prereqs": ["MATH0014"],
-      "lead": "Dr A Pokrovskiy"
+      "lead": "Dr A Pokrovskiy",
+      "groups": "2"
     },
     {
       "code": "MATH0014",
@@ -188,7 +186,8 @@
       "description": "Principles of measure theory and integral calculus, crucial for various mathematical fields.",
       "themes": ["Analysis", "Computation", "Number Theory"],
       "prereqs": ["MATH0051"],
-      "lead": "Dr A Doan"
+      "lead": "Dr A Doan",
+      "groups": "1A"
     },
     {
       "code": "MATH0013",
@@ -261,7 +260,7 @@
       "title": "Mathematical Methods 2",
       "level": "4",
       "term": "2",
-      "description": "Programming fundamentals and multivariable calculus, emphasising practical application through computational problem-solving.",
+      "description": "Programming fundamentals in Python, and an introduction to multivariable calculus.",
       "themes": ["Computation", "Analysis", "Modelling"],
       "prereqs": ["MATH0010"],
       "lead": "Dr M Towers and Prof R Halburd"
@@ -270,7 +269,7 @@
       "code": "MATH0005",
       "title": "Algebra 1",
       "level": "4",
-      "term": "2",
+      "term": "1",
       "description": "Basics of linear algebra, including vectors, matrices, and their applications in mathematics and related fields.",
       "themes": ["Algebra", "Number Theory"],
       "lead": "Dr M. Towers"
@@ -301,7 +300,8 @@
       "description": "Applying stochastic differential equations to model physical, chemical, and biological systems using established analytical techniques.",
       "themes": ["Analysis", "Computation", "Modelling"],
       "prereqs": ["MATH0065", "MATH0057"],
-      "lead": "Prof G Esler"
+      "lead": "Prof G Esler",
+      "groups": "2"
     },
     {
       "code": "MATH0076",
@@ -320,7 +320,8 @@
       "description": "Analysing and solving the complex flow of incompressible, viscous fluids, particularly in applications like lubrication and industrial processes.",
       "themes": ["Analysis", "Computation", "Modelling"],
       "prereqs": ["MATH0015", "MATH0016", "MATH0056"],
-      "lead": "Prof J Vanden-Broeck"
+      "lead": "Prof J Vanden-Broeck",
+      "groups": "2"
     },
     {
       "code": "MATH0088",
@@ -427,7 +428,8 @@
       "description": "Concepts and applications of modular forms, a crucial area in number theory and geometry.",
       "themes": ["Number Theory", "Geometry"],
       "prereqs": ["MATH0013", "MATH0014", "MATH0034"],
-      "lead": "Dr C Busuioc"
+      "lead": "Dr C Busuioc",
+      "groups": "1B"
     },
     {
       "code": "MATH0110",
@@ -456,7 +458,8 @@
       "description": "The mathematical tools used to analyse and solve linear partial differential equations, focusing on distributions, Fourier transforms, and harmonic functions.",
       "themes": ["Number Theory", "Geometry", "Modelling"],
       "prereqs": ["MATH0013", "MATH0016", "MATH0051"],
-      "lead": "Dr I Kamotski"
+      "lead": "Dr I Kamotski",
+      "groups": "1A"
     },
     {
       "code": "MATH0065",
@@ -492,7 +495,8 @@
       "description": "Theory of group representations, focusing on their applications in various fields, particularly through the study of representations of finite groups and their connections to group algebras.",
       "themes": ["Number Theory", "Geometry", "Modelling"],
       "prereqs": ["MATH0053"],
-      "lead": "Dr E Segal"
+      "lead": "Dr E Segal",
+      "groups": "1B"
     },
     {
       "code": "MATH0080",
@@ -532,7 +536,8 @@
       "description": "Methods for solving partial differential equations using separation of variables and transform techniques.",
       "themes": ["Analysis", "Computation", "Modelling"],
       "prereqs": ["MATH0013", "MATH0016"],
-      "lead": "Prof G Esler"
+      "lead": "Prof G Esler",
+      "groups": "2"
     },
     {
       "code": "MATH0042",
@@ -552,7 +557,8 @@
       "description": "Principles of commutative algebra and algebraic geometry, focusing on the interplay between algebraic and geometric methods.",
       "themes": ["Number Theory", "Geometry", "Modelling"],
       "prereqs": ["MATH0053"],
-      "lead": "Prof A. Yafaev"
+      "lead": "Prof A. Yafaev",
+      "groups": "1B"
     },
     {
       "code": "MATH0083",
@@ -562,7 +568,8 @@
       "description": "Properties of prime numbers through techniques in number theory and analysis.",
       "themes": ["Number Theory", "Analysis"],
       "prereqs": ["MATH0014", "MATH0051", "MATH0034"],
-      "lead": "Dr I Petrow"
+      "lead": "Dr I Petrow",
+      "groups": "1A 1B"
     },
     {
       "code": "MATH0054",
@@ -591,7 +598,8 @@
       "description": "Core principles of probability theory, particularly the strong law of large numbers and the central limit theorem, through rigorous mathematical analysis.",
       "themes": ["Analysis", "Number Theory"],
       "prereqs": ["MATH0017"],
-      "lead": "Dr S Kittle"
+      "lead": "Dr S Kittle",
+      "groups": "1A"
     },
     {
       "code": "MATH0041",
@@ -649,7 +657,8 @@
       "description": "Mathematical foundations of variational theory and numerical methods for partial differential equations.",
       "themes": ["Analysis", "Computation", "Modelling"],
       "prereqs": ["MATH0051"],
-      "lead": "Dr I Smears"
+      "lead": "Dr I Smears",
+      "groups": "1A 2"
     },
     {
       "code": "MATH0086",
@@ -714,7 +723,7 @@
       "title": "Mathematics for Quantum Mechanics",
       "level": "7",
       "term": "1",
-      "description": "Mathematical foundations of quantum mechanics through approximation methods and key concepts like the Schr\u00f6dinger equation and quantum states.",
+      "description": "Mathematical foundations of quantum mechanics through approximation methods and key concepts like the Schrödinger equation and quantum states.",
       "themes": ["Number Theory", "Analysis", "Computation"],
       "prereqs": ["MATH0056"],
       "lead": "Prof. Rod Halburd"
@@ -757,7 +766,8 @@
       "description": "Geometry of smooth curves and surfaces using local properties and global theorems, focusing on minimal surfaces.",
       "themes": ["Geometry", "Modelling"],
       "prereqs": ["MATH0011", "MATH0003", "MATH0005"],
-      "lead": "Prof C Bellettini"
+      "lead": "Prof C Bellettini",
+      "groups": "1A"
     },
     {
       "code": "MATH0034",
@@ -795,7 +805,8 @@
       "description": "Concepts and applications of algebraic number theory, focusing on the study of integers and their properties.",
       "themes": ["Number Theory", "Algebra"],
       "prereqs": ["MATH0034", "MATH0053"],
-      "lead": "Dr R Hill"
+      "lead": "Dr R Hill",
+      "groups": "1B"
     },
     {
       "code": "MATH0021",
@@ -805,7 +816,8 @@
       "description": "Theory of commutative rings and modules, focusing on foundational concepts and their applications in number theory and related fields.",
       "themes": ["Number Theory", "Geometry"],
       "prereqs": ["MATH0053"],
-      "lead": "Prof FEA Johnson"
+      "lead": "Prof FEA Johnson",
+      "groups": "1B"
     },
     {
       "code": "MATH0037",
@@ -826,7 +838,8 @@
       "themes": ["Algebra", "Geometry"],
       "prereqs": ["MATH0014"],
       "lead": "Prof FEA Johnson",
-      "syllabus": "https://www.ucl.ac.uk/mathematical-physical-sciences/sites/mathematical_physical_sciences/files/math0023_2.pdf"
+      "syllabus": "https://www.ucl.ac.uk/mathematical-physical-sciences/sites/mathematical_physical_sciences/files/math0023_2.pdf",
+      "groups": "1B"
     },
     {
       "code": "MATH0022",
@@ -836,7 +849,8 @@
       "description": "Elegant mathematics of Galois theory, focusing on ring theory, linear algebra, and the study of solutions to higher-degree equations using a set book and group theory.",
       "themes": ["Number Theory", "Geometry", "Analysis"],
       "prereqs": ["MATH0053"],
-      "lead": "Dr ML Roberts"
+      "lead": "Dr ML Roberts",
+      "groups": "1B"
     },
     {
       "code": "MATH0036",
@@ -846,7 +860,8 @@
       "description": "Mathematical properties of elliptic curves through geometric and algebraic techniques, focusing on solutions and unsolved problems in number theory.",
       "themes": ["Number Theory", "Geometry"],
       "prereqs": ["MATH0053", "MATH0034"],
-      "lead": "Dr S Chan"
+      "lead": "Dr S Chan",
+      "groups": "1B"
     },
     {
       "code": "MATH0026",
@@ -856,7 +871,8 @@
       "description": "Scientific modelling of living systems through mathematical analysis and application.",
       "themes": ["Analysis", "Modelling"],
       "prereqs": ["MATH0011"],
-      "lead": "Prof A Zaikin"
+      "lead": "Prof A Zaikin",
+      "groups": "2"
     },
     {
       "code": "MATH0027",
@@ -866,7 +882,8 @@
       "description": "Mastering analytical techniques for solving and understanding differential equations, particularly in applied mathematics.",
       "themes": ["Analysis", "Computation", "Modelling"],
       "prereqs": ["MATH0056"],
-      "lead": "Dr C Dunlop"
+      "lead": "Dr C Dunlop",
+      "groups": "2"
     },
     {
       "code": "MATH0033",
@@ -875,7 +892,9 @@
       "term": "1",
       "description": "Numerical methods for solving mathematical problems using computational techniques and analysis.",
       "themes": ["Computation", "Number Theory"],
-      "lead": "Dr I Smears"
+      "prereqs": ["MATH0004", "MATH006", "MATH0011"],
+      "lead": "Dr I Smears",
+      "groups": "2"
     },
     {
       "code": "MATH0019",
@@ -885,17 +904,19 @@
       "description": "Intersection of vector analysis and differential forms, building upon established classical theorems in advanced calculus.",
       "themes": ["Analysis", "Computation"],
       "prereqs": ["MATH0051"],
-      "lead": "Prof Y Petridis"
+      "lead": "Prof Y Petridis",
+      "groups": "1A"
     },
     {
       "code": "MATH0025",
       "title": "Mathematics for General Relativity",
       "level": "6",
       "term": "1",
-      "description": "Einstein\u2019s revolutionary theories of relativity, including gravity and electromagnetism, through mathematical analysis and historical context.",
+      "description": "Einstein’s revolutionary theories of relativity, including gravity and electromagnetism, through mathematical analysis and historical context.",
       "themes": ["Analysis", "Number Theory", "Geometry"],
       "prereqs": ["MATH0016", "MATH0043"],
-      "lead": "Dr B Hartmann"
+      "lead": "Dr B Hartmann",
+      "groups": "2"
     },
     {
       "code": "MATH0031",
@@ -915,7 +936,8 @@
       "description": "Construction and analysis of mathematical models used to understand population dynamics in ecology.",
       "themes": ["Number Theory", "Modelling"],
       "prereqs": ["MATH0010"],
-      "lead": "Prof K Page"
+      "lead": "Prof K Page",
+      "groups": "2"
     },
     {
       "code": "MATH0024",
@@ -925,7 +947,8 @@
       "description": "Application of mathematics to analyse atmospheric and oceanic phenomena, particularly focusing on climate patterns and ocean health.",
       "themes": ["Number Theory", "Geometry", "Modelling"],
       "prereqs": ["MATH0015", "MATH0016"],
-      "lead": "Prof ER Johnson"
+      "lead": "Prof ER Johnson",
+      "groups": "2"
     },
     {
       "code": "MATH0018",
@@ -935,7 +958,8 @@
       "description": "The fundamental concepts of functional analysis, focusing on the study of functions and their spaces, crucial for various scientific and mathematical disciplines.",
       "themes": ["Analysis", "Number Theory"],
       "prereqs": ["MATH0051"],
-      "lead": "Prof N Sidorova"
+      "lead": "Prof N Sidorova",
+      "groups": "1A"
     }
   ]
 }

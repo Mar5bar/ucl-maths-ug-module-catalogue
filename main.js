@@ -3,21 +3,24 @@ let themesOverride = true;
 
 let moduleData = {};
 
-let themes = new Set();
-let levels = new Set();
-let prereqsMap = {};
-let requiredForMap = {};
-let modulesAtLevel = {};
-let themeButtons = {};
+let themes;
+let levels;
+let groups;
+let prereqsMap;
+let requiredForMap;
+let modulesAtLevel;
+let themeButtons;
 
 let userActivatedTheme = null;
-let activeTheme = null;
+let activeTheme;
 
-let activeModule = null;
+let activeModule;
 let lines = [];
 
 let themesToModules = {};
 let ancillaryModules;
+
+let splitByTerm = false;
 
 const defaultSyllabusBaseURL =
   "https://www.ucl.ac.uk/mathematical-physical-sciences/sites/mathematical_physical_sciences/files/";
@@ -27,6 +30,7 @@ const defaultDetailPreferences = {
   prereqs: "on",
   reqfors: "off",
   themes: "off",
+  splitByTerm: "off",
 };
 
 // Fetch module_data.
@@ -45,10 +49,16 @@ fetch("module_data.json")
     processModuleData(moduleData);
     // If there's a theme in the URL query string, activate it.
     const urlParams = new URLSearchParams(window.location.search);
-    const themeParam = urlParams.get("theme");
+    const themeParam = decodeURI(urlParams.get("theme"));
     if (themeParam && themes.includes(themeParam)) {
       userActivatedTheme = themeParam;
       activateTheme(themeParam);
+      setQueryParameter("theme", themeParam);
+    }
+    // If there's a module in the URL query string, activate it.
+    const moduleParam = urlParams.get("module");
+    if (moduleParam) {
+      activateModule(moduleParam);
     }
     // Restore any preferences.
     restoreDetailPreferences();
@@ -58,14 +68,37 @@ fetch("module_data.json")
   });
 
 function processModuleData(moduleData) {
+  // Clear the module grid and theme buttons.
+  document.getElementById("module-grid").innerHTML = "";
+  document.getElementById("theme-button-row").innerHTML = "Theme:&nbsp;";
+  levels = new Set();
+  themes = new Set();
+  groups = new Set();
+  modulesAtLevel = {};
+  prereqsMap = {};
+  requiredForMap = {};
+  modulesAtLevel = {};
+  themeButtons = {};
+
   // Loop through the modules and populate lists of metadata.
   for (const moduleCode in moduleData) {
     const module = moduleData[moduleCode];
-    const level = module.level;
-    // Record levels and themes.
+    let level = module.level;
+    const term = module.term;
+    if (splitByTerm && term) {
+      level = level + ": Term " + term;
+    }
+    // Record levels, themes, and groups.
     levels.add(level);
     if (module.themes) {
       module.themes.forEach((theme) => themes.add(theme));
+    }
+    if (module.groups) {
+      // If groups is a string, convert to array.
+      if (typeof module.groups === "string") {
+        module.groups = module.groups.split(" ").map((g) => g.trim());
+      }
+      module.groups.forEach((group) => groups.add(group));
     }
     // Record this module in the corresponding level.
     if (!modulesAtLevel[level]) {
@@ -87,6 +120,18 @@ function processModuleData(moduleData) {
   // We will override the themes.
   if (themesOverride) {
     themes = Array.from(Object.keys(themesToModules)) || [];
+    // Add in MSc themes for each group.
+    for (const group of groups) {
+      const themeName = "MSc Group " + group;
+      themes.push(themeName);
+      themesToModules[themeName] = [];
+      for (const moduleCode in moduleData) {
+        const module = moduleData[moduleCode];
+        if (module.groups && module.groups.includes(group)) {
+          themesToModules[themeName].push(moduleCode);
+        }
+      }
+    }
     // Clear existing themes from modules.
     for (const moduleCode in moduleData) {
       delete moduleData[moduleCode].themes;
@@ -124,7 +169,14 @@ function processModuleData(moduleData) {
 
   // Convert levels and themes to sorted arrays.
   levels = Array.from(levels).sort();
-  themes = Array.from(themes).sort();
+  themes = Array.from(themes).sort((a, b) => {
+    // Sort MSc groups to the end.
+    const aIsMSc = a.startsWith("MSc ");
+    const bIsMSc = b.startsWith("MSc ");
+    if (aIsMSc && !bIsMSc) return 1;
+    if (!aIsMSc && bIsMSc) return -1;
+    return a.localeCompare(b);
+  });
 
   // Build the grid of modules. Each level gets its own section.
   const moduleGrid = document.getElementById("module-grid");
@@ -148,7 +200,13 @@ function processModuleData(moduleData) {
       // Add the title, code, description, etc.
       moduleElement.innerHTML = `
                 <div class='top-container'>
-                <h4>${module.title} <br class="title-break"> <span class="module-code">(${module.code})</span></h4>
+                <h4>${
+                  module.title
+                } <br class="title-break"> <span class="module-code">(${
+        module.code
+      }<span class="group">${
+        module.groups ? ", Group " + module.groups.join("/") : ""
+      }</span>)</span></h4>
                 <p class="description">${module.description}</p>
                 </div>
             `;
@@ -209,12 +267,10 @@ function processModuleData(moduleData) {
         clearHighlightedModules();
         if (activeModule === moduleCode) {
           // Deactivate the module.
-          activeModule = null;
+          deactivateModule();
         } else {
           // Activate the module.
-          activeModule = moduleCode;
-          moduleElement.classList.add("active-module");
-          highlightRelatedModules(activeModule);
+          activateModule(moduleCode);
         }
       });
 
@@ -224,7 +280,15 @@ function processModuleData(moduleData) {
   }
   // Add in a row of buttons at the top for each theme.
   const themeButtonRow = document.getElementById("theme-button-row");
+  let startedMSc = false;
   for (const theme of themes) {
+    // Add a newline and "MSc: " before MSc themes.
+    if (theme.startsWith("MSc ") && !startedMSc) {
+      const MScLabel = document.createElement("span");
+      MScLabel.innerHTML = "<br>MSc: &nbsp;";
+      themeButtonRow.appendChild(MScLabel);
+      startedMSc = true;
+    }
     const themeButton = createThemeButton(theme);
     themeButtonRow.appendChild(themeButton);
   }
@@ -271,9 +335,15 @@ function activateTheme(theme) {
   }
   // If the selected theme hides the active module, clear the active module.
   if (activeModule && !isModuleVisible(activeModule)) {
-    clearHighlightedModules();
-    activeModule = null;
+    deactivateModule();
   }
+  // If the active theme begins with MSc, show the Group information in the module details.
+  document
+    .getElementById("module-grid")
+    .classList.toggle("show-groups", activeTheme.startsWith("MSc "));
+
+  setQueryParameter("theme", theme);
+  // Redraw all lines.
   redrawLines();
 }
 
@@ -294,6 +364,10 @@ function deactivateTheme() {
     }
   }
   activeTheme = null;
+  // Remove class that shows groups.
+  document.getElementById("module-grid").classList.remove("show-groups");
+
+  clearQueryParameter("theme");
   redrawLines();
 }
 
@@ -528,6 +602,20 @@ function toggleDetailHandler(button, type) {
     type + "-low-detail",
     button.getAttribute("data-state") === "off",
   );
+  if (type === "terms") {
+    splitByTerm = button.getAttribute("data-state") === "on";
+    // Re-process the module data to update levels.
+    processModuleData(moduleData);
+    redrawLines();
+    // Re-highlight the active module if any.
+    if (activeModule) {
+      activateModule(activeModule);
+    }
+    // If a theme is active, re-activate it to re-apply filtering.
+    if (activeTheme) {
+      activateTheme(activeTheme);
+    }
+  }
   // Record the state of the button in local storage.
   localStorage.setItem("detail-" + type, button.getAttribute("data-state"));
   checkAnyDetails();
@@ -552,6 +640,8 @@ function restoreDetailPreferences() {
     toggleDetailLevel(type + "-low-detail", state === "off");
   });
   checkAnyDetails();
+
+  splitByTerm = localStorage.getItem("split-by-term") === "on";
 }
 
 function checkAnyDetails() {
@@ -689,6 +779,35 @@ function topologicalSort(codes) {
     throw new Error("Cycle detected or invalid partial order");
 
   return result;
+}
+
+function activateModule(moduleCode) {
+  if (!moduleData[moduleCode] || !isModuleVisible(moduleCode)) {
+    return;
+  }
+  activeModule = moduleCode;
+  moduleData[moduleCode].element.classList.add("active-module");
+  highlightRelatedModules(activeModule);
+  setQueryParameter("module", moduleCode);
+}
+
+function deactivateModule() {
+  clearHighlightedModules();
+  activeModule = null;
+  clearQueryParameter("module");
+}
+
+function setQueryParameter(key, value) {
+  // Set query parameter in URL without reloading the page.
+  const url = new URL(window.location);
+  url.searchParams.set(key, encodeURI(value));
+  window.history.replaceState({}, "", url);
+}
+
+function clearQueryParameter(key) {
+  const url = new URL(window.location);
+  url.searchParams.delete(key);
+  window.history.replaceState({}, "", url);
 }
 
 const input = document.getElementById("search-input");
