@@ -17,7 +17,8 @@ let activeTheme;
 let activeModule;
 let lines = [];
 
-let themesToModules = {};
+let loadedThemesToModules;
+let themesToModules;
 let ancillaryModules;
 
 let splitByTerm = false;
@@ -45,7 +46,7 @@ fetch("module_data.json")
       }
       moduleData[module.code] = module;
     }
-    themesToModules = data.themesToModules;
+    loadedThemesToModules = data.themesToModules;
     processModuleData(moduleData);
     // If there's a theme in the URL query string, activate it.
     const urlParams = new URLSearchParams(window.location.search);
@@ -79,6 +80,7 @@ function processModuleData(moduleData) {
   requiredForMap = {};
   modulesAtLevel = {};
   themeButtons = {};
+  themesToModules = structuredClone(loadedThemesToModules) || {};
 
   // Loop through the modules and populate lists of metadata.
   for (const moduleCode in moduleData) {
@@ -245,20 +247,18 @@ function processModuleData(moduleData) {
         moduleElement.appendChild(themeElement);
       }
 
-      // If a syllabus link is provided, add it to the element.
-      if (module.syllabus || true) {
-        const syllabusElement = document.createElement("a");
-        syllabusElement.href =
-          module.syllabus ||
-          defaultSyllabusBaseURL + module.code.toLowerCase() + ".pdf";
-        syllabusElement.className = "syllabus";
-        syllabusElement.target = "_blank";
-        syllabusElement.onclick = (e) => {
-          e.stopPropagation();
-        };
-        syllabusElement.innerHTML = "Syllabus";
-        moduleElement.appendChild(syllabusElement);
-      }
+      // Add a link to the syllabus.
+      const syllabusElement = document.createElement("a");
+      syllabusElement.href =
+        module.syllabus ||
+        defaultSyllabusBaseURL + module.code.toLowerCase() + ".pdf";
+      syllabusElement.className = "syllabus";
+      syllabusElement.target = "_blank";
+      syllabusElement.onclick = (e) => {
+        e.stopPropagation();
+      };
+      syllabusElement.innerHTML = "Syllabus";
+      moduleElement.appendChild(syllabusElement);
 
       // Make the module element clickable to highlight it.
       moduleElement.addEventListener("click", () => {
@@ -604,21 +604,25 @@ function toggleDetailHandler(button, type) {
   );
   if (type === "terms") {
     splitByTerm = button.getAttribute("data-state") === "on";
-    // Re-process the module data to update levels.
-    processModuleData(moduleData);
-    redrawLines();
-    // Re-highlight the active module if any.
-    if (activeModule) {
-      activateModule(activeModule);
-    }
-    // If a theme is active, re-activate it to re-apply filtering.
-    if (activeTheme) {
-      activateTheme(activeTheme);
-    }
+    configureTermView();
   }
   // Record the state of the button in local storage.
   localStorage.setItem("detail-" + type, button.getAttribute("data-state"));
   checkAnyDetails();
+}
+
+function configureTermView() {
+  // Re-process the module data to update levels.
+  processModuleData(moduleData);
+  redrawLines();
+  // Re-highlight the active module if any.
+  if (activeModule) {
+    activateModule(activeModule);
+  }
+  // If a theme is active, re-activate it to re-apply filtering.
+  if (activeTheme) {
+    activateTheme(activeTheme);
+  }
 }
 
 function restoreDetailPreferences() {
@@ -628,6 +632,7 @@ function restoreDetailPreferences() {
     "reqfors",
     "themes",
     "syllabus",
+    "terms",
   ];
   detailTypes.forEach((type) => {
     const button = document.getElementById(type + "-detail-toggle");
@@ -641,7 +646,11 @@ function restoreDetailPreferences() {
   });
   checkAnyDetails();
 
-  splitByTerm = localStorage.getItem("split-by-term") === "on";
+  const defaultSplitByTerm = splitByTerm;
+  splitByTerm = localStorage.getItem("detail-terms") === "on";
+  if (splitByTerm !== defaultSplitByTerm) {
+    configureTermView();
+  }
 }
 
 function checkAnyDetails() {
