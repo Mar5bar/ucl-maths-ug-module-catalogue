@@ -130,6 +130,7 @@ function processModuleData(moduleData) {
         <tr>
           <th>Module</th>
           <th>Term</th>
+          <th>Group</th>
           <th>Prerequisites</th>
           <th>Required for</th>
         </tr>
@@ -141,7 +142,21 @@ function processModuleData(moduleData) {
     moduleGrid.appendChild(levelSection);
     const tbody = moduleGroup.querySelector("tbody");
 
+    
     let moduleCodes = modulesAtLevel[level] || [];
+    let fieldList = ["module", "term", "groups", "prereqs", "reqfors"];
+    // Check if any modules in this level have groups.
+    const hasGroups = moduleCodes.some(
+      (code) => moduleData[code].groups && moduleData[code].groups.trim() !== ""
+    );
+    if (!hasGroups) {
+      // Remove groups from field list and header.
+      fieldList = fieldList.filter((field) => field !== "groups");
+      const groupHeader = moduleGroup.querySelector("th:nth-child(3)");
+      if (groupHeader) {
+        groupHeader.remove();
+      }
+    }
     // Sort module codes alphabetically.
     moduleCodes = moduleCodes.sort((a, b) => a.localeCompare(b));
     for (const moduleCode of moduleCodes) {
@@ -153,10 +168,11 @@ function processModuleData(moduleData) {
           defaultSyllabusBaseURL + module.code.toLowerCase() + ".pdf"
         } target="_blank">${moduleCode.toUpperCase()} ${module.title}</a>`,
         term: module.term || "",
+        groups: module.groups?.split(" ").join(", ") || "",
         prereqs: prereqsMap[moduleCode]?.sort().join(", ") || "",
         reqfors: requiredForMap[moduleCode]?.sort().join(", ") || "",
       };
-      for (const field of ["module", "term", "prereqs", "reqfors"]) {
+      for (const field of fieldList) {
         const cell = document.createElement("td");
         cell.className = field + "-cell";
         cell.innerHTML = data[field] || "";
