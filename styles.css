@@ -17,6 +17,15 @@ body {
   line-height: 250%;
 }
 
+.level-section {
+  display: none;
+}
+
+.level-section:has(.active-theme),
+#module-grid.no-theme-active .level-section {
+  display: block;
+}
+
 .module-group {
   display: flex;
   flex-wrap: wrap;

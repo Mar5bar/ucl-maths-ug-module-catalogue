@@ -56,6 +56,9 @@ fetch("module_data.json")
       userActivatedTheme = themeParam;
       activateTheme(themeParam);
       setQueryParameter("theme", themeParam);
+    } else {
+      // If no theme, ensure none are active and all modules are shown.
+      deactivateTheme();
     }
     // Restore any preferences.
     restoreDetailPreferences();
@@ -64,7 +67,7 @@ fetch("module_data.json")
     if (moduleParam) {
       activateModule(moduleParam);
     }
-    if (window.MathJax) {
+    if (window.MathJax && MathJax.typesetPromise) {
       MathJax.typesetPromise().then(() => {
         redrawLines();
       });
@@ -347,6 +350,8 @@ function activateTheme(theme) {
   document
     .getElementById("module-grid")
     .classList.toggle("show-groups", activeTheme.startsWith("MSc "));
+  // Note via a class that a theme is active.
+  document.getElementById("module-grid").classList.remove("no-theme-active");
 
   setQueryParameter("theme", theme);
   // Redraw all lines.
@@ -372,6 +377,8 @@ function deactivateTheme() {
   activeTheme = null;
   // Remove class that shows groups.
   document.getElementById("module-grid").classList.remove("show-groups");
+  // Note via a class that no theme is active.
+  document.getElementById("module-grid").classList.add("no-theme-active");
 
   clearQueryParameter("theme");
   redrawLines();
