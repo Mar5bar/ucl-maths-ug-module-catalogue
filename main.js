@@ -29,11 +29,12 @@ const defaultDetailPreferences = {
   prereqs: "on",
   reqfors: "off",
   themes: "off",
-  splitByTerm: "off",
   terms: "off",
+  "theme-prereqs": "on",
 };
 
 let splitByTerm = defaultDetailPreferences["terms"] === "on";
+let themePrereqsEnabled = defaultDetailPreferences["theme-prereqs"] === "on";
 
 // Fetch module_data.
 fetch("module_data.json")
@@ -147,22 +148,25 @@ function processModuleData(moduleData) {
     for (const moduleCode in moduleData) {
       delete moduleData[moduleCode].themes;
     }
-    // Update the themesToModules mapping to include prerequistites.
-    for (const theme in themesToModules) {
-      const moduleCodes = themesToModules[theme];
-      const toConsider = [...moduleCodes];
-      const allModuleCodes = new Set(moduleCodes);
-      while (toConsider.length > 0) {
-        const code = toConsider.pop();
-        const module = moduleData[code];
-        if (module && module.prereqs) {
-          module.prereqs.forEach((prereq) => {
-            allModuleCodes.add(prereq);
-            toConsider.push(prereq);
-          });
+
+    if (themePrereqsEnabled) {
+      // Update the themesToModules mapping to include prerequistites.
+      for (const theme in themesToModules) {
+        const moduleCodes = themesToModules[theme];
+        const toConsider = [...moduleCodes];
+        const allModuleCodes = new Set(moduleCodes);
+        while (toConsider.length > 0) {
+          const code = toConsider.pop();
+          const module = moduleData[code];
+          if (module && module.prereqs) {
+            module.prereqs.forEach((prereq) => {
+              allModuleCodes.add(prereq);
+              toConsider.push(prereq);
+            });
+          }
         }
+        themesToModules[theme] = Array.from(allModuleCodes);
       }
-      themesToModules[theme] = Array.from(allModuleCodes);
     }
 
     // Assign themes based on the themesToModules mapping.
@@ -624,20 +628,24 @@ function toggleDetailHandler(button, type) {
   );
   if (type === "terms") {
     splitByTerm = button.getAttribute("data-state") === "on";
-    configureTermView();
+    refreshAll(false);
+  }
+  if (type === "theme-prereqs") {
+    themePrereqsEnabled = button.getAttribute("data-state") === "on";
+    refreshAll(false);
   }
   // Record the state of the button in local storage.
   localStorage.setItem("detail-" + type, button.getAttribute("data-state"));
   checkAnyDetails();
 }
 
-function configureTermView() {
+function refreshAll(scrollTo = true) {
   // Re-process the module data to update levels.
   processModuleData(moduleData);
   redrawLines();
   // Re-highlight the active module if any.
   if (activeModule) {
-    activateModule(activeModule);
+    activateModule(activeModule, scrollTo);
   }
   // If a theme is active, re-activate it to re-apply filtering.
   if (activeTheme) {
@@ -646,14 +654,7 @@ function configureTermView() {
 }
 
 function restoreDetailPreferences() {
-  const detailTypes = [
-    "description",
-    "prereqs",
-    "reqfors",
-    "themes",
-    "syllabus",
-    "terms",
-  ];
+  const detailTypes = Object.keys(defaultDetailPreferences);
   detailTypes.forEach((type) => {
     const button = document.getElementById(type + "-detail-toggle");
     if (!button) return;
@@ -666,11 +667,19 @@ function restoreDetailPreferences() {
     if (type === "terms") {
       splitByTerm = state === "on";
     }
+    if (type === "theme-prereqs") {
+      themePrereqsEnabled = state === "on";
+    }
   });
   checkAnyDetails();
   const defaultSplitByTerm = defaultDetailPreferences["terms"] === "on";
-  if (splitByTerm !== defaultSplitByTerm) {
-    configureTermView();
+  const defaultThemePrereqs =
+    defaultDetailPreferences["theme-prereqs"] === "on";
+  if (
+    splitByTerm !== defaultSplitByTerm ||
+    themePrereqsEnabled !== defaultThemePrereqs
+  ) {
+    refreshAll();
   }
 }
 
@@ -806,7 +815,7 @@ function topologicalSort(codes) {
   return result;
 }
 
-function activateModule(moduleCode) {
+function activateModule(moduleCode, scrollTo = true) {
   clearHighlightedModules();
   if (!moduleData[moduleCode] || !isModuleVisible(moduleCode)) {
     return;
@@ -815,6 +824,9 @@ function activateModule(moduleCode) {
   moduleData[moduleCode].element.classList.add("active-module");
   highlightRelatedModules(activeModule);
   setQueryParameter("module", moduleCode);
+  if (!scrollTo) {
+    return;
+  }
   // If the module isn't onscreen, scroll to it.
   const rect = moduleData[moduleCode].element.getBoundingClientRect();
   if (
@@ -856,9 +868,3 @@ input.addEventListener("keydown", function (event) {
     button.click(); // Trigger the button's click event
   }
 });
-
-// if (window.MathJax) {
-//   MathJax.typesetPromise().then(() => {
-//     redrawLines();
-//   });
-// }

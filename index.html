@@ -16,10 +16,13 @@
               redrawLines();
             });
           },
-        }
+        },
       };
     </script>
-    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"
+    ></script>
   </head>
   <body>
     <header>
@@ -35,7 +38,7 @@
           module catalogue can be found <a href="table.html">here</a>.
         </p>
         <div id="detail-button-row">
-          Detail level:
+          Details:
           <button
             id="description-detail-toggle"
             type="button"
@@ -44,11 +47,11 @@
             Descriptions
           </button>
           <button
-            id="syllabus-detail-toggle"
+            id="reqfors-detail-toggle"
             type="button"
-            onclick="toggleDetailHandler(this, 'syllabus')"
+            onclick="toggleDetailHandler(this, 'reqfors')"
           >
-            Syllabus links
+            Follow ons
           </button>
           <button
             id="prereqs-detail-toggle"
@@ -58,11 +61,11 @@
             Prerequisites
           </button>
           <button
-            id="reqfors-detail-toggle"
+            id="syllabus-detail-toggle"
             type="button"
-            onclick="toggleDetailHandler(this, 'reqfors')"
+            onclick="toggleDetailHandler(this, 'syllabus')"
           >
-            Follow ons
+            Syllabus links
           </button>
           <button
             id="themes-detail-toggle"
@@ -78,8 +81,15 @@
           >
             Terms
           </button>
+          <button
+            id="theme-prereqs-detail-toggle"
+            type="button"
+            onclick="toggleDetailHandler(this, 'theme-prereqs')"
+          >
+            Theme prerequisites
+          </button>
         </div>
-        <div id="theme-button-row">Theme:&nbsp;</div>
+        <div id="theme-button-row"></div>
         <div id="module-search">
           <input
             type="text"
