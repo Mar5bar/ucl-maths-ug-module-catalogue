@@ -374,6 +374,12 @@ function activateTheme(theme) {
     }
   }
 
+  // Add a class to modules in the theme (not the included prereqs) to highlight them.
+  for (const moduleCode of themesToModulesNoPrereqs[theme]) {
+    // Add a class to show that it is in the current theme.
+    moduleData[moduleCode].element.classList.add("current-theme-no-prereqs");
+  }
+
   setQueryParameter("theme", theme);
   // Redraw all lines.
   redrawLines();
