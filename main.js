@@ -374,28 +374,6 @@ function activateTheme(theme) {
     }
   }
 
-  // Scroll to the first module that is truly in the theme (i.e. is not simply a prerequisite).
-  let highestModule = null;
-  for (const moduleCode of themesToModulesNoPrereqs[theme]) {
-    // Add a class to show that it is in the current theme.
-    moduleData[moduleCode].element.classList.add("current-theme-no-prereqs");
-    if (isModuleVisible(moduleCode)) {
-      if (
-        !highestModule ||
-        moduleData[moduleCode].element.getBoundingClientRect().top <
-          highestModule.getBoundingClientRect().top
-      ) {
-        highestModule = moduleData[moduleCode].element;
-      }
-    }
-  }
-  if (highestModule) {
-    highestModule.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
-  }
-
   setQueryParameter("theme", theme);
   // Redraw all lines.
   redrawLines();
