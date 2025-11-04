@@ -142,7 +142,7 @@ br.title-break {
 
 .module.prereq-module {
   border-color: #2196f3;
-  background-color: rgba(234, 244, 255, 0.92);
+  background-color: rgba(228, 240, 254, 0.92);
   z-index: 1;
 }
 
@@ -191,8 +191,8 @@ button:hover {
 }
 
 button.theme-button.active-theme {
-  border-color: #2d3a4a;
-  background: #eaf4ff;
+  border-color: #9c27b0;
+  background-color: rgba(243, 229, 246, 0.92)
 }
 
 button[data-state="on"] {
