@@ -124,12 +124,8 @@ br.title-break {
   display: none;
 }
 
-.group {
+.groups-low-detail .module .groups-list {
   display: none;
-}
-
-.show-groups .group {
-  display: inline;
 }
 
 .module.active-module {

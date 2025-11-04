@@ -31,6 +31,7 @@ const defaultDetailPreferences = {
   themes: "off",
   terms: "off",
   "theme-prereqs": "on",
+  groups: "off",
 };
 
 let splitByTerm = defaultDetailPreferences["terms"] === "on";
@@ -132,9 +133,9 @@ function processModuleData(moduleData) {
   // We will override the themes.
   if (themesOverride) {
     themes = Array.from(Object.keys(themesToModules)) || [];
-    // Add in MSc themes for each group.
+    // Add in themes for each group.
     for (const group of groups) {
-      const themeName = "MSc Group " + group;
+      const themeName = "Group " + group;
       themes.push(themeName);
       themesToModules[themeName] = [];
       for (const moduleCode in moduleData) {
@@ -185,11 +186,11 @@ function processModuleData(moduleData) {
   // Convert levels and themes to sorted arrays.
   levels = Array.from(levels).sort();
   themes = Array.from(themes).sort((a, b) => {
-    // Sort MSc groups to the end.
-    const aIsMSc = a.startsWith("MSc ");
-    const bIsMSc = b.startsWith("MSc ");
-    if (aIsMSc && !bIsMSc) return 1;
-    if (!aIsMSc && bIsMSc) return -1;
+    // Sort any Groups to the end.
+    const aIsGroup = a.startsWith("Group ");
+    const bIsGroup = b.startsWith("Group ");
+    if (aIsGroup && !bIsGroup) return 1;
+    if (!aIsGroup && bIsGroup) return -1;
     return a.localeCompare(b);
   });
 
@@ -219,7 +220,7 @@ function processModuleData(moduleData) {
                   module.title
                 } <br class="title-break"> <span class="module-code">(${
         module.code
-      }<span class="group">${
+      }<span class="groups-list">${
         module.groups ? ", Group " + module.groups.join("/") : ""
       }</span>)</span></h4>
                 <p class="description">${module.description}</p>
@@ -293,16 +294,19 @@ function processModuleData(moduleData) {
   }
   // Add in a row of buttons at the top for each theme.
   const themeButtonRow = document.getElementById("theme-button-row");
-  let startedMSc = false;
+  let startedGroups = false;
   for (const theme of themes) {
-    // Add a newline and "MSc: " before MSc themes.
-    if (theme.startsWith("MSc ") && !startedMSc) {
-      const MScLabel = document.createElement("span");
-      MScLabel.innerHTML = "<br>MSc: &nbsp;";
-      themeButtonRow.appendChild(MScLabel);
-      startedMSc = true;
+    // Add a newline and "Group: " before Group themes.
+    if (theme.startsWith("Group ") && !startedGroups) {
+      const groupLabel = document.createElement("span");
+      groupLabel.innerHTML = "<br>Group: &nbsp;";
+      themeButtonRow.appendChild(groupLabel);
+      startedGroups = true;
     }
     const themeButton = createThemeButton(theme);
+    if (startedGroups) {
+      themeButton.textContent = theme.replace("Group ", "");
+    }
     themeButtonRow.appendChild(themeButton);
   }
 }
@@ -350,12 +354,16 @@ function activateTheme(theme) {
   if (activeModule && !isModuleVisible(activeModule)) {
     deactivateModule();
   }
-  // If the active theme begins with MSc, show the Group information in the module details.
-  document
-    .getElementById("module-grid")
-    .classList.toggle("show-groups", activeTheme.startsWith("MSc "));
   // Note via a class that a theme is active.
   document.getElementById("module-grid").classList.remove("no-theme-active");
+
+  // If the theme starts with "Group ", turn on the groups detail level.
+  if (theme.startsWith("Group ")) {
+    const groupsButton = document.getElementById("groups-detail-toggle");
+    if (groupsButton && groupsButton.getAttribute("data-state") === "off") {
+      toggleDetailHandler(groupsButton, "groups");
+    }
+  }
 
   setQueryParameter("theme", theme);
   // Redraw all lines.
@@ -379,8 +387,6 @@ function deactivateTheme() {
     }
   }
   activeTheme = null;
-  // Remove class that shows groups.
-  document.getElementById("module-grid").classList.remove("show-groups");
   // Note via a class that no theme is active.
   document.getElementById("module-grid").classList.add("no-theme-active");
 
