@@ -274,7 +274,7 @@
     },
     {
       "code": "MATH0018",
-      "description": "The fundamental concepts of functional analysis, focusing on the study of functions and their spaces, crucial for various scientific and mathematical disciplines.",
+      "description": "Introduction to function spaces, Banach spaces and Hilbert spaces.",
       "groups": "1A",
       "lead": "Prof N Sidorova",
       "level": "6",
@@ -298,7 +298,7 @@
     },
     {
       "code": "MATH0020",
-      "description": "Geometry of smooth curves and surfaces using local properties and global theorems, focusing on minimal surfaces.",
+      "description": "Geometry of smooth curves and surfaces in $\\mathbb{R}^3$, looking at local properties, global theorems, and minimal surfaces.",
       "groups": "1A",
       "lead": "Prof C Bellettini",
       "level": "6",
@@ -310,7 +310,7 @@
     },
     {
       "code": "MATH0021",
-      "description": "Theory of commutative rings and modules, focusing on foundational concepts and their applications in number theory and related fields.",
+      "description": "Generalising linear algebra via commutative rings, as an introduction to the theory of modules.",
       "groups": "1B",
       "lead": "Prof FEA Johnson",
       "level": "6",
@@ -347,7 +347,7 @@
     },
     {
       "code": "MATH0024",
-      "description": "Application of mathematics to analyse atmospheric and oceanic phenomena, particularly focusing on climate patterns and ocean health.",
+      "description": "Ocean and atmosphere dynamics, focussing on global weather and transport processes.",
       "groups": "2",
       "lead": "Prof ER Johnson",
       "level": "6",
@@ -383,7 +383,7 @@
     },
     {
       "code": "MATH0027",
-      "description": "Mastering analytical techniques for solving and understanding differential equations, particularly in applied mathematics.",
+      "description": "Techniques in linear and nonlinear ODEs, and asymptotic analysis of integrals.",
       "groups": "2",
       "lead": "Dr C Dunlop",
       "level": "6",
@@ -395,7 +395,7 @@
     },
     {
       "code": "MATH0028",
-      "description": "Algorithms and their efficiency through the study of graph theory and combinatorial techniques.",
+      "description": "Combinatorial algorithms and their efficiency, focussing on network flows and problems on graphs.",
       "groups": "2",
       "lead": "Dr A Pokrovskiy",
       "level": "6",
@@ -431,7 +431,7 @@
     },
     {
       "code": "MATH0031",
-      "description": "Mathematical foundations of financial derivatives using probability and stochastic calculus.",
+      "description": "Foundations of finance and essentials of probability and stochastic calculus.",
       "lead": "TBA",
       "level": "6",
       "prereqs": ["MATH0016", "MATH0057"],
@@ -465,7 +465,7 @@
     },
     {
       "code": "MATH0035",
-      "description": "Concepts and applications of algebraic number theory, focusing on the study of integers and their properties.",
+      "description": "Finite algebraic extensions of rational numbers (algebraic number fields) and their arithmetic.",
       "groups": "1B",
       "lead": "Dr R Hill",
       "level": "6",
@@ -477,7 +477,7 @@
     },
     {
       "code": "MATH0036",
-      "description": "Mathematical properties of elliptic curves through geometric and algebraic techniques, focusing on solutions and unsolved problems in number theory.",
+      "description": "Study of curves of the form $y^2 = x^3 + ax^2 + bx + c$, with $a,b,c\\in\\mathbb{Q}$, and their rational solutions.",
       "groups": "1B",
       "lead": "Dr S Chan",
       "level": "6",
@@ -627,7 +627,7 @@
     },
     {
       "code": "MATH0053",
-      "description": "Understanding and applying the principles of small order groups, particularly through the construction of subgroups, with a strong emphasis on fundamental concepts in ring theory.",
+      "description": "Groups of small order, Sylow's theorems, and the fundamentals of ring theory.",
       "lead": "Dr N Kalaydzhieva",
       "level": "6",
       "prereqs": ["MATH0006"],
@@ -638,7 +638,7 @@
     },
     {
       "code": "MATH0054",
-      "description": "Principles of Newtonian mechanics and its application to complex physical systems through rigorous mathematical modelling.",
+      "description": "Rotating frames, Lagrangian and Hamiltonian dynamics, and rigid body motion, with an emphasis on formal development of the theory.",
       "lead": "Prof A Sokal",
       "level": "6",
       "prereqs": ["MATH0009", "MATH0011"],
@@ -660,7 +660,7 @@
     },
     {
       "code": "MATH0056",
-      "description": "Methods for solving partial differential equations using separation of variables and transform techniques.",
+      "description": "Separation of variables in cylindrical and spherical coordinates, and transform methods for PDEs.",
       "groups": "2",
       "lead": "Prof G Esler",
       "level": "6",
@@ -957,7 +957,7 @@
     },
     {
       "code": "MATH0108",
-      "description": "Principles of commutative algebra and algebraic geometry, focusing on the interplay between algebraic and geometric methods.",
+      "description": "Principles of commutative algebra and algebraic geometry, including integral extensions of rings.",
       "groups": "1B",
       "lead": "Prof A. Yafaev",
       "level": "6",
