@@ -70,11 +70,7 @@ fetch("module_data.json")
     if (moduleParam) {
       activateModule(moduleParam);
     }
-    if (window.MathJax && MathJax.typesetPromise) {
-      MathJax.typesetPromise().then(() => {
-        redrawLines();
-      });
-    }
+    runMathJax();
   })
   .catch((error) => {
     console.error("Error fetching module data:", error);
@@ -879,6 +875,14 @@ function clearQueryParameter(key) {
   const url = new URL(window.location);
   url.searchParams.delete(key);
   window.history.replaceState({}, "", url);
+}
+
+function runMathJax() {
+  if (window.MathJax && MathJax.typesetPromise) {
+    MathJax.typesetPromise().then(() => {
+      redrawLines();
+    });
+  }
 }
 
 const input = document.getElementById("search-input");
