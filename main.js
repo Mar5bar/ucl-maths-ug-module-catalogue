@@ -19,6 +19,7 @@ let lines = [];
 
 let loadedThemesToModules;
 let themesToModules;
+let themesToModulesNoPrereqs;
 let ancillaryModules;
 
 const defaultSyllabusBaseURL =
@@ -92,6 +93,7 @@ function processModuleData(moduleData) {
   modulesAtLevel = {};
   themeButtons = {};
   themesToModules = structuredClone(loadedThemesToModules) || {};
+  themesToModulesNoPrereqs = {};
 
   // Loop through the modules and populate lists of metadata.
   for (const moduleCode in moduleData) {
@@ -154,6 +156,9 @@ function processModuleData(moduleData) {
       // Update the themesToModules mapping to include prerequistites.
       for (const theme in themesToModules) {
         const moduleCodes = themesToModules[theme];
+        themesToModulesNoPrereqs[theme] = Array.from(moduleCodes).filter(
+          (code) => moduleData[code],
+        );
         const toConsider = [...moduleCodes];
         const allModuleCodes = new Set(moduleCodes);
         while (toConsider.length > 0) {
@@ -324,6 +329,7 @@ function toggleThemeOnClick(theme) {
 }
 
 function activateTheme(theme) {
+  deactivateTheme();
   activeTheme = theme;
   // Highlight modules matching the selected theme.
   for (const moduleCode in moduleData) {
@@ -353,6 +359,9 @@ function activateTheme(theme) {
   // If the selected theme hides the active module, clear the active module.
   if (activeModule && !isModuleVisible(activeModule)) {
     deactivateModule();
+  } else {
+    // Re-highlight the active module to redraw connections.
+    activateModule(activeModule, false);
   }
   // Note via a class that a theme is active.
   document.getElementById("module-grid").classList.remove("no-theme-active");
@@ -362,6 +371,28 @@ function activateTheme(theme) {
     const groupsButton = document.getElementById("groups-detail-toggle");
     if (groupsButton && groupsButton.getAttribute("data-state") === "off") {
       toggleDetailHandler(groupsButton, "groups");
+    }
+  }
+
+  // Scroll to the first module that is truly in the theme (i.e. is not simply a prerequisite).
+  let highestModule = null;
+  for (const moduleCode of themesToModulesNoPrereqs[theme]) {
+    // Add a class to show that it is in the current theme.
+    moduleData[moduleCode].element.classList.add("current-theme-no-prereqs");
+    if (isModuleVisible(moduleCode)) {
+      if (
+        !highestModule ||
+        moduleData[moduleCode].element.getBoundingClientRect().top <
+          highestModule.getBoundingClientRect().top
+      ) {
+        highestModule = moduleData[moduleCode].element;
+      }
+    }
+    if (highestModule) {
+      highestModule.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
     }
   }
 
@@ -377,6 +408,7 @@ function deactivateTheme() {
     const moduleElement = module.element;
     moduleElement.classList.remove("active-theme");
     moduleElement.classList.remove("inactive-theme");
+    moduleElement.classList.remove("current-theme-no-prereqs");
   }
   // Remove highlighting from all theme buttons.
   for (const themeName in themeButtons) {
