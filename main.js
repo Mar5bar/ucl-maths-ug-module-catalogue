@@ -33,6 +33,7 @@ const defaultDetailPreferences = {
   terms: "off",
   "theme-prereqs": "on",
   groups: "off",
+  years: "on",
 };
 
 let splitByTerm = defaultDetailPreferences["terms"] === "on";
@@ -214,13 +215,22 @@ function processModuleData(moduleData) {
       const moduleElement = document.createElement("div");
       moduleElement.id = `module-${moduleCode}`;
       moduleElement.className = "module";
+
+      // List the years.
+      let yearString;
+      if (module.years) {
+        moduleElement.classList.add("multi-year-module");
+        yearString = `<span class="years-list">, Year ${module.years.join(
+          "/",
+        )}</span>`;
+      }
       // Add the title, code, description, etc.
       moduleElement.innerHTML = `
                 <div class='top-container'>
                 <h4>${
                   module.title
                 } <br class="title-break"> <span class="module-code">(${
-        module.code
+        module.code + (yearString ? yearString : "")
       }<span class="groups-list">${
         module.groups ? ", Group " + module.groups.join("/") : ""
       }</span>)</span></h4>
