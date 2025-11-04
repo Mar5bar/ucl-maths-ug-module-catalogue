@@ -388,12 +388,12 @@ function activateTheme(theme) {
         highestModule = moduleData[moduleCode].element;
       }
     }
-    if (highestModule) {
-      highestModule.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
-    }
+  }
+  if (highestModule) {
+    highestModule.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
   }
 
   setQueryParameter("theme", theme);
