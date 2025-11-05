@@ -705,10 +705,11 @@
     },
     {
       "code": "MATH0065",
-      "description": "Techniques used to solve mathematical problems through modelling.",
+      "description": "Techniques for mathematical modelling, including perturbation methods and solution methods for PDEs.",
       "level": "7",
       "term": "1",
       "title": "Advanced Modelling Mathematical Techniques",
+      "prereqs": ["MATH0010", "MATH0011", "MATH0013"],
       "years": ["4"]
     },
     {
@@ -725,7 +726,7 @@
     },
     {
       "code": "MATH0070",
-      "description": "The mathematical tools used to analyse and solve linear partial differential equations, focusing on distributions, Fourier transforms, and harmonic functions.",
+      "description": "An introduction to distributions, the Fourier transform in various spaces, elliptic regularity, and harmonic functions.",
       "groups": "1A",
       "lead": "Dr I Kamotski",
       "level": "7",
@@ -737,17 +738,17 @@
     },
     {
       "code": "MATH0071",
-      "description": "Concepts of spectral theory, focusing on operators, eigenvalues, and their applications in mathematics and physics.",
+      "description": "Fundamental theory behind the operators used in quantum mechanics, including the Riesz representation theorem and the spectral theorem for compact self-adjoint operators.",
       "lead": "Dr S Flynn",
       "level": "7",
-      "prereqs": ["MATH0018", "MATH0019", "MATH0017"],
+      "prereqs": ["MATH0018", "MATH0019"],
       "term": "1",
       "title": "Spectral Theory",
       "years": ["4"]
     },
     {
       "code": "MATH0073",
-      "description": "Theory of group representations, focusing on their applications in various fields, particularly through the study of representations of finite groups and their connections to group algebras.",
+      "description": "Representations of finite groups over the complex numbers, including Maschke's theorem, Schur's lemma, classification, and characters.",
       "groups": "1B",
       "lead": "Dr E Segal",
       "level": "7",
@@ -759,7 +760,7 @@
     },
     {
       "code": "MATH0074",
-      "description": "Group theory and its applications, focusing on group presentations, Cayley graphs, and topological spaces.",
+      "description": "Fundamental groups, free groups, and group presentations, including the Wirtinger presentation.",
       "lead": "Assoc Prof L Louder",
       "level": "7",
       "prereqs": ["MATH0051", "MATH0053"],
@@ -781,7 +782,7 @@
     },
     {
       "code": "MATH0076",
-      "description": "Algebraic geometry explores the study of algebraic varieties through polynomial equations, connecting it to diverse mathematical fields.",
+      "description": "The study of algebraic varieties, defined by polynomial equations, with a focus on basic notions and explicit examples.",
       "lead": "Dr D Beraldo",
       "level": "7",
       "term": "1",
@@ -791,7 +792,7 @@
     },
     {
       "code": "MATH0077",
-      "description": "Analysing and solving the complex flow of incompressible, viscous fluids, particularly in applications like lubrication and industrial processes.",
+      "description": "Flows of Newtonian fluids, taking into account for viscosity (internal friction) and exploring a range of examples, instabilities, and techniques.",
       "groups": "2",
       "lead": "Prof J Vanden-Broeck",
       "level": "7",
@@ -847,7 +848,7 @@
     },
     {
       "code": "MATH0083",
-      "description": "Properties of prime numbers through techniques in number theory and analysis.",
+      "description": "Properties of prime numbers, culminating in proofs of Dirichlet's theorem and the prime number theorem.",
       "groups": "1A 1B",
       "lead": "Dr I Petrow",
       "level": "7",
@@ -867,7 +868,7 @@
     },
     {
       "code": "MATH0086",
-      "description": "Computational methods for mathematical modelling, focusing on numerical solutions and simulation techniques.",
+      "description": "Numerical methods for solving ODEs, PDEs, and linear systems, including classical stability analysis.",
       "level": "7",
       "prereqs": ["MATH0056"],
       "term": "1",
@@ -934,7 +935,7 @@
     },
     {
       "code": "MATH0104",
-      "description": "Concepts and applications of modular forms, a crucial area in number theory and geometry.",
+      "description": "Concepts and applications of modular forms, including Eisenstein series, theta series, and Hecke operators.",
       "groups": "1B",
       "lead": "Dr C Busuioc",
       "level": "7",
@@ -1022,9 +1023,9 @@
       "description": "Mathematical foundations of quantum mechanics through approximation methods and key concepts like the Schrödinger equation and quantum states.",
       "lead": "Prof. Rod Halburd",
       "level": "7",
-      "prereqs": ["MATH0056"],
+      "prereqs": ["MATH0056", "MATH0014"],
       "term": "1",
-      "themes": ["Number Theory", "Analysis", "Computation"],
+      "themes": ["Applied Mathematics"],
       "title": "Mathematics for Quantum Mechanics",
       "years": ["3", "4"]
     },
