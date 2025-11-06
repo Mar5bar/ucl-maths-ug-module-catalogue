@@ -118,9 +118,9 @@ function processModuleData(moduleData) {
     }
     modulesAtLevel[level].push(moduleCode);
     if (module.prereqs) {
-      prereqsMap[moduleCode] = module.prereqs;
+      prereqsMap[moduleCode] = unpackPrereqs(module.prereqs);
       // Populate a reverse mapping of prerequisites.
-      for (const prereq of module.prereqs) {
+      for (const prereq of prereqsMap[moduleCode]) {
         if (!requiredForMap[prereq]) {
           requiredForMap[prereq] = [];
         }
@@ -163,8 +163,11 @@ function processModuleData(moduleData) {
           const module = moduleData[code];
           if (module && module.prereqs) {
             module.prereqs.forEach((prereq) => {
-              allModuleCodes.add(prereq);
-              toConsider.push(prereq);
+              const unpackedPrereqs = unpackPrereqs(prereq);
+              for (const p of unpackedPrereqs) {
+                allModuleCodes.add(p);
+                toConsider.push(p);
+              }
             });
           }
         }
@@ -242,9 +245,17 @@ function processModuleData(moduleData) {
       if (module.prereqs && module.prereqs.length > 0) {
         const prereqElement = document.createElement("p");
         prereqElement.className = "prereqs-list";
-        prereqElement.innerHTML = `<strong>Requires:</strong> <span class="module-code">${module.prereqs
+        let prereqsText = module.prereqs
+          .map((p) => {
+            if (Array.isArray(p)) {
+              return p.sort().join(" or ");
+            } else {
+              return p;
+            }
+          })
           .sort()
-          .join(", ")}</span>`;
+          .join(", ");
+        prereqElement.innerHTML = `<strong>Requires:</strong> <span class="module-code">${prereqsText}</span>`;
         moduleElement.appendChild(prereqElement);
       }
 
@@ -893,6 +904,21 @@ function runMathJax() {
       redrawLines();
     });
   }
+}
+
+function unpackPrereqs(prereqList) {
+  if (!Array.isArray(prereqList)) {
+    return [prereqList];
+  }
+  const unpacked = new Set();
+  for (const prereq of prereqList) {
+    if (Array.isArray(prereq)) {
+      prereq.forEach((p) => unpacked.add(p));
+    } else {
+      unpacked.add(prereq);
+    }
+  }
+  return Array.from(unpacked);
 }
 
 const input = document.getElementById("search-input");

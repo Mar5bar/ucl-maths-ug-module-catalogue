@@ -694,7 +694,7 @@
     },
     {
       "code": "MATH0061",
-      "description": "Arithmetic of number fields, focusing on class numbers, analytic class numbers, and their applications to mathematical research.",
+      "description": "Units in number fields, class numbers, L-functions, and class field theory, as the basis for the Langlands programme.",
       "lead": "Dr C Busuoic",
       "level": "7",
       "prereqs": ["MATH0035", "MATH0022"],
@@ -714,7 +714,7 @@
     },
     {
       "code": "MATH0069",
-      "description": "Core principles of probability theory, particularly the strong law of large numbers and the central limit theorem, through rigorous mathematical analysis.",
+      "description": "The rigorous theory of probability, focussing on the strong law of large numbers and the central limit theorem.",
       "groups": "1A",
       "lead": "Dr S Kittle",
       "level": "7",
@@ -804,7 +804,7 @@
     },
     {
       "code": "MATH0078",
-      "description": "Approximating complex problems using simplified methods, focusing on practical application across diverse fields.",
+      "description": "Systematic methods for solving problems involving a small parameter, enabling progress where exact solutions are unavailable.",
       "lead": "Dr V Smyshlyaev",
       "level": "7",
       "prereqs": ["MATH0056"],
@@ -815,7 +815,7 @@
     },
     {
       "code": "MATH0079",
-      "description": "History and structure of the universe through the study of general relativity and its applications, including cosmology and its observational implications.",
+      "description": "History and structure of the universe through the study of general relativity, including the expansion rate of the universe and cosmological perturbations.",
       "lead": "Dr B Hartmann",
       "level": "7",
       "prereqs": ["MATH0025"],
@@ -826,7 +826,7 @@
     },
     {
       "code": "MATH0080",
-      "description": "Wave theory and techniques for analysing wave propagation in various media.",
+      "description": "Linear and nonlinear wave theory and techniques for analysing wave reflection, transmission, and scattering in various media.",
       "lead": "Prof V Smyshlyaev",
       "level": "7",
       "prereqs": ["MATH0016"],
@@ -837,7 +837,7 @@
     },
     {
       "code": "MATH0082",
-      "description": "Evolutionary game theory and population genetics using mathematical modelling and analysis.",
+      "description": "Introductions to evolutionary game theory and population genetics, including mutation-selection balance and Mendelian genetics.",
       "lead": "Prof SA Baigent",
       "level": "7",
       "prereqs": ["MATH0008", "MATH0010", "MATH0003"],
@@ -860,7 +860,7 @@
     },
     {
       "code": "MATH0084",
-      "description": "A chance to experience independent research with a supervisor over two terms.",
+      "description": "Experience independent research-style mathematics with a supervisor over two terms.",
       "level": "7",
       "syllabus": "https://www.ucl.ac.uk/mathematical-physical-sciences/maths/current-students/current-undergraduates/degree-structures-and-options/year-4-project",
       "term": "1 & 2",
@@ -878,7 +878,7 @@
     },
     {
       "code": "MATH0088",
-      "description": "Using numerical methods to price options through partial differential equations.",
+      "description": "Developing the PDE approach to the pricing of options, including an introduction to Excel for computation.",
       "lead": "Dr R Ahmad",
       "level": "7",
       "prereqs": ["MATH0016"],
@@ -889,7 +889,7 @@
     },
     {
       "code": "MATH0092",
-      "description": "Mathematical foundations of variational theory and numerical methods for partial differential equations.",
+      "description": "Mathematical foundations of modern variational theory and numerical methods for PDEs, including applied functional analysis.",
       "groups": "1A 2",
       "lead": "Dr I Smears",
       "level": "7",
@@ -912,7 +912,7 @@
     },
     {
       "code": "MATH0102",
-      "description": "Applying stochastic differential equations to model physical, chemical, and biological systems using established analytical techniques.",
+      "description": "Applying stochastic differential equations to model physical, chemical, and biological systems.",
       "groups": "2",
       "lead": "Prof G Esler",
       "level": "7",
@@ -947,10 +947,10 @@
     },
     {
       "code": "MATH0107",
-      "description": "Probabilistic method and its applications across combinatorics, number theory, and geometry.",
+      "description": "The probabilistic method and its applications across combinatorics, number theory, and geometry.",
       "lead": "Dr S Letzter",
       "level": "7",
-      "prereqs": ["MATH0029", "MATH0028"],
+      "prereqs": [["MATH0029", "MATH0028"]],
       "term": "2",
       "themes": ["Number Theory", "Geometry", "Modelling"],
       "title": "Probabilistic Method in Combinatorics",
@@ -1000,7 +1000,7 @@
     },
     {
       "code": "MATH0115",
-      "description": "Modelling of elastic materials through partial differential equations and wave propagation.",
+      "description": "Modelling elastic materials through the PDEs of linear elasticity.",
       "lead": "Dr Shane Cooper",
       "level": "7",
       "prereqs": ["MATH0015", "MATH0056"],
@@ -1010,7 +1010,7 @@
     },
     {
       "code": "MATH0117",
-      "description": "Mathematical modelling of biological systems, focusing on PDEs and spatial patterns.",
+      "description": "Modelling biological phenomena that occur over space and time, with a focus on PDE models, Turing patterns, and their origins.",
       "lead": "Dr B Walker",
       "level": "7",
       "prereqs": ["MATH0030"],
@@ -1031,10 +1031,10 @@
     },
     {
       "code": "MATH0119",
-      "description": "Tools and techniques for analysing and modelling dynamic systems through topology, analysis, and measure theory.",
+      "description": "Tools and techniques for analysing and modelling dynamical systems through topology, analysis, and measure theory.",
       "lead": "Dr S Ghazouani",
       "level": "7",
-      "prereqs": ["MATH0017"],
+      "prereqs": ["MATH0017", ["MATH0019", "MATH0020"]],
       "term": "2",
       "themes": ["Analysis", "Geometry", "Modelling"],
       "title": "Dynamical Systems",
