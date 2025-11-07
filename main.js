@@ -612,7 +612,6 @@ function drawLinesBetweenEls(linesAsElements) {
     const el1 = line[0];
     const el2 = line[1];
     const isDashed = line[2] || false;
-    console.log(el1);
 
     const rect1 = el1.getBoundingClientRect();
     const rect2 = el2.getBoundingClientRect();
