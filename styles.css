@@ -120,6 +120,10 @@ br.title-break {
   display: none;
 }
 
+.related-low-detail .module .related-list {
+  display: none;
+}
+
 .reqfors-low-detail .module .reqfors-list {
   display: none;
 }
@@ -154,6 +158,12 @@ br.title-break {
   border-color: #4caf50;
   background-color: rgba(240, 251, 232, 0.92);
   z-index: 1;
+}
+
+#module-grid:not(.related-low-detail) .module.related-module {
+  border-color: #2d3a4a;
+  border-style: dashed;
+  opacity: 1;
 }
 
 button {

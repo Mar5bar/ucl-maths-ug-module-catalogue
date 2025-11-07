@@ -364,6 +364,7 @@
       "lead": "Dr B Hartmann",
       "level": "6",
       "prereqs": ["MATH0016"],
+      "related": ["MATH0020"],
       "term": "1",
       "themes": ["Analysis", "Number Theory", "Geometry"],
       "title": "Mathematics for General Relativity",

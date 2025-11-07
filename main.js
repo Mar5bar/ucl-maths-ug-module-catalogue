@@ -28,6 +28,7 @@ const defaultDetailPreferences = {
   description: "on",
   syllabus: "on",
   prereqs: "on",
+  related: "on",
   reqfors: "off",
   themes: "off",
   terms: "off",
@@ -240,6 +241,26 @@ function processModuleData(moduleData) {
                 <p class="description">${module.description}</p>
                 </div>
             `;
+
+      // Add related modules information.
+      const related = module.related || [];
+      // Filter out any overlaps with prereqs and requiredFor.
+      if (related && related.length > 0) {
+        const filteredRelated = related.filter((code) => {
+          return (
+            !prereqsMap[moduleCode]?.includes(code) &&
+            !requiredForMap[moduleCode]?.includes(code)
+          );
+        });
+        if (filteredRelated.length > 0) {
+          const relatedElement = document.createElement("p");
+          relatedElement.className = "related-list";
+          relatedElement.innerHTML = `<strong>Related:</strong> <span class="module-code">${filteredRelated
+            .sort()
+            .join(", ")}</span>`;
+          moduleElement.appendChild(relatedElement);
+        }
+      }
 
       // Add prerequisite information.
       if (module.prereqs && module.prereqs.length > 0) {
@@ -500,7 +521,20 @@ function highlightRelatedModules(moduleCode) {
     lines.push([moduleData[moduleCode].element, moduleData[code].element]);
     modulesConsidered.add(code);
   }
-  // Dim all other modules.
+
+  // For any modules listed as "related" that are not already highlighted above, give them a special class.
+  const relatedCodes = moduleData[moduleCode].related || [];
+  for (const code of relatedCodes) {
+    if (!moduleData[code] || !isModuleVisible(code)) {
+      continue;
+    }
+    if (modulesConsidered.has(code)) {
+      continue;
+    }
+    moduleData[code].element.classList.add("related-module");
+  }
+
+  // Dim all other modules (but include "related" modules for easy styling).
   for (const code in moduleData) {
     if (!modulesConsidered.has(code)) {
       moduleData[code].element.classList.add("inactive-module");
@@ -517,6 +551,7 @@ function clearHighlightedModules() {
     module.element.classList.remove("inactive-module");
     module.element.classList.remove("prereq-module");
     module.element.classList.remove("dependent-module");
+    module.element.classList.remove("related-module");
   }
   lines = [];
   clearLines();
