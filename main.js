@@ -532,6 +532,13 @@ function highlightRelatedModules(moduleCode) {
       continue;
     }
     moduleData[code].element.classList.add("related-module");
+    // Connect with dashed lines with no arrow.
+    lines.push([
+      moduleData[moduleCode].element,
+      moduleData[code].element,
+      true,
+    ]);
+    // Do not add to modulesConsidered, as this makes styling these elements easier (rather than checking if a class is present in JS).
   }
 
   // Dim all other modules (but include "related" modules for easy styling).
@@ -600,10 +607,11 @@ function drawLines(lines) {
   if (!lines || lines.length === 0) {
     return;
   }
-  // Use a JQuery library to draw SVG paths between elements.
+
   lines.forEach((line) => {
     const el1 = line[0];
     const el2 = line[1];
+    const isDashed = line[2] || false;
 
     const rect1 = el1.getBoundingClientRect();
     const rect2 = el2.getBoundingClientRect();
@@ -618,7 +626,7 @@ function drawLines(lines) {
       { x: rect2.left, y: rect2.top + rect2.height / 2, label: "lr" }, // left
       { x: rect2.left + rect2.width / 2, y: rect2.top, label: "tb" }, // top
     ];
-    if (splitByTerm) {
+    if (splitByTerm || isDashed) {
       el1Points.push(
         { x: rect1.left, y: rect1.top + rect1.height / 2, label: "lr" }, // left
         { x: rect1.left + rect1.width / 2, y: rect1.top, label: "tb" }, // top
@@ -657,7 +665,11 @@ function drawLines(lines) {
     path.setAttribute("d", d);
     path.setAttribute("stroke", "black");
     path.setAttribute("fill", "transparent");
-    path.setAttribute("marker-end", "url(#arrow)");
+    if (!isDashed) {
+      path.setAttribute("marker-end", "url(#arrow)");
+    } else {
+      path.setAttribute("stroke-dasharray", "5,5");
+    }
 
     // Add a control point 5px from the end by sampling the current path, finishing the line with a straight segment.
     const pathLength = path.getTotalLength();
