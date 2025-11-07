@@ -587,7 +587,7 @@ function redrawLines() {
 }
 
 function drawLinesBetweenCodes(linesAsCodes) {
-  const linesToDraw = [];
+  const linesToDrawAsEls = [];
   for (const line of linesAsCodes) {
     const el1 = moduleData[line[0]]?.element;
     const el2 = moduleData[line[1]]?.element;
@@ -596,10 +596,10 @@ function drawLinesBetweenCodes(linesAsCodes) {
       if (line.length > 2) {
         toPush.push(line[2]);
       }
-      linesToDraw.push(toPush);
+      linesToDrawAsEls.push(toPush);
     }
   }
-  drawLinesBetweenEls(linesToDraw);
+  drawLinesBetweenEls(linesToDrawAsEls);
 }
 
 function drawLinesBetweenEls(linesAsElements) {
@@ -612,6 +612,10 @@ function drawLinesBetweenEls(linesAsElements) {
     const el1 = line[0];
     const el2 = line[1];
     const isDashed = line[2] || false;
+
+    if (!el1 || !el2) {
+      return;
+    }
 
     const rect1 = el1.getBoundingClientRect();
     const rect2 = el2.getBoundingClientRect();
