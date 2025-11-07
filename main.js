@@ -497,14 +497,11 @@ function highlightRelatedModules(moduleCode) {
     // Loop over the prereqs of this module, marking them as prereqs and adding them to the stack. Skip any that are hidden.
     prereqCodes = prereqsMap[parentModule] || [];
     for (const prereq of prereqCodes) {
-      if (!moduleData[prereq] || !isModuleVisible(prereq)) {
+      if (!moduleData[prereq]) {
         continue;
       }
       moduleData[prereq].element.classList.add("prereq-module");
-      lines.push([
-        moduleData[prereq].element,
-        moduleData[parentModule].element,
-      ]);
+      lines.push([prereq, parentModule]);
       // If we've not looked at the new module's own prereqs yet, add the module to the stack.
       if (!modulesConsidered.has(prereq)) {
         toDo.push(prereq);
@@ -514,18 +511,18 @@ function highlightRelatedModules(moduleCode) {
 
   const dependentCodes = requiredForMap[moduleCode] || [];
   for (const code of dependentCodes) {
-    if (!moduleData[code] || !isModuleVisible(code)) {
+    if (!moduleData[code]) {
       continue;
     }
     moduleData[code].element.classList.add("dependent-module");
-    lines.push([moduleData[moduleCode].element, moduleData[code].element]);
+    lines.push([moduleCode, code]);
     modulesConsidered.add(code);
   }
 
   // For any modules listed as "related" that are not already highlighted above, give them a special class.
   const relatedCodes = moduleData[moduleCode].related || [];
   for (const code of relatedCodes) {
-    if (!moduleData[code] || !isModuleVisible(code)) {
+    if (!moduleData[code]) {
       continue;
     }
     if (modulesConsidered.has(code)) {
@@ -533,11 +530,7 @@ function highlightRelatedModules(moduleCode) {
     }
     moduleData[code].element.classList.add("related-module");
     // Connect with dashed lines with no arrow.
-    lines.push([
-      moduleData[moduleCode].element,
-      moduleData[code].element,
-      true,
-    ]);
+    lines.push([moduleCode, code, true]);
     // Do not add to modulesConsidered, as this makes styling these elements easier (rather than checking if a class is present in JS).
   }
 
@@ -548,7 +541,7 @@ function highlightRelatedModules(moduleCode) {
     }
   }
   clearLines();
-  drawLines(lines);
+  drawLinesBetweenCodes(lines);
 }
 
 function clearHighlightedModules() {
@@ -569,14 +562,11 @@ function showAllConnections() {
   for (const moduleCode in moduleData) {
     const prereqCodes = prereqsMap[moduleCode] || [];
     for (const prereqCode of prereqCodes) {
-      lines.push([
-        moduleData[prereqCode].element,
-        moduleData[moduleCode].element,
-      ]);
+      lines.push([prereqCode, moduleCode]);
     }
   }
   clearLines();
-  drawLines(lines);
+  drawLinesBetweenCodes(lines);
 }
 
 function clearLines() {
@@ -591,27 +581,38 @@ function clearLines() {
 }
 
 function redrawLines() {
-  // Prune the lines to only those between visible modules.
-  let linesToDraw = lines.filter((line) => {
-    const el1 = line[0];
-    const el2 = line[1];
-    return el1.offsetParent !== null && el2.offsetParent !== null;
-  });
   clearLines();
   svgResize();
-  drawLines(linesToDraw);
+  drawLinesBetweenCodes(lines);
 }
 
-function drawLines(lines) {
+function drawLinesBetweenCodes(linesAsCodes) {
+  const linesToDraw = [];
+  for (const line of linesAsCodes) {
+    const el1 = moduleData[line[0]]?.element;
+    const el2 = moduleData[line[1]]?.element;
+    const toPush = [el1, el2];
+    if (el1 && el2 && isModuleVisible(line[0]) && isModuleVisible(line[1])) {
+      if (line.length > 2) {
+        toPush.push(line[2]);
+      }
+      linesToDraw.push(toPush);
+    }
+  }
+  drawLinesBetweenEls(linesToDraw);
+}
+
+function drawLinesBetweenEls(linesAsElements) {
   // If there are no lines to draw, return.
-  if (!lines || lines.length === 0) {
+  if (!linesAsElements || linesAsElements.length === 0) {
     return;
   }
 
-  lines.forEach((line) => {
+  linesAsElements.forEach((line) => {
     const el1 = line[0];
     const el2 = line[1];
     const isDashed = line[2] || false;
+    console.log(el1);
 
     const rect1 = el1.getBoundingClientRect();
     const rect2 = el2.getBoundingClientRect();
