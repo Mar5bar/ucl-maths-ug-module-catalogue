@@ -20,6 +20,9 @@
   ],
   "themesToModules": {
     "Analysis": [
+      "MATH0003",
+      "MATH0004",
+      "MATH0013",
       "MATH0051",
       "MATH0017",
       "MATH0019",
@@ -34,6 +37,8 @@
       "MATH0071"
     ],
     "Applied": [
+      "MATH0008",
+      "MATH0009",
       "MATH0056",
       "MATH0055",
       "MATH0025",
@@ -86,6 +91,14 @@
       "MATH0061",
       "MATH0083",
       "MATH0104"
+    ],
+    "Numerics": [
+      "MATH0011",
+      "MATH0058",
+      "MATH0033",
+      "MATH0086",
+      "MATH0092",
+      "MATH0088"
     ],
     "Algebra": [
       "MATH0005",
