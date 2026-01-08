@@ -85,13 +85,16 @@ function processModuleData(moduleData) {
   levels = new Set();
   themes = new Set();
   groups = new Set();
+  modules = new Set();
   modulesAtLevel = {};
   prereqsMap = {};
   requiredForMap = {};
-  modulesAtLevel = {};
   themeButtons = {};
   themesToModules = structuredClone(loadedThemesToModules) || {};
   themesToModulesNoPrereqs = {};
+
+  // Record an overall set of modules.
+  modules = new Set(Object.keys(moduleData));
 
   // Loop through the modules and populate lists of metadata.
   for (const moduleCode in moduleData) {
