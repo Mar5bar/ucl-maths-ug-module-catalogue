@@ -73,6 +73,7 @@ fetch("module_data.json")
       activateModule(moduleParam);
     }
     runMathJax();
+    setModuleGridPadding();
   })
   .catch((error) => {
     console.error("Error fetching module data:", error);
@@ -693,8 +694,25 @@ function drawLinesBetweenEls(linesAsElements) {
   });
 }
 
+function setModuleGridPadding() {
+  // If the viewport width is less than 768px, set padding-bottom to 20px.
+  if (window.innerWidth < 768) {
+    document
+      .getElementById("module-grid")
+      .style.setProperty("padding-bottom", "10px");
+    return;
+  }
+  // Otherwise, set padding-bottom to the height of the theme button row.
+  document
+    .getElementById("module-grid")
+    .style.setProperty(
+      "padding-bottom",
+      document.getElementById("theme-button-row").offsetHeight + "px",
+    );
+}
+
 window.addEventListener("resize", () => {
-  document.getElementById("module-grid").style.setProperty("padding-bottom", document.getElementById("theme-button-row").offsetHeight + "px");
+  setModuleGridPadding();
   redrawLines();
 });
 

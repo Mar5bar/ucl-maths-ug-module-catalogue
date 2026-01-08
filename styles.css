@@ -20,22 +20,6 @@ a {
   color: #2d3a4a;
 }
 
-#theme-button-row {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #e3e9f7;
-  padding-top: 5px;
-  z-index: 100;
-  margin-bottom: 0;
-  border-top: 1px solid black;
-}
-
-#module-grid {
-  padding-bottom: 100px;
-}
-
 .level-section {
   display: none;
 }
@@ -300,6 +284,20 @@ input[type="text"] {
   box-shadow: 0 1px 4px rgba(60, 80, 120, 0.07);
   position: relative;
   top: -2px;
+}
+
+@media screen and (min-width: 769px) {
+  #theme-button-row {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #e3e9f7;
+    padding-top: 5px;
+    z-index: 100;
+    margin-bottom: 0;
+    border-top: 1px solid black;
+  }
 }
 
 @media screen and (max-width: 768px) {
