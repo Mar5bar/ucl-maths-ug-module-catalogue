@@ -345,13 +345,13 @@ function processModuleData(moduleData) {
     // Add a newline and "Group: " before Group themes.
     if (theme.startsWith("Group ") && !startedGroups) {
       const groupLabel = document.createElement("span");
-      groupLabel.innerHTML = "<br>Group: &nbsp;";
+      groupLabel.innerHTML = "&nbsp | &nbsp;";
       themeButtonRow.appendChild(groupLabel);
       startedGroups = true;
     }
     const themeButton = createThemeButton(theme);
     if (startedGroups) {
-      themeButton.textContent = theme.replace("Group ", "");
+      // themeButton.textContent = theme.replace("Group ", "");
     }
     themeButtonRow.appendChild(themeButton);
   }
@@ -694,6 +694,7 @@ function drawLinesBetweenEls(linesAsElements) {
 }
 
 window.addEventListener("resize", () => {
+  document.getElementById("module-grid").style.setProperty("padding-bottom", document.getElementById("theme-button-row").offsetHeight + "px");
   redrawLines();
 });
 
