@@ -37,6 +37,16 @@
           another, or filter by theme using the buttons below. An accessible tabular version of the
           module catalogue can be found <a href="table.html">here</a>.
         </p>
+        <div id="module-search">
+          <input
+          type="text"
+          id="search-input"
+          placeholder="Enter module code..."
+          />
+          <button id="search-button" type="button" onclick="searchModules()">
+            Search
+          </button>
+        </div>
         <div id="detail-button-row">
           Details:
           <button
@@ -110,18 +120,8 @@
             Theme prerequisites
           </button> -->
         </div>
-        <div id="theme-button-row"></div>
-        <div id="module-search">
-          <input
-            type="text"
-            id="search-input"
-            placeholder="Enter module code..."
-          />
-          <button id="search-button" type="button" onclick="searchModules()">
-            Search
-          </button>
-        </div>
       </div>
+      <div id="theme-button-row"></div>
       <div id="module-grid"></div>
     </main>
     <svg id="svg-lines">

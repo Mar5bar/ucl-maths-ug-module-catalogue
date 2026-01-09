@@ -20,6 +20,11 @@ a {
   color: #2d3a4a;
 }
 
+#theme-button-row {
+  background: #e3e9f7;
+  border-bottom: 1px solid #ddd;
+}
+
 .level-section {
   display: none;
 }
@@ -288,15 +293,9 @@ input[type="text"] {
 
 @media screen and (min-width: 769px) {
   #theme-button-row {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: #e3e9f7;
-    padding-top: 5px;
+    position: sticky;
+    top: 0;
     z-index: 100;
-    margin-bottom: 0;
-    border-top: 1px solid black;
   }
 }
 
