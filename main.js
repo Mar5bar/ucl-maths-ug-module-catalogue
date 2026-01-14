@@ -23,7 +23,7 @@ let themesToModulesNoPrereqs;
 let ancillaryModules;
 
 const defaultSyllabusBaseURL =
-  "https://www.ucl.ac.uk/mathematical-physical-sciences/sites/mathematical_physical_sciences/files/";
+  "/pdfs";
 const defaultDetailPreferences = {
   description: "on",
   syllabus: "on",
@@ -288,7 +288,7 @@ function processModuleData(moduleData) {
       const syllabusElement = document.createElement("a");
       syllabusElement.href =
         module.syllabus ||
-        defaultSyllabusBaseURL + module.code.toLowerCase() + ".pdf";
+        defaultSyllabusBaseURL + "/" + activeYearOfEntry + "/" + module.code.toLowerCase() + ".pdf";
       syllabusElement.className = "syllabus";
       syllabusElement.target = "_blank";
       syllabusElement.onclick = (e) => {
@@ -717,7 +717,8 @@ function setYearOfEntryHandler(button) {
   }
   button.setAttribute("data-state", "on");
   // Load the required data, specifying that this is an update.
-  loadYear(button.dataset.year, true);
+  activeYearOfEntry = button.dataset.year;
+  loadYear(activeYearOfEntry, true);
 }
 
 function loadYear(year, updating = false) {
