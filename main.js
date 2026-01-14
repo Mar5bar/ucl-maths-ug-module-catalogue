@@ -23,7 +23,7 @@ let themesToModulesNoPrereqs;
 let ancillaryModules;
 
 const defaultSyllabusBaseURL =
-  "/pdfs";
+  "./pdfs";
 const defaultDetailPreferences = {
   description: "on",
   syllabus: "on",
@@ -733,7 +733,7 @@ function loadYear(year, updating = false) {
       yb.setAttribute("data-state", "off");
     }
   }
-  const dataURL = `/module_data/${year}.json`;
+  const dataURL = `./module_data/${year}.json`;
   // Clear existing module data.
   moduleData = {};
   // Fetch module_data.
