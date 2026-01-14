@@ -81,6 +81,7 @@
       "MATH0092",
       "MATH0090",
       "MATH0107",
+      "MATH0128",
       "MATH0071"
     ],
     "Biology": ["MATH0026", "MATH0030", "MATH0082", "MATH0117"],
@@ -183,7 +184,8 @@
       "MATH0107",
       "MATH0108",
       "MATH0109",
-      "MATH0119"
+      "MATH0119",
+      "MATH0128"
     ]
   },
   "modules": [
@@ -1008,7 +1010,7 @@
       "groups": "2",
       "lead": "Prof G Esler",
       "level": "7",
-      "prereqs": ["MATH0065", "MATH0057"],
+      "prereqs": [["MATH0065", "MATH0057"]],
       "related": ["MATH0056", "MATH0031", "MATH0057", "MATH0065"],
       "term": "2",
       "themes": ["Analysis", "Computation", "Modelling"],

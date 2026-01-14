@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>UCL BSc/MSci Mathematics Module Catalogue</title>
     <link rel="stylesheet" href="styles.css" />
     <script>
@@ -31,17 +31,29 @@
 
     <main>
       <div id="intro">
+        <div id="yoe-button-row" class="year-select">
+          Year of entry:
+          <button
+            class="year-button"
+            type="button"
+            onclick="setYearOfEntryHandler(this)"
+            data-year="25-26"
+          >
+            2025 or earlier
+          </button>
+        </div>
         <p>
-          Welcome to the UCL BSc/MSci Mathematics module catalogue.<br />
+          <span class="year-select">Select your year of entry above to load the relevant modules.</span>
           Select modules to see how they are connected as prerequisites of one
-          another, or filter by theme using the buttons below. An accessible tabular version of the
-          module catalogue can be found <a href="table.html">here</a>.
+          another, or filter by theme using the buttons below. An accessible
+          tabular version of the module catalogue can be found
+          <a href="table.html">here</a>. Information correct as of January 2026.
         </p>
         <div id="module-search">
           <input
-          type="text"
-          id="search-input"
-          placeholder="Enter module code..."
+            type="text"
+            id="search-input"
+            placeholder="Enter module code..."
           />
           <button id="search-button" type="button" onclick="searchModules()">
             Search
@@ -77,7 +89,7 @@
           >
             Prerequisites
           </button>
-                    <button
+          <button
             id="related-detail-toggle"
             type="button"
             onclick="toggleDetailHandler(this, 'related')"

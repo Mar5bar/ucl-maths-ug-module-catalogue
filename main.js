@@ -40,44 +40,20 @@ const defaultDetailPreferences = {
 let splitByTerm = defaultDetailPreferences["terms"] === "on";
 let themePrereqsEnabled = defaultDetailPreferences["theme-prereqs"] === "on";
 
-// Fetch module_data.
-fetch("module_data.json")
-  .then((response) => response.json())
-  .then((data) => {
-    ancillaryModules = new Set(data.ancillaryModules || []);
-    for (const module of data.modules) {
-      // Skip ancillary modules.
-      if (hideAncillaryModules && ancillaryModules.has(module.code)) {
-        continue;
-      }
-      moduleData[module.code] = module;
-    }
-    loadedThemesToModules = data.themesToModules;
-    processModuleData(moduleData);
-    // If there's a theme in the URL query string, activate it.
-    const urlParams = new URLSearchParams(window.location.search);
-    const themeParam = decodeURI(urlParams.get("theme"));
-    if (themeParam && themes.includes(themeParam)) {
-      userActivatedTheme = themeParam;
-      activateTheme(themeParam);
-      setQueryParameter("theme", themeParam);
-    } else {
-      // If no theme, ensure none are active and all modules are shown.
-      deactivateTheme();
-    }
-    // Restore any preferences.
-    restoreDetailPreferences();
-    // If there's a module in the URL query string, activate it.
-    const moduleParam = urlParams.get("module");
-    if (moduleParam) {
-      activateModule(moduleParam);
-    }
-    runMathJax();
-    setModuleGridPadding();
-  })
-  .catch((error) => {
-    console.error("Error fetching module data:", error);
-  });
+const urlParams = new URLSearchParams(window.location.search);
+let activeYearOfEntry = urlParams.get("year") || "25-26";
+
+// If there is only 1 year button, hide anything with the year-select class.
+const yearButtons = document.getElementsByClassName("year-button");
+if (yearButtons.length <= 1) {
+  const yearSelectElements = document.getElementsByClassName("year-select");
+  for (const elem of yearSelectElements) {
+    elem.style.display = "none";
+  }
+}
+
+// Load the specified (or most recent) module data.
+loadYear(activeYearOfEntry);
 
 function processModuleData(moduleData) {
   // Clear the module grid and theme buttons.
@@ -731,6 +707,75 @@ function toggleDetailHandler(button, type) {
   // Record the state of the button in local storage.
   localStorage.setItem("detail-" + type, button.getAttribute("data-state"));
   checkAnyDetails();
+}
+
+function setYearOfEntryHandler(button) {
+  // Deselect all year buttons.
+  const yearButtons = document.getElementsByClassName("year-button");
+  for (const yb of yearButtons) {
+    yb.setAttribute("data-state", "off");
+  }
+  button.setAttribute("data-state", "on");
+  // Load the required data, specifying that this is an update.
+  loadYear(button.dataset.year, true);
+}
+
+function loadYear(year, updating = false) {
+  // Update the URL parameter.
+  setQueryParameter("year", year);
+  // Update the year buttons.
+  const yearButtons = document.getElementsByClassName("year-button");
+  for (const yb of yearButtons) {
+    if (yb.dataset.year === year) {
+      yb.setAttribute("data-state", "on");
+    } else {
+      yb.setAttribute("data-state", "off");
+    }
+  }
+  const dataURL = `/module_data/${year}.json`;
+  // Clear existing module data.
+  moduleData = {};
+  // Fetch module_data.
+  fetch(dataURL)
+    .then((response) => response.json())
+    .then((data) => {
+      ancillaryModules = new Set(data.ancillaryModules || []);
+      for (const module of data.modules) {
+        // Skip ancillary modules.
+        if (hideAncillaryModules && ancillaryModules.has(module.code)) {
+          continue;
+        }
+        moduleData[module.code] = module;
+      }
+      loadedThemesToModules = data.themesToModules;
+      processModuleData(moduleData);
+      if (!updating) {
+        // If there's a theme in the URL query string, activate it.
+        const urlParams = new URLSearchParams(window.location.search);
+        const themeParam = decodeURI(urlParams.get("theme"));
+        if (themeParam && themes.includes(themeParam)) {
+          userActivatedTheme = themeParam;
+          activateTheme(themeParam);
+          setQueryParameter("theme", themeParam);
+        } else {
+          // If no theme, ensure none are active and all modules are shown.
+          deactivateTheme();
+        }
+        // Restore any preferences.
+        restoreDetailPreferences();
+        // If there's a module in the URL query string, activate it.
+        const moduleParam = urlParams.get("module");
+        if (moduleParam) {
+          activateModule(moduleParam);
+        }
+      } else {
+        refreshAll();
+      }
+      runMathJax();
+    })
+    .catch((error) => {
+      console.error("Error fetching module data:", error);
+    });
 }
 
 function refreshAll(scrollTo = true) {
