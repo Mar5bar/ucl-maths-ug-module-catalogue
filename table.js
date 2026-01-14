@@ -5,6 +5,8 @@ let moduleData = {};
 
 let themes = new Set();
 let levels = new Set();
+let themesList = [];
+let levelsList = [];
 let prereqsMap = {};
 let requiredForMap = {};
 let modulesAtLevel = {};
@@ -19,8 +21,7 @@ let lines = [];
 let themesToModules = {};
 let ancillaryModules;
 
-const defaultSyllabusBaseURL =
-  "https://www.ucl.ac.uk/mathematical-physical-sciences/sites/mathematical_physical_sciences/files/";
+const defaultSyllabusBaseURL = "./pdfs";
 const defaultDetailPreferences = {
   description: "on",
   syllabus: "on",
@@ -29,8 +30,23 @@ const defaultDetailPreferences = {
   themes: "off",
 };
 
+const urlParams = new URLSearchParams(window.location.search);
+let activeYearOfEntry = urlParams.get("year") || "25-26";
+
+// If there is only 1 year button, hide anything with the year-select class.
+const yearButtons = document.getElementsByClassName("year-button");
+if (yearButtons.length <= 1) {
+  const yearSelectElements = document.getElementsByClassName("year-select");
+  for (const elem of yearSelectElements) {
+    elem.style.display = "none";
+  }
+}
+
+// Load the specified (or most recent) module data.
+loadYear(activeYearOfEntry);
+
 // Fetch module_data.
-fetch("module_data.json")
+fetch(`./module_data/${activeYearOfEntry}.json`)
   .then((response) => response.json())
   .then((data) => {
     ancillaryModules = new Set(data.ancillaryModules || []);
@@ -47,6 +63,41 @@ fetch("module_data.json")
   .catch((error) => {
     console.error("Error fetching module data:", error);
   });
+
+function loadYear(year, updating = false) {
+  // Update the URL parameter.
+  setQueryParameter("year", year);
+  // Update the year buttons.
+  const yearButtons = document.getElementsByClassName("year-button");
+  for (const yb of yearButtons) {
+    if (yb.dataset.year === year) {
+      yb.setAttribute("data-state", "on");
+    } else {
+      yb.setAttribute("data-state", "off");
+    }
+  }
+  const dataURL = `./module_data/${year}.json`;
+  // Clear existing module data.
+  moduleData = {};
+  // Fetch module_data.
+  fetch(dataURL)
+    .then((response) => response.json())
+    .then((data) => {
+      ancillaryModules = new Set(data.ancillaryModules || []);
+      for (const module of data.modules) {
+        // Skip ancillary modules.
+        if (hideAncillaryModules && ancillaryModules.has(module.code)) {
+          continue;
+        }
+        moduleData[module.code] = module;
+      }
+      themesToModules = data.themesToModules;
+      processModuleData(moduleData);
+    })
+    .catch((error) => {
+      console.error("Error fetching module data:", error);
+    });
+}
 
 function processModuleData(moduleData) {
   // Loop through the modules and populate lists of metadata.
@@ -77,7 +128,7 @@ function processModuleData(moduleData) {
 
   // We will override the themes.
   if (themesOverride) {
-    themes = Array.from(Object.keys(themesToModules)) || [];
+    themesList = Array.from(Object.keys(themesToModules)) || [];
     // Clear existing themes from modules.
     for (const moduleCode in moduleData) {
       delete moduleData[moduleCode].themes;
@@ -101,7 +152,7 @@ function processModuleData(moduleData) {
     }
 
     // Assign themes based on the themesToModules mapping.
-    for (const theme of themes) {
+    for (const theme of themesList) {
       const moduleCodes = themesToModules[theme] || [];
       moduleCodes.forEach((code) => {
         const module = moduleData[code];
@@ -114,12 +165,12 @@ function processModuleData(moduleData) {
   }
 
   // Convert levels and themes to sorted arrays.
-  levels = Array.from(levels).sort();
-  themes = Array.from(themes).sort();
+  levelsList = Array.from(levels).sort();
+  themesList = Array.from(themes).sort();
 
   // Build the grid of modules. Each level gets its own section.
   const moduleGrid = document.getElementById("module-grid");
-  for (const level of levels) {
+  for (const level of levelsList) {
     const levelSection = document.createElement("div");
     levelSection.className = "level-section";
     levelSection.innerHTML = `<h3>Level ${level}</h3>`;
@@ -165,7 +216,12 @@ function processModuleData(moduleData) {
       const data = {
         module: `<a href=${
           module.syllabus ||
-          defaultSyllabusBaseURL + module.code.toLowerCase() + ".pdf"
+          defaultSyllabusBaseURL +
+            "/" +
+            activeYearOfEntry +
+            "/" +
+            module.code.toLowerCase() +
+            ".pdf"
         } target="_blank">${moduleCode.toUpperCase()} ${module.title}</a>`,
         term: module.term || "",
         groups: module.groups?.split(" ").join(", ") || "",
@@ -191,4 +247,24 @@ function processModuleData(moduleData) {
       tbody.appendChild(moduleRow);
     }
   }
+}
+
+function setQueryParameter(key, value) {
+  // Set query parameter in URL without reloading the page.
+  const url = new URL(window.location);
+  url.searchParams.set(key, encodeURI(value));
+  window.history.replaceState({}, "", url);
+}
+
+
+function setYearOfEntryHandler(button) {
+  // Deselect all year buttons.
+  const yearButtons = document.getElementsByClassName("year-button");
+  for (const yb of yearButtons) {
+    yb.setAttribute("data-state", "off");
+  }
+  button.setAttribute("data-state", "on");
+  // Load the required data, specifying that this is an update.
+  activeYearOfEntry = button.dataset.year;
+  loadYear(activeYearOfEntry, true);
 }
