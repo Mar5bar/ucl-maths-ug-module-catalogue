@@ -45,8 +45,10 @@ let shallowDependentsEnabled =
   defaultDetailPreferences["shallowDependents"] === "on";
 
 const urlParams = new URLSearchParams(window.location.search);
-let activeYearOfEntry = urlParams.get("year") || localStorage.getItem("year") || "25-26";
-let sectionBy = urlParams.get("sectionBy") || localStorage.getItem("sectionBy") || "year";
+let activeYearOfEntry =
+  urlParams.get("year") || localStorage.getItem("year") || "25-26";
+let sectionBy =
+  urlParams.get("sectionBy") || localStorage.getItem("sectionBy") || "year";
 setSectionByHandler(null, sectionBy);
 
 // If there is only 1 year button, hide anything with the year-select class.
@@ -261,13 +263,18 @@ function processModuleData(moduleData) {
         }
       }
 
+      let termString = "";
+      if (!splitByTerm && module.term) {
+        termString = `<span>, Term ${module.term}</span>`;
+      }
+
       // Add the title, code, description, etc.
       moduleElement.innerHTML = `
                 <div class='top-container'>
                 <h4>${
                   module.title
                 } <br class="title-break"> <span class="module-code">(${
-        module.code + yearOrLevelString
+        module.code + yearOrLevelString + termString
       }<span class="groups-list">${
         module.groups ? ", Group " + module.groups.join("/") : ""
       }</span>)</span></h4>
@@ -1036,7 +1043,16 @@ function topologicalSort(codes) {
 
   while (layer.length > 0) {
     // Sort the current layer using the given compare function
-    layer.sort((a, b) => a.localeCompare(b));
+    layer.sort((a, b) => {
+      // If they both have terms, sort by term.
+      if (moduleData[a].term && moduleData[b].term) {
+        if (moduleData[a].term.localeCompare(moduleData[b].term)) {
+          return moduleData[a].term.localeCompare(moduleData[b].term);
+        }
+      }
+      // Otherwise, sort by code.
+      return a.localeCompare(b);
+    });
     result.push(...layer);
 
     const nextLayer = [];
