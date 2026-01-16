@@ -31,7 +31,7 @@
 
     <main>
       <div id="intro">
-        <div id="yoe-button-row" class="year-select">
+        <div id="yoe-button-row" class="year-select button-row">
           Year of entry:
           <button
             class="year-button"
@@ -40,6 +40,25 @@
             data-year="25-26"
           >
             2025 or earlier
+          </button>
+        </div>
+        <div id="section-by-row" class="button-row">
+          Organise modules by:
+          <button
+            class="section-by"
+            type="button"
+            data-section="level"
+            onclick="setSectionByHandler(this, 'level')"
+          >
+            Level
+          </button>
+          <button
+            class="section-by"
+            type="button"
+            data-section="year"
+            onclick="setSectionByHandler(this, 'year')"
+          >
+            Year
           </button>
         </div>
         <p>
@@ -61,7 +80,7 @@
             Search
           </button>
         </div>
-        <div id="detail-button-row">
+        <div id="detail-button-row" class="button-row">
           Details:
           <button
             id="description-detail-toggle"
@@ -135,7 +154,7 @@
           </button> -->
         </div>
       </div>
-      <div id="theme-button-row"></div>
+      <div id="theme-button-row" class="button-row"></div>
       <div id="module-grid"></div>
     </main>
     <svg id="svg-lines">

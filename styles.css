@@ -11,17 +11,19 @@ a {
   text-decoration: underline;
 }
 
-#yoe-button-row,
-#theme-button-row,
-#detail-button-row,
+.button-row,
 #module-search {
   text-align: center;
-  margin: 16px 0;
+  margin: 8px 0;
   line-height: 250%;
   color: #2d3a4a;
 }
 
 #yoe-button-row {
+  margin: 0;
+}
+
+#section-by-row {
   margin: 0;
 }
 
@@ -334,8 +336,7 @@ input[type="text"] {
     font-size: 12px;
     padding: 4px 4px;
   }
-  #theme-button-row,
-  #detail-button-row,
+  .button-row,
   #module-search {
     font-size: 12px;
     line-height: 250%;

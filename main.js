@@ -14,8 +14,6 @@ let modulesAtLevel;
 let modulesAtYear;
 let themeButtons;
 
-let sectionBy = "level"; // or "year"
-
 let userActivatedTheme = null;
 let activeTheme;
 
@@ -47,7 +45,9 @@ let shallowDependentsEnabled =
   defaultDetailPreferences["shallowDependents"] === "on";
 
 const urlParams = new URLSearchParams(window.location.search);
-let activeYearOfEntry = urlParams.get("year") || "25-26";
+let activeYearOfEntry = urlParams.get("year") || localStorage.getItem("year") || "25-26";
+let sectionBy = urlParams.get("sectionBy") || localStorage.getItem("sectionBy") || "year";
+setSectionByHandler(null, sectionBy);
 
 // If there is only 1 year button, hide anything with the year-select class.
 const yearButtons = document.getElementsByClassName("year-button");
@@ -788,6 +788,22 @@ function toggleDetailHandler(button, type) {
   checkAnyDetails();
 }
 
+function setSectionByHandler(button, sectionType) {
+  sectionBy = sectionType;
+  // Update the section buttons.
+  const sectionButtons = document.getElementsByClassName("section-by");
+  for (const sb of sectionButtons) {
+    if (sb.dataset.section === sectionType) {
+      sb.setAttribute("data-state", "on");
+    } else {
+      sb.setAttribute("data-state", "off");
+    }
+  }
+  localStorage.setItem("sectionBy", sectionBy);
+  setQueryParameter("sectionBy", sectionBy);
+  refreshAll(false);
+}
+
 function setYearOfEntryHandler(button) {
   // Deselect all year buttons.
   const yearButtons = document.getElementsByClassName("year-button");
@@ -797,12 +813,13 @@ function setYearOfEntryHandler(button) {
   button.setAttribute("data-state", "on");
   // Load the required data, specifying that this is an update.
   activeYearOfEntry = button.dataset.year;
+  // Update the URL parameter and local storage.
+  setQueryParameter("year", activeYearOfEntry);
+  localStorage.setItem("year", activeYearOfEntry);
   loadYear(activeYearOfEntry, true);
 }
 
 function loadYear(year, updating = false) {
-  // Update the URL parameter.
-  setQueryParameter("year", year);
   // Update the year buttons.
   const yearButtons = document.getElementsByClassName("year-button");
   for (const yb of yearButtons) {
