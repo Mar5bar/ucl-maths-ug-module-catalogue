@@ -5,11 +5,16 @@ let moduleData = {};
 
 let themes;
 let levels;
+let years;
+let sections;
 let groups;
 let prereqsMap;
 let requiredForMap;
 let modulesAtLevel;
+let modulesAtYear;
 let themeButtons;
+
+let sectionBy = "level"; // or "year"
 
 let userActivatedTheme = null;
 let activeTheme;
@@ -34,12 +39,12 @@ const defaultDetailPreferences = {
   terms: "off",
   "theme-prereqs": "on",
   groups: "off",
-  years: "on",
 };
 
 let splitByTerm = defaultDetailPreferences["terms"] === "on";
 let themePrereqsEnabled = defaultDetailPreferences["theme-prereqs"] === "on";
-let shallowDependentsEnabled = defaultDetailPreferences["shallowDependents"] === "on";
+let shallowDependentsEnabled =
+  defaultDetailPreferences["shallowDependents"] === "on";
 
 const urlParams = new URLSearchParams(window.location.search);
 let activeYearOfEntry = urlParams.get("year") || "25-26";
@@ -61,10 +66,13 @@ function processModuleData(moduleData) {
   document.getElementById("module-grid").innerHTML = "";
   document.getElementById("theme-button-row").innerHTML = "Theme:&nbsp;";
   levels = new Set();
+  years = new Set();
   themes = new Set();
   groups = new Set();
   modules = new Set();
+  sections = new Set();
   modulesAtLevel = {};
+  modulesAtYear = {};
   prereqsMap = {};
   requiredForMap = {};
   themeButtons = {};
@@ -78,12 +86,18 @@ function processModuleData(moduleData) {
   for (const moduleCode in moduleData) {
     const module = moduleData[moduleCode];
     let level = module.level;
+    let year = module.years.join("/");
+    // If year = "2/3", convert to "2". This is for grouping purposes only.
+    if (year == "2/3") {
+      year = "2";
+    }
     const term = module.term;
     if (splitByTerm && term) {
       level = level + ": Term " + term;
     }
-    // Record levels, themes, and groups.
+    // Record levels, themes, years, and groups.
     levels.add(level);
+    years.add(year);
     if (module.themes) {
       module.themes.forEach((theme) => themes.add(theme));
     }
@@ -99,6 +113,13 @@ function processModuleData(moduleData) {
       modulesAtLevel[level] = [];
     }
     modulesAtLevel[level].push(moduleCode);
+
+    // Record this module in the corresponding year.
+    if (!modulesAtYear[year]) {
+      modulesAtYear[year] = [];
+    }
+    modulesAtYear[year].push(moduleCode);
+
     if (module.prereqs) {
       prereqsMap[moduleCode] = unpackPrereqs(module.prereqs);
       // Populate a reverse mapping of prerequisites.
@@ -170,8 +191,17 @@ function processModuleData(moduleData) {
     }
   }
 
-  // Convert levels and themes to sorted arrays.
+  // Convert levels, years, and themes to sorted arrays.
   levels = Array.from(levels).sort();
+  years = Array.from(years).sort((a, b) => {
+    // Sort by first character, then string length.
+    const aFirst = a.charAt(0);
+    const bFirst = b.charAt(0);
+    if (aFirst === bFirst) {
+      return a.length - b.length;
+    }
+    return aFirst.localeCompare(bFirst);
+  });
   themes = Array.from(themes).sort((a, b) => {
     // Sort any Groups to the end.
     const aIsGroup = a.startsWith("Group ");
@@ -183,16 +213,30 @@ function processModuleData(moduleData) {
 
   // Build the grid of modules. Each level gets its own section.
   const moduleGrid = document.getElementById("module-grid");
-  for (const level of levels) {
+  if (sectionBy === "level") {
+    sections = levels;
+  } else if (sectionBy === "year") {
+    sections = years;
+  }
+  for (const section of sections) {
     const levelSection = document.createElement("div");
-    levelSection.className = "level-section";
-    levelSection.innerHTML = `<h3>Level ${level}</h3>`;
+    levelSection.className = "module-section";
+    if (sectionBy === "level") {
+      levelSection.innerHTML = `<h3>Level ${section}</h3>`;
+    } else if (sectionBy === "year") {
+      levelSection.innerHTML = `<h3>Year ${section}</h3>`;
+    }
     const moduleGroup = document.createElement("div");
     moduleGroup.className = "module-group";
     levelSection.appendChild(moduleGroup);
     moduleGrid.appendChild(levelSection);
 
-    let moduleCodes = modulesAtLevel[level] || [];
+    let moduleCodes;
+    if (sectionBy === "level") {
+      moduleCodes = modulesAtLevel[section] || [];
+    } else if (sectionBy === "year") {
+      moduleCodes = modulesAtYear[section] || [];
+    }
     // Sort module codes by prerequisites: a before b if a is a prerequisite of b.
     moduleCodes = topologicalSort(moduleCodes);
     for (const moduleCode of moduleCodes) {
@@ -201,21 +245,25 @@ function processModuleData(moduleData) {
       moduleElement.id = `module-${moduleCode}`;
       moduleElement.className = "module";
 
-      // List the years.
-      let yearString;
-      if (module.years) {
-        moduleElement.classList.add("multi-year-module");
-        yearString = `<span class="years-list">, Year ${module.years.join(
-          "/",
-        )}</span>`;
+      // List the years or levels.
+      let yearOrLevelString = "";
+      if (sectionBy === "level") {
+        if (module.years) {
+          yearOrLevelString = `<span>, Year ${module.years.join("/")}</span>`;
+        }
+      } else if (sectionBy === "year") {
+        if (module.level) {
+          yearOrLevelString = `<span>, Level ${module.level}</span>`;
+        }
       }
+
       // Add the title, code, description, etc.
       moduleElement.innerHTML = `
                 <div class='top-container'>
                 <h4>${
                   module.title
                 } <br class="title-break"> <span class="module-code">(${
-        module.code + (yearString ? yearString : "")
+        module.code + yearOrLevelString
       }<span class="groups-list">${
         module.groups ? ", Group " + module.groups.join("/") : ""
       }</span>)</span></h4>

@@ -30,26 +30,26 @@ a {
   border-bottom: 1px solid #ddd;
 }
 
-.level-section {
+.module-section {
   display: none;
 }
 
-.level-section:has(.active-theme),
-#module-grid.no-theme-active .level-section {
+.module-section:has(.active-theme),
+#module-grid.no-theme-active .module-section {
   display: block;
 }
 
-.level-section h3 {
+.module-section h3 {
   text-align: center;
   font-weight: 400;
   font-size: medium;
 }
 
-.level-section h3::before {
+.module-section h3::before {
   content: "— ";
 }
 
-.level-section h3::after {
+.module-section h3::after {
   content: " —";
 }
 
@@ -153,10 +153,6 @@ br.title-break {
 }
 
 .groups-low-detail .module .groups-list {
-  display: none;
-}
-
-.years-low-detail .module .years-list {
   display: none;
 }
 
