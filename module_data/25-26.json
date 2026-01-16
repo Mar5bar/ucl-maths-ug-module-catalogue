@@ -955,7 +955,8 @@
       "level": "7",
       "syllabus": "https://www.ucl.ac.uk/mathematical-physical-sciences/maths/current-students/current-undergraduates/degree-structures-and-options/year-4-project",
       "term": "1 & 2",
-      "title": "Project"
+      "title": "Project",
+      "years": ["4"]
     },
     {
       "code": "MATH0086",
