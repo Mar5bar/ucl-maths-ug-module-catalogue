@@ -94,6 +94,7 @@ function processModuleData(moduleData) {
     const term = module.term;
     if (splitByTerm && term) {
       level = level + ": Term " + term;
+      year = year + ": Term " + term;
     }
     // Record levels, themes, years, and groups.
     levels.add(level);
@@ -194,13 +195,16 @@ function processModuleData(moduleData) {
   // Convert levels, years, and themes to sorted arrays.
   levels = Array.from(levels).sort();
   years = Array.from(years).sort((a, b) => {
-    // Sort by first character, then string length.
+    // Sort by first character, then string length, then by last digit.
     const aFirst = a.charAt(0);
     const bFirst = b.charAt(0);
     if (aFirst === bFirst) {
+      if (a.length === b.length) {
+        return a.charAt(a.length - 1).localeCompare(b.charAt(b.length - 1));
+      }
       return a.length - b.length;
     }
-    return aFirst.localeCompare(bFirst);
+    return a.localeCompare(b);
   });
   themes = Array.from(themes).sort((a, b) => {
     // Sort any Groups to the end.
