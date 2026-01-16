@@ -39,6 +39,20 @@ a {
   display: block;
 }
 
+.level-section h3 {
+  text-align: center;
+  font-weight: 400;
+  font-size: medium;
+}
+
+.level-section h3::before {
+  content: "— ";
+}
+
+.level-section h3::after {
+  content: " —";
+}
+
 .module-group {
   display: flex;
   flex-wrap: wrap;
