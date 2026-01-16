@@ -22,14 +22,14 @@ let themesToModules;
 let themesToModulesNoPrereqs;
 let ancillaryModules;
 
-const defaultSyllabusBaseURL =
-  "./pdfs";
+const defaultSyllabusBaseURL = "./pdfs";
 const defaultDetailPreferences = {
   description: "on",
   syllabus: "on",
   prereqs: "on",
   related: "on",
   reqfors: "off",
+  shallowDependents: "on",
   themes: "off",
   terms: "off",
   "theme-prereqs": "on",
@@ -39,6 +39,7 @@ const defaultDetailPreferences = {
 
 let splitByTerm = defaultDetailPreferences["terms"] === "on";
 let themePrereqsEnabled = defaultDetailPreferences["theme-prereqs"] === "on";
+let shallowDependentsEnabled = defaultDetailPreferences["shallowDependents"] === "on";
 
 const urlParams = new URLSearchParams(window.location.search);
 let activeYearOfEntry = urlParams.get("year") || "25-26";
@@ -288,7 +289,12 @@ function processModuleData(moduleData) {
       const syllabusElement = document.createElement("a");
       syllabusElement.href =
         module.syllabus ||
-        defaultSyllabusBaseURL + "/" + activeYearOfEntry + "/" + module.code.toLowerCase() + ".pdf";
+        defaultSyllabusBaseURL +
+          "/" +
+          activeYearOfEntry +
+          "/" +
+          module.code.toLowerCase() +
+          ".pdf";
       syllabusElement.className = "syllabus";
       syllabusElement.target = "_blank";
       syllabusElement.onclick = (e) => {
@@ -322,7 +328,7 @@ function processModuleData(moduleData) {
     // Add a newline and "Group: " before Group themes.
     if (theme.startsWith("Group ") && !startedGroups) {
       const groupLabel = document.createElement("span");
-      groupLabel.innerHTML = "&nbsp | &nbsp;";
+      groupLabel.innerHTML = "&nbsp; | &nbsp;";
       themeButtonRow.appendChild(groupLabel);
       startedGroups = true;
     }
@@ -489,14 +495,35 @@ function highlightRelatedModules(moduleCode) {
     }
   }
 
-  const dependentCodes = requiredForMap[moduleCode] || [];
-  for (const code of dependentCodes) {
-    if (!moduleData[code]) {
-      continue;
+  // Chase down dependent modules (those that require the active module), marking them and connecting them.
+  if (!shallowDependentsEnabled) {
+    // Include all dependent modules, following chains.
+    let toDoDependents = [moduleCode];
+    while (toDoDependents.length > 0) {
+      const currentModule = toDoDependents.pop();
+      const dependentCodes = requiredForMap[currentModule] || [];
+      for (const code of dependentCodes) {
+        if (!moduleData[code]) {
+          continue;
+        }
+        moduleData[code].element.classList.add("dependent-module");
+        lines.push([currentModule, code]);
+        if (!modulesConsidered.has(code)) {
+          modulesConsidered.add(code);
+          toDoDependents.push(code);
+        }
+      }
     }
-    moduleData[code].element.classList.add("dependent-module");
-    lines.push([moduleCode, code]);
-    modulesConsidered.add(code);
+  } else {
+    const dependentCodes = requiredForMap[moduleCode] || [];
+    for (const code of dependentCodes) {
+      if (!moduleData[code]) {
+        continue;
+      }
+      moduleData[code].element.classList.add("dependent-module");
+      lines.push([moduleCode, code]);
+      modulesConsidered.add(code);
+    }
   }
 
   // For any modules listed as "related" that are not already highlighted above, give them a special class.
@@ -704,6 +731,10 @@ function toggleDetailHandler(button, type) {
     themePrereqsEnabled = button.getAttribute("data-state") === "on";
     refreshAll(false);
   }
+  if (type === "shallowDependents") {
+    shallowDependentsEnabled = button.getAttribute("data-state") === "on";
+    refreshAll(false);
+  }
   // Record the state of the button in local storage.
   localStorage.setItem("detail-" + type, button.getAttribute("data-state"));
   checkAnyDetails();
@@ -809,6 +840,9 @@ function restoreDetailPreferences() {
     }
     if (type === "theme-prereqs") {
       themePrereqsEnabled = state === "on";
+    }
+    if (type === "shallowDependents") {
+      shallowDependentsEnabled = state === "on";
     }
   });
   checkAnyDetails();

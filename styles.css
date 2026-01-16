@@ -45,9 +45,9 @@ a {
   gap: 20px;
   justify-content: center;
   text-align: center;
-  -webkit-user-select: none;
+  /* -webkit-user-select: none;
   -ms-user-select: none;
-  user-select: none;
+  user-select: none; */
 }
 
 .module {

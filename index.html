@@ -43,7 +43,9 @@
           </button>
         </div>
         <p>
-          <span class="year-select">Select your year of entry above to load the relevant modules.</span>
+          <span class="year-select"
+            >Select your year of entry above to load the relevant modules.</span
+          >
           Select modules to see how they are connected as prerequisites of one
           another, or filter by theme using the buttons below. An accessible
           tabular version of the module catalogue can be found
@@ -69,13 +71,6 @@
             Descriptions
           </button>
           <button
-            id="reqfors-detail-toggle"
-            type="button"
-            onclick="toggleDetailHandler(this, 'reqfors')"
-          >
-            Follow ons
-          </button>
-          <button
             id="groups-detail-toggle"
             type="button"
             onclick="toggleDetailHandler(this, 'groups')"
@@ -95,6 +90,20 @@
             onclick="toggleDetailHandler(this, 'related')"
           >
             Related
+          </button>
+          <button
+            id="reqfors-detail-toggle"
+            type="button"
+            onclick="toggleDetailHandler(this, 'reqfors')"
+          >
+            Required for
+          </button>
+          <button
+            id="shallowDependents-detail-toggle"
+            type="button"
+            onclick="toggleDetailHandler(this, 'shallowDependents')"
+          >
+            Shallow dependents
           </button>
           <button
             id="syllabus-detail-toggle"
