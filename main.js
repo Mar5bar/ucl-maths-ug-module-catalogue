@@ -107,6 +107,7 @@ function processModuleData(moduleData) {
     if (splitByTerm && term) {
       level = level + ": Term " + term;
       year = year + ": Term " + term;
+      recYear = recYear + ": Term " + term;
     }
     // Record levels, themes, years, and groups.
     levels.add(level);
