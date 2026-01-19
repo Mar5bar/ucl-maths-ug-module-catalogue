@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -68,6 +68,14 @@
           >
             Recommended year
           </button>
+          <span>&nbsp;|&nbsp;</span>
+          <button
+            id="terms-detail-toggle"
+            type="button"
+            onclick="toggleDetailHandler(this, 'terms')"
+          >
+            Terms
+          </button>
         </div>
         <p>
           <span class="year-select"
@@ -90,6 +98,13 @@
         </div>
         <div id="detail-button-row" class="button-row">
           Details:
+          <button
+            id="deepDependents-detail-toggle"
+            type="button"
+            onclick="toggleDetailHandler(this, 'deepDependents')"
+          >
+            Deep dependents
+          </button>
           <button
             id="description-detail-toggle"
             type="button"
@@ -126,13 +141,6 @@
             Required for
           </button>
           <button
-            id="shallowDependents-detail-toggle"
-            type="button"
-            onclick="toggleDetailHandler(this, 'shallowDependents')"
-          >
-            Shallow dependents
-          </button>
-          <button
             id="syllabus-detail-toggle"
             type="button"
             onclick="toggleDetailHandler(this, 'syllabus')"
@@ -145,13 +153,6 @@
             onclick="toggleDetailHandler(this, 'themes')"
           >
             Themes
-          </button>
-          <button
-            id="terms-detail-toggle"
-            type="button"
-            onclick="toggleDetailHandler(this, 'terms')"
-          >
-            Terms
           </button>
           <!-- <button
             id="theme-prereqs-detail-toggle"

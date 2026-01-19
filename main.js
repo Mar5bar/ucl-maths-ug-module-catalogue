@@ -34,7 +34,7 @@ const defaultDetailPreferences = {
   prereqs: "on",
   related: "on",
   reqfors: "off",
-  shallowDependents: "on",
+  deepDependents: "on",
   themes: "off",
   terms: "off",
   "theme-prereqs": "on",
@@ -43,8 +43,8 @@ const defaultDetailPreferences = {
 
 let splitByTerm = defaultDetailPreferences["terms"] === "on";
 let themePrereqsEnabled = defaultDetailPreferences["theme-prereqs"] === "on";
-let shallowDependentsEnabled =
-  defaultDetailPreferences["shallowDependents"] === "on";
+let deepDependentsEnabled =
+  defaultDetailPreferences["deepDependents"] === "on";
 
 const urlParams = new URLSearchParams(window.location.search);
 let activeYearOfEntry =
@@ -253,7 +253,7 @@ function processModuleData(moduleData) {
     } else if (sectionBy === "year") {
       levelSection.innerHTML = `<h3>Year ${section}</h3>`;
     } else if (sectionBy === "recYear") {
-      levelSection.innerHTML = `<h3>Recommended Year ${section}</h3>`;
+      levelSection.innerHTML = `<h3>Year ${section}</h3>`;
     }
     const moduleGroup = document.createElement("div");
     moduleGroup.className = "module-group";
@@ -585,7 +585,7 @@ function highlightRelatedModules(moduleCode) {
   }
 
   // Chase down dependent modules (those that require the active module), marking them and connecting them.
-  if (!shallowDependentsEnabled) {
+  if (deepDependentsEnabled) {
     // Include all dependent modules, following chains.
     let toDoDependents = [moduleCode];
     while (toDoDependents.length > 0) {
@@ -820,8 +820,8 @@ function toggleDetailHandler(button, type) {
     themePrereqsEnabled = button.getAttribute("data-state") === "on";
     refreshAll(false);
   }
-  if (type === "shallowDependents") {
-    shallowDependentsEnabled = button.getAttribute("data-state") === "on";
+  if (type === "deepDependents") {
+    deepDependentsEnabled = button.getAttribute("data-state") === "on";
     refreshAll(false);
   }
   // Record the state of the button in local storage.
@@ -948,8 +948,8 @@ function restoreDetailPreferences() {
     if (type === "theme-prereqs") {
       themePrereqsEnabled = state === "on";
     }
-    if (type === "shallowDependents") {
-      shallowDependentsEnabled = state === "on";
+    if (type === "deepDependents") {
+      deepDependentsEnabled = state === "on";
     }
   });
   checkAnyDetails();
