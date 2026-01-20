@@ -280,16 +280,16 @@ function processModuleData(moduleData) {
       let yearOrLevelString = "";
       if (sectionBy === "level") {
         if (module.years) {
-          yearOrLevelString = `<span>, Year ${module.years.join("/")}</span>`;
+          yearOrLevelString = `<span>, Yr ${module.years.join("/")}</span>`;
         }
       } else if (sectionBy === "year") {
         if (module.level) {
-          yearOrLevelString = `<span>, Level ${module.level}</span>`;
+          yearOrLevelString = `<span>, Lvl ${module.level}</span>`;
         }
       } else if (sectionBy === "recYear") {
-        yearOrLevelString = `<span>, Level ${module.level}</span>`;
+        yearOrLevelString = `<span>, Lvl ${module.level}</span>`;
         if (module.years.length > 1) {
-          yearOrLevelString = yearOrLevelString + `<span>, Year ${module.years.join("/")}</span>`;
+          yearOrLevelString = yearOrLevelString + `<span>, Yr ${module.years.join("/")}</span>`;
         }
       }
 
