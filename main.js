@@ -15,6 +15,7 @@ let modulesAtLevel;
 let modulesAtYear;
 let modulesAtRecYear;
 let themeButtons;
+let modulesTaken = new Set();
 
 let userActivatedTheme = null;
 let activeTheme;
@@ -43,8 +44,7 @@ const defaultDetailPreferences = {
 
 let splitByTerm = defaultDetailPreferences["terms"] === "on";
 let themePrereqsEnabled = defaultDetailPreferences["theme-prereqs"] === "on";
-let deepDependentsEnabled =
-  defaultDetailPreferences["deepDependents"] === "on";
+let deepDependentsEnabled = defaultDetailPreferences["deepDependents"] === "on";
 
 const urlParams = new URLSearchParams(window.location.search);
 let activeYearOfEntry =
@@ -98,7 +98,7 @@ function processModuleData(moduleData) {
       // If no recommended year is given, use the first years in years if the module is level 4, 5, or 6.
       if (level == "4" || level == "5" || level == "6") {
         recYear = module.years[0];
-      // If the module is level 7, use the final year in years.
+        // If the module is level 7, use the final year in years.
       } else if (level == "7") {
         recYear = module.years[module.years.length - 1];
       }
@@ -289,7 +289,8 @@ function processModuleData(moduleData) {
       } else if (sectionBy === "recYear") {
         yearOrLevelString = `<span>, Lvl ${module.level}</span>`;
         if (module.years.length > 1) {
-          yearOrLevelString = yearOrLevelString + `<span>, Yr ${module.years.join("/")}</span>`;
+          yearOrLevelString =
+            yearOrLevelString + `<span>, Yr ${module.years.join("/")}</span>`;
         }
       }
 
@@ -304,10 +305,10 @@ function processModuleData(moduleData) {
                 <h4>${
                   module.title
                 } <br class="title-break"> <span class="module-code">(${
-        module.code + yearOrLevelString + termString
-      }<span class="groups-list">${
-        module.groups ? ", Group " + module.groups.join("/") : ""
-      }</span>)</span></h4>
+                  module.code + yearOrLevelString + termString
+                }<span class="groups-list">${
+                  module.groups ? ", Group " + module.groups.join("/") : ""
+                }</span>)</span></h4>
                 <p class="description">${module.description}</p>
                 </div>
             `;
@@ -391,6 +392,21 @@ function processModuleData(moduleData) {
       };
       syllabusElement.innerHTML = "Syllabus";
       moduleElement.appendChild(syllabusElement);
+      // Add a checkbox to toggle if a module has been taken.
+      const takenCheckbox = document.createElement("input");
+      takenCheckbox.type = "checkbox";
+      takenCheckbox.className = "taken-checkbox";
+      takenCheckbox.checked = modulesTaken.has(moduleCode);
+      takenCheckbox.onclick = (e) => {
+        e.stopPropagation();
+        if (takenCheckbox.checked) {
+          modulesTaken.add(moduleCode);
+        } else {
+          modulesTaken.delete(moduleCode);
+        }
+        styleModulesWithUnmetPrereqs();
+      };
+      moduleElement.appendChild(takenCheckbox);
 
       // Make the module element clickable to highlight it.
       moduleElement.addEventListener("click", () => {
@@ -916,6 +932,27 @@ function loadYear(year, updating = false) {
     });
 }
 
+function arePrereqsMet(moduleCode) {
+  // Check if all prerequisites for the given module code are met. Do not chase chains.
+  const prereqs = prereqsMap[moduleCode] || [];
+  for (const prereq of prereqs) {
+    if (!modulesTaken.has(prereq)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function styleModulesWithUnmetPrereqs() {
+  for (const moduleCode in moduleData) {
+    const module = moduleData[moduleCode];
+    module.element.classList.remove("unmet-prereqs");
+    if (!arePrereqsMet(moduleCode) && modulesTaken.size > 0) {
+      module.element.classList.add("unmet-prereqs");
+    }
+  }
+}
+
 function refreshAll(scrollTo = true) {
   // Re-process the module data to update levels.
   processModuleData(moduleData);
@@ -928,6 +965,10 @@ function refreshAll(scrollTo = true) {
   // If a theme is active, re-activate it to re-apply filtering.
   if (activeTheme) {
     activateTheme(activeTheme);
+  }
+  // If any modules have been marked as taken, deactivate modules with unmet prerequisites.
+  if (modulesTaken.size > 0) {
+    styleModulesWithUnmetPrereqs();
   }
 }
 
@@ -972,6 +1013,7 @@ function checkAnyDetails() {
     "reqfors",
     "themes",
     "syllabus",
+    "groups",
   ];
   let anyOn = false;
   detailTypes.forEach((dt) => {

@@ -80,6 +80,7 @@ a {
   display: flex;
   flex-direction: column;
   color: #2d3a4a;
+  position: relative;
 }
 
 .module:hover {
@@ -124,6 +125,15 @@ br.title-break {
 
 .module .top-container {
   flex-grow: 1;
+}
+
+.taken-checkbox {
+  margin-bottom: 0px;
+  align-self: center;
+  cursor: pointer;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
 }
 
 .no-details-enabled .top-container {
@@ -192,7 +202,9 @@ button {
   color: #2d3a4a;
   font-weight: 500;
   box-shadow: 0 1px 4px rgba(60, 80, 120, 0.07);
-  transition: background 0.2s, box-shadow 0.2s;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
   border: 2px solid #d1d5db;
   padding: 4px 10px;
   margin: 0 2px;
@@ -240,7 +252,8 @@ button[data-state="on"] {
 }
 
 .inactive-theme,
-.inactive-module {
+.inactive-module,
+.unmet-prereqs {
   opacity: 0.5;
 }
 
