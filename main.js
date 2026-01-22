@@ -397,8 +397,13 @@ function processModuleData(moduleData) {
       takenCheckbox.type = "checkbox";
       takenCheckbox.className = "taken-checkbox";
       takenCheckbox.checked = modulesTaken.has(moduleCode);
-      takenCheckbox.onclick = (e) => {
+      takenCheckbox.dataset.checked = takenCheckbox.checked;
+      const takenLabel = document.createElement("label");
+      takenLabel.className = "taken-label";
+      takenLabel.textContent = "Taken:";
+      function handler(e) {
         e.stopPropagation();
+        takenLabel.dataset.checked = takenCheckbox.checked;
         takenCheckbox.dataset.checked = takenCheckbox.checked;
         if (takenCheckbox.checked) {
           modulesTaken.add(moduleCode);
@@ -406,8 +411,11 @@ function processModuleData(moduleData) {
           modulesTaken.delete(moduleCode);
         }
         styleModulesWithUnmetPrereqs();
-      };
-      moduleElement.appendChild(takenCheckbox);
+      }
+      takenCheckbox.onclick = handler;
+      takenLabel.onclick = handler;
+      takenLabel.appendChild(takenCheckbox);
+      moduleElement.appendChild(takenLabel);
 
       // Make the module element clickable to highlight it.
       moduleElement.addEventListener("click", () => {

@@ -127,21 +127,30 @@ br.title-break {
   flex-grow: 1;
 }
 
-.taken-checkbox {
+.taken-label {
   margin-bottom: 0px;
   align-self: center;
   cursor: pointer;
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  bottom: 8px;
+  right: 8px;
   visibility: hidden;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-size: smaller;
+  vertical-align: middle;
+}
+
+.taken-checkbox {
+  vertical-align: middle;
 }
 
 .taken-checkbox[data-checked="true"] {
   visibility: visible;
 }
 
-.module:hover .taken-checkbox {
+.module:hover .taken-label {
   visibility: visible;
 }
 
