@@ -170,6 +170,8 @@ function processModuleData(moduleData) {
 
   // Build the grid of modules. Each level gets its own section.
   const moduleGrid = document.getElementById("module-grid");
+  // Clear existing content.
+  moduleGrid.innerHTML = "";
   for (const level of levelsList) {
     const levelSection = document.createElement("div");
     levelSection.className = "level-section";
