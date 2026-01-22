@@ -248,12 +248,36 @@ function processModuleData(moduleData) {
   for (const section of sections) {
     const levelSection = document.createElement("div");
     levelSection.className = "module-section";
+    const header = document.createElement("h3");
+    header.className = "section-header";
     if (sectionBy === "level") {
-      levelSection.innerHTML = `<h3>Level ${section}</h3>`;
+      header.textContent = `Level ${section}`;
     } else if (sectionBy === "year") {
-      levelSection.innerHTML = `<h3>Year ${section}</h3>`;
+      header.textContent = `Year ${section}`;
     } else if (sectionBy === "recYear") {
-      levelSection.innerHTML = `<h3>Year ${section}</h3>`;
+      header.textContent = `Year ${section}`;
+    }
+    levelSection.appendChild(header);
+    if (
+      (sectionBy === "year" || sectionBy === "recYear") &&
+      section[0] === "1"
+    ) {
+      const takenSectionButton = document.createElement("button");
+      takenSectionButton.className = "taken-section-button";
+      takenSectionButton.textContent = "Mark all as taken";
+      takenSectionButton.addEventListener("click", () => {
+        for (const moduleCode of moduleCodes) {
+          // For every module in this section, if its checkbox is not already ticked, tick it by triggering a click.
+          const module = moduleData[moduleCode];
+          const moduleElement = module.element;
+          const takenCheckbox = moduleElement.querySelector(".taken-checkbox");
+          if (!takenCheckbox.checked) {
+            takenCheckbox.click();
+          }
+        }
+        styleModulesWithUnmetPrereqs();
+      });
+      header.appendChild(takenSectionButton);
     }
     const moduleGroup = document.createElement("div");
     moduleGroup.className = "module-group";
@@ -409,6 +433,18 @@ function processModuleData(moduleData) {
           modulesTaken.add(moduleCode);
         } else {
           modulesTaken.delete(moduleCode);
+        }
+        const takenSectionButtons = document.getElementsByClassName(
+          "taken-section-button",
+        );
+        if (modulesTaken.size > 0) {
+          for (const btn of takenSectionButtons) {
+            btn.style.visibility = "visible";
+          }
+        } else {
+          for (const btn of takenSectionButtons) {
+            btn.style.visibility = "";
+          }
         }
         styleModulesWithUnmetPrereqs();
       }

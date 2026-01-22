@@ -45,6 +45,7 @@ a {
   text-align: center;
   font-weight: 400;
   font-size: medium;
+  position: relative;
 }
 
 .module-section h3::before {
@@ -53,6 +54,19 @@ a {
 
 .module-section h3::after {
   content: " —";
+}
+
+.taken-section-button {
+  position: absolute;
+  bottom: 50%;
+  right: 0;
+  transform: translateY(50%);
+  visibility: hidden;
+  font-size: smaller;
+}
+
+.module-section h3:hover .taken-section-button {
+  visibility: visible;
 }
 
 .module-group {
