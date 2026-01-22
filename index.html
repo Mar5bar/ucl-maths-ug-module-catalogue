@@ -74,15 +74,81 @@
             type="button"
             onclick="toggleDetailHandler(this, 'terms')"
           >
-            Term
-          </button>
-        </div>
+          Term
+        </button>
+      </div>
+      <div id="detail-button-row" class="button-row">
+        Details:
+        <button
+          id="deepDependents-detail-toggle"
+          type="button"
+          onclick="toggleDetailHandler(this, 'deepDependents')"
+        >
+          Deep dependents
+        </button>
+        <button
+          id="description-detail-toggle"
+          type="button"
+          onclick="toggleDetailHandler(this, 'description')"
+        >
+          Descriptions
+        </button>
+        <button
+          id="groups-detail-toggle"
+          type="button"
+          onclick="toggleDetailHandler(this, 'groups')"
+        >
+          Groups
+        </button>
+        <button
+          id="prereqs-detail-toggle"
+          type="button"
+          onclick="toggleDetailHandler(this, 'prereqs')"
+        >
+          Prerequisites
+        </button>
+        <button
+          id="related-detail-toggle"
+          type="button"
+          onclick="toggleDetailHandler(this, 'related')"
+        >
+          Related
+        </button>
+        <button
+          id="reqfors-detail-toggle"
+          type="button"
+          onclick="toggleDetailHandler(this, 'reqfors')"
+        >
+          Required for
+        </button>
+        <button
+          id="syllabus-detail-toggle"
+          type="button"
+          onclick="toggleDetailHandler(this, 'syllabus')"
+        >
+          Syllabus links
+        </button>
+        <button
+          id="themes-detail-toggle"
+          type="button"
+          onclick="toggleDetailHandler(this, 'themes')"
+        >
+          Themes
+        </button>
+        <!-- <button
+          id="theme-prereqs-detail-toggle"
+          type="button"
+          onclick="toggleDetailHandler(this, 'theme-prereqs')"
+        >
+          Theme prerequisites
+        </button> -->
+      </div>
         <p>
           <span class="year-select"
             >Select your year of entry above to load the relevant modules.</span
           >
           Select modules to see how they are connected as prerequisites of one
-          another, or filter by theme using the buttons below. Tick modules as taken to explore your available options. An accessible
+          another, or filter by theme using the buttons below. Tick modules as taken to explore your available options going forward. An accessible
           tabular version of the module catalogue can be found
           <a href="table.html">here</a>. Information correct as of January 2026.
         </p>
@@ -95,72 +161,6 @@
           <button id="search-button" type="button" onclick="searchModules()">
             Search
           </button>
-        </div>
-        <div id="detail-button-row" class="button-row">
-          Details:
-          <button
-            id="deepDependents-detail-toggle"
-            type="button"
-            onclick="toggleDetailHandler(this, 'deepDependents')"
-          >
-            Deep dependents
-          </button>
-          <button
-            id="description-detail-toggle"
-            type="button"
-            onclick="toggleDetailHandler(this, 'description')"
-          >
-            Descriptions
-          </button>
-          <button
-            id="groups-detail-toggle"
-            type="button"
-            onclick="toggleDetailHandler(this, 'groups')"
-          >
-            Groups
-          </button>
-          <button
-            id="prereqs-detail-toggle"
-            type="button"
-            onclick="toggleDetailHandler(this, 'prereqs')"
-          >
-            Prerequisites
-          </button>
-          <button
-            id="related-detail-toggle"
-            type="button"
-            onclick="toggleDetailHandler(this, 'related')"
-          >
-            Related
-          </button>
-          <button
-            id="reqfors-detail-toggle"
-            type="button"
-            onclick="toggleDetailHandler(this, 'reqfors')"
-          >
-            Required for
-          </button>
-          <button
-            id="syllabus-detail-toggle"
-            type="button"
-            onclick="toggleDetailHandler(this, 'syllabus')"
-          >
-            Syllabus links
-          </button>
-          <button
-            id="themes-detail-toggle"
-            type="button"
-            onclick="toggleDetailHandler(this, 'themes')"
-          >
-            Themes
-          </button>
-          <!-- <button
-            id="theme-prereqs-detail-toggle"
-            type="button"
-            onclick="toggleDetailHandler(this, 'theme-prereqs')"
-          >
-            Theme prerequisites
-          </button> -->
         </div>
       </div>
       <div id="theme-button-row" class="button-row"></div>

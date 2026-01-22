@@ -399,6 +399,7 @@ function processModuleData(moduleData) {
       takenCheckbox.checked = modulesTaken.has(moduleCode);
       takenCheckbox.onclick = (e) => {
         e.stopPropagation();
+        takenCheckbox.dataset.checked = takenCheckbox.checked;
         if (takenCheckbox.checked) {
           modulesTaken.add(moduleCode);
         } else {
