@@ -260,7 +260,7 @@ function processModuleData(moduleData) {
     levelSection.appendChild(header);
     if (
       (sectionBy === "year" || sectionBy === "recYear") &&
-      section[0] === "1"
+      (section[0] === "1" || section[0] === "2")
     ) {
       const takenSectionButton = document.createElement("button");
       takenSectionButton.className = "taken-section-button";
