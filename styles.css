@@ -65,8 +65,10 @@ a {
   font-size: smaller;
 }
 
-.module-section h3:hover .taken-section-button {
-  visibility: visible;
+@media (hover: hover) {
+  .module-section h3:hover .taken-section-button {
+    visibility: visible;
+  }
 }
 
 .module-group {
@@ -97,9 +99,11 @@ a {
   position: relative;
 }
 
-.module:hover {
-  box-shadow: 0 4px 24px rgba(60, 80, 120, 0.35);
-  cursor: pointer;
+@media (hover: hover) {
+  .module:hover {
+    box-shadow: 0 4px 24px rgba(60, 80, 120, 0.35);
+    cursor: pointer;
+  }
 }
 
 .module h4 {
@@ -164,8 +168,17 @@ br.title-break {
   visibility: visible;
 }
 
-.module:hover .taken-label {
-  visibility: visible;
+/* Always show the button (not the text) if you can't hover */
+@media (hover: none) {
+  .taken-checkbox {
+    visibility: visible;
+  }
+}
+
+@media (hover: hover) {
+  .module:hover .taken-label {
+    visibility: visible;
+  }
 }
 
 .no-details-enabled .top-container {
@@ -380,6 +393,9 @@ input[type="text"] {
   .module a {
     font-size: 12px;
   }
+  .module .module-code {
+    font-size: 10px;
+  }
   button,
   button.theme-button {
     font-size: 12px;
@@ -389,5 +405,8 @@ input[type="text"] {
   #module-search {
     font-size: 12px;
     line-height: 250%;
+  }
+  .taken-label {
+    font-size: xx-small;
   }
 }
