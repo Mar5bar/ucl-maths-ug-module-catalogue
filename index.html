@@ -49,6 +49,7 @@
             type="button"
             data-section="level"
             onclick="setSectionByHandler(this, 'level')"
+            title="Group modules by their level (4, 5, 6 or 7)."
           >
             Level
           </button>
@@ -57,6 +58,7 @@
             type="button"
             data-section="year"
             onclick="setSectionByHandler(this, 'year')"
+            title="Group modules by the years in which they can typically be taken."
           >
             Year
           </button>
@@ -65,6 +67,7 @@
             type="button"
             data-section="recYear"
             onclick="setSectionByHandler(this, 'recYear')"
+            title="Group modules by the year that most students will take them."
           >
             Recommended year
           </button>
@@ -73,82 +76,153 @@
             id="terms-detail-toggle"
             type="button"
             onclick="toggleDetailHandler(this, 'terms')"
+            title="Additionally, group modules by the term in which they are taught."
           >
-          Term
-        </button>
-      </div>
-      <div id="detail-button-row" class="button-row">
-        Details:
-        <button
-          id="deepDependents-detail-toggle"
-          type="button"
-          onclick="toggleDetailHandler(this, 'deepDependents')"
-        >
-          Deep dependents
-        </button>
-        <button
-          id="description-detail-toggle"
-          type="button"
-          onclick="toggleDetailHandler(this, 'description')"
-        >
-          Descriptions
-        </button>
-        <button
-          id="groups-detail-toggle"
-          type="button"
-          onclick="toggleDetailHandler(this, 'groups')"
-        >
-          Groups
-        </button>
-        <button
-          id="prereqs-detail-toggle"
-          type="button"
-          onclick="toggleDetailHandler(this, 'prereqs')"
-        >
-          Prerequisites
-        </button>
-        <button
-          id="related-detail-toggle"
-          type="button"
-          onclick="toggleDetailHandler(this, 'related')"
-        >
-          Related
-        </button>
-        <button
-          id="reqfors-detail-toggle"
-          type="button"
-          onclick="toggleDetailHandler(this, 'reqfors')"
-        >
-          Required for
-        </button>
-        <button
-          id="syllabus-detail-toggle"
-          type="button"
-          onclick="toggleDetailHandler(this, 'syllabus')"
-        >
-          Syllabus links
-        </button>
-        <button
-          id="themes-detail-toggle"
-          type="button"
-          onclick="toggleDetailHandler(this, 'themes')"
-        >
-          Themes
-        </button>
-        <!-- <button
+            Term
+          </button>
+        </div>
+        <div id="detail-button-row" class="button-row">
+          Details:
+          <button
+            id="deepDependents-detail-toggle"
+            type="button"
+            onclick="toggleDetailHandler(this, 'deepDependents')"
+            title="When a module is highlighted, shows all modules that depend on this module, directly or indirectly."
+          >
+            Deep dependents
+          </button>
+          <button
+            id="description-detail-toggle"
+            type="button"
+            onclick="toggleDetailHandler(this, 'description')"
+            title="Displays succinct module descriptions."
+          >
+            Descriptions
+          </button>
+          <button
+            id="groups-detail-toggle"
+            type="button"
+            onclick="toggleDetailHandler(this, 'groups')"
+            title="Shows the label of any Group (1A/1B/2) this module belongs to, if applicable. These are primarily used for students on the MSci programme, who must choose one of the three groups 1A, 1B and 2 and choose at least four modules from that group."
+          >
+            Groups
+          </button>
+          <button
+            id="prereqs-detail-toggle"
+            type="button"
+            onclick="toggleDetailHandler(this, 'prereqs')"
+            title="Lists the formal prerequisites required to take this module."
+          >
+            Prerequisites
+          </button>
+          <button
+            id="related-detail-toggle"
+            type="button"
+            onclick="toggleDetailHandler(this, 'related')"
+            title="Displays modules that are highly related in content or theme."
+          >
+            Related
+          </button>
+          <button
+            id="reqfors-detail-toggle"
+            type="button"
+            onclick="toggleDetailHandler(this, 'reqfors')"
+            title="Shows which modules require this module as a prerequisite."
+          >
+            Required for
+          </button>
+          <button
+            id="syllabus-detail-toggle"
+            type="button"
+            onclick="toggleDetailHandler(this, 'syllabus')"
+            title="Provides links to the official syllabus for the module in the given year."
+          >
+            Syllabus links
+          </button>
+          <button
+            id="themes-detail-toggle"
+            type="button"
+            onclick="toggleDetailHandler(this, 'themes')"
+            title="Displays the themes associated with this module (e.g., 'Algebra', 'Analysis')."
+          >
+            Themes
+          </button>
+          <!-- <button
           id="theme-prereqs-detail-toggle"
           type="button"
           onclick="toggleDetailHandler(this, 'theme-prereqs')"
         >
           Theme prerequisites
         </button> -->
-      </div>
+        </div>
+        <!-- A collapsible help section describing what the Details buttons do -->
+        <details>
+          <summary>What do these buttons do?</summary>
+          <div class="year-select">
+            <h4>Year of entry</h4>
+            <p>
+              The module catalogue can differ significantly depending on your
+              year of entry due to updates to the curriculum. Use the buttons
+              above to select your year of entry and view the information
+              relevant to you.
+            </p>
+          </div>
+          <h4>Organise modules by</h4>
+          <p>
+            Modules can be grouped together in a number of ways to help you
+            explore the catalogue. By default, modules are organised by
+            <strong>Recommended year</strong> (the year that most students will
+            take the module in), but you can also choose to organise them by
+            <strong>Level</strong> (4, 5, 6 or 7) or by the
+            <strong>Year</strong>(s) of study in which they can be taken. Within
+            each of these, you can also separate modules by the
+            <strong>Term</strong> in which they are taught.
+          </p>
+          <h4>Details</h4>
+          <ul>
+            <li>
+              <strong>Deep dependents</strong>: When a module is highlighted, shows all modules that depend on this module, directly or indirectly.
+            </li>
+            <li>
+              <strong>Descriptions</strong>: Displays succinct module
+              descriptions.
+            </li>
+            <li>
+              <strong>Groups</strong>: Shows the label of any Group (1A/1B/2)
+              this module belongs to, if applicable. These are primarily used
+              for students on the MSci programme, who must choose one of the
+              three groups 1A, 1B and 2 and choose at least four modules from
+              that group.
+            </li>
+            <li>
+              <strong>Prerequisites</strong>: Lists the formal prerequisites
+              required to take this module.
+            </li>
+            <li>
+              <strong>Related</strong>: Displays modules that are highly related
+              in content or theme.
+            </li>
+            <li>
+              <strong>Required for</strong>: Shows which modules require this
+              module as a prerequisite.
+            </li>
+            <li>
+              <strong>Syllabus links</strong>: Provides links to the official
+              syllabus for the module in the given year.
+            </li>
+            <!-- <li>
+              <strong>Themes</strong>: Displays the themes associated with this
+              module (e.g., "Algebra", "Analysis").
+            </li> -->
+          </ul>
+        </details>
         <p>
           <span class="year-select"
             >Select your year of entry above to load the relevant modules.</span
           >
           Select modules to see how they are connected as prerequisites of one
-          another, or filter by theme using the buttons below. Tick modules as taken to explore your available options going forward. An accessible
+          another, or filter by theme using the buttons below. Tick modules as
+          taken to explore your available options going forward. An accessible
           tabular version of the module catalogue can be found
           <a href="table.html">here</a>. Information correct as of January 2026.
         </p>

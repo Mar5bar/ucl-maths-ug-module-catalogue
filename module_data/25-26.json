@@ -1110,7 +1110,7 @@
       "description": "Modelling biological phenomena that occur over space and time, with a focus on PDE models, Turing patterns, and their origins.",
       "lead": "Dr B Walker",
       "level": "7",
-      "prereqs": ["MATH0030"],
+      "prereqs": ["MATH0016","MATH0030"],
       "term": "2",
       "title": "Spatial Mathematical Biology",
       "years": ["3", "4"]

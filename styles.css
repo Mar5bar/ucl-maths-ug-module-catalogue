@@ -1,3 +1,7 @@
+:root {
+  color: #2d3a4a;
+}
+
 body {
   font-family: "Segoe UI", "Roboto", "Arial", sans-serif;
   background: #e3e9f7;
@@ -34,6 +38,20 @@ a {
 
 .module-section {
   display: none;
+}
+
+details summary {
+  cursor: pointer;
+  text-align: center;
+}
+
+details[open] {
+  border-bottom: 1px solid #ddd;
+}
+
+details h4 {
+  text-align: center;
+  text-decoration: underline;
 }
 
 .module-section:has(.active-theme),
@@ -346,7 +364,6 @@ main {
 
 #intro p {
   font-size: 1rem;
-  color: #2d3a4a;
   margin-bottom: 18px;
   text-align: center;
 }
