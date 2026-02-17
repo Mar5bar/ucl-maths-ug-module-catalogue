@@ -277,6 +277,7 @@ br.title-break {
   border-color: var(--ucl-dark-purple);
   border-style: dashed;
   opacity: 1;
+  z-index: 1;
 }
 
 button {

@@ -195,7 +195,6 @@
       "lead": "Dr G Peng / TBC",
       "level": "4",
       "term": "1",
-      "themes": ["Number Theory", "Modelling"],
       "title": "Economics 1",
       "years": ["1"]
     },
@@ -205,7 +204,6 @@
       "lead": "Associate Professor M Hadzic",
       "level": "4",
       "term": "1",
-      "themes": ["Analysis", "Computation"],
       "title": "Analysis 1",
       "years": ["1"]
     },
@@ -216,7 +214,6 @@
       "level": "4",
       "prereqs": ["MATH0003"],
       "term": "2",
-      "themes": ["Analysis", "Computation"],
       "title": "Analysis 2",
       "years": ["1"]
     },
@@ -226,7 +223,6 @@
       "lead": "Dr M. Towers",
       "level": "4",
       "term": "1",
-      "themes": ["Algebra", "Number Theory"],
       "title": "Algebra 1",
       "years": ["1"]
     },
@@ -237,7 +233,6 @@
       "level": "4",
       "prereqs": ["MATH0005"],
       "term": "2",
-      "themes": ["Algebra"],
       "title": "Algebra 2",
       "years": ["1"]
     },
@@ -257,7 +252,6 @@
       "lead": "Professor H Wilson",
       "level": "4",
       "term": "1",
-      "themes": ["Computation"],
       "title": "Applied Mathematics",
       "years": ["1"]
     },
@@ -268,7 +262,6 @@
       "level": "4",
       "prereqs": ["MATH0008", "MATH0010"],
       "term": "2",
-      "themes": ["Number Theory", "Geometry", "Modelling"],
       "title": "Newtonian Mechanics",
       "years": ["1"]
     },
@@ -278,7 +271,6 @@
       "lead": "Dr S Coskey",
       "level": "4",
       "term": "1",
-      "themes": ["Analysis", "Computation"],
       "title": "Mathematical Methods 1",
       "years": ["1"]
     },
@@ -289,7 +281,6 @@
       "level": "4",
       "prereqs": ["MATH0010"],
       "term": "2",
-      "themes": ["Computation", "Analysis", "Modelling"],
       "title": "Mathematical Methods 2",
       "years": ["1"]
     },
@@ -299,7 +290,6 @@
       "lead": "Dr L Rila",
       "level": "4",
       "term": "1",
-      "themes": ["Analysis", "Computation"],
       "title": "Mathematical Methods for Arts and Sciences",
       "years": ["1"]
     },
@@ -311,7 +301,6 @@
       "prereqs": ["MATH0003"],
       "related": ["MATH0004"],
       "term": "1",
-      "themes": ["Analysis", "Number Theory"],
       "title": "Analysis 3: Complex Analysis",
       "years": ["2"]
     },
@@ -322,7 +311,6 @@
       "level": "5",
       "prereqs": ["MATH0006"],
       "term": "1",
-      "themes": ["Algebra", "Number Theory"],
       "title": "Algebra 3: Further Linear Algebra",
       "years": ["2"]
     },
@@ -333,7 +321,6 @@
       "level": "5",
       "prereqs": ["MATH0011"],
       "term": "1",
-      "themes": ["Analysis", "Computation", "Modelling"],
       "title": "Fluid Mechanics",
       "years": ["2"]
     },
@@ -344,7 +331,6 @@
       "level": "5",
       "prereqs": ["MATH0011"],
       "term": "1",
-      "themes": ["Analysis", "Computation", "Number Theory"],
       "title": "Mathematical Methods 3",
       "years": ["2"]
     },
@@ -356,7 +342,6 @@
       "level": "6",
       "prereqs": ["MATH0051"],
       "term": "1",
-      "themes": ["Analysis", "Computation", "Number Theory"],
       "title": "Measure Theory",
       "years": ["3"]
     },
@@ -368,7 +353,6 @@
       "level": "6",
       "prereqs": ["MATH0051"],
       "term": "2",
-      "themes": ["Analysis", "Number Theory"],
       "title": "Functional Analysis",
       "years": ["3"]
     },
@@ -380,7 +364,6 @@
       "level": "6",
       "prereqs": ["MATH0051"],
       "term": "1",
-      "themes": ["Analysis", "Computation"],
       "title": "Multivariable Analysis",
       "years": ["3"]
     },
@@ -392,7 +375,6 @@
       "level": "6",
       "prereqs": ["MATH0011", "MATH0003", "MATH0005"],
       "term": "2",
-      "themes": ["Geometry", "Modelling"],
       "title": "Curves and Surfaces",
       "years": ["3"]
     },
@@ -404,7 +386,6 @@
       "level": "6",
       "prereqs": ["MATH0053"],
       "term": "2",
-      "themes": ["Number Theory", "Geometry"],
       "title": "Homological Algebra",
       "years": ["3"]
     },
@@ -416,7 +397,6 @@
       "level": "6",
       "prereqs": ["MATH0053"],
       "term": "1",
-      "themes": ["Number Theory", "Geometry", "Analysis"],
       "title": "Galois Theory",
       "years": ["3"]
     },
@@ -428,7 +408,6 @@
       "level": "6",
       "prereqs": ["MATH0014"],
       "term": "1",
-      "themes": ["Algebra", "Geometry"],
       "title": "Algebraic Toplogy",
       "years": ["3"]
     },
@@ -440,7 +419,6 @@
       "level": "6",
       "prereqs": ["MATH0015", "MATH0016"],
       "term": "2",
-      "themes": ["Number Theory", "Geometry", "Modelling"],
       "title": "Geophysical Fluid Dynamics",
       "years": ["3"]
     },
@@ -453,7 +431,6 @@
       "prereqs": ["MATH0016"],
       "related": ["MATH0020"],
       "term": "1",
-      "themes": ["Analysis", "Number Theory", "Geometry"],
       "title": "Mathematics for General Relativity",
       "years": ["3"]
     },
@@ -465,7 +442,6 @@
       "level": "6",
       "prereqs": ["MATH0011"],
       "term": "1",
-      "themes": ["Analysis", "Modelling"],
       "title": "Biomathematics",
       "years": ["3"]
     },
@@ -477,7 +453,6 @@
       "level": "6",
       "prereqs": ["MATH0056"],
       "term": "2",
-      "themes": ["Analysis", "Computation", "Modelling"],
       "title": "Mathematical Methods 5",
       "years": ["3"]
     },
@@ -489,7 +464,6 @@
       "level": "6",
       "prereqs": ["MATH0014"],
       "term": "2",
-      "themes": ["Number Theory", "Computation", "Modelling"],
       "title": "Combinatorial Optimisation",
       "years": ["3"]
     },
@@ -501,7 +475,6 @@
       "level": "6",
       "related": ["MATH0057"],
       "term": "1",
-      "themes": ["Number Theory", "Geometry", "Modelling"],
       "title": "Graph Theory and Combinatorics",
       "years": ["3"]
     },
@@ -513,7 +486,6 @@
       "level": "6",
       "prereqs": ["MATH0010"],
       "term": "1",
-      "themes": ["Number Theory", "Modelling"],
       "title": "Mathematical Ecology",
       "years": ["3"]
     },
@@ -524,7 +496,6 @@
       "level": "6",
       "prereqs": ["MATH0016", "MATH0057"],
       "term": "2",
-      "themes": ["Analysis", "Number Theory", "Computation"],
       "title": "Financial Mathematics",
       "years": ["3"]
     },
@@ -536,7 +507,6 @@
       "level": "6",
       "prereqs": ["MATH0004", "MATH0006", "MATH0011"],
       "term": "1",
-      "themes": ["Computation", "Number Theory"],
       "title": "Numerical Methods",
       "years": ["3"]
     },
@@ -547,7 +517,6 @@
       "level": "5",
       "prereqs": ["MATH0006"],
       "term": "2",
-      "themes": ["Number Theory", "Algebra"],
       "title": "Number Theory",
       "years": ["2", "3"]
     },
@@ -560,7 +529,6 @@
       "prereqs": ["MATH0034", "MATH0053"],
       "related": ["MATH0022"],
       "term": "2",
-      "themes": ["Number Theory", "Algebra"],
       "title": "Algebraic Number Theory",
       "years": ["3"]
     },
@@ -572,7 +540,6 @@
       "level": "6",
       "prereqs": ["MATH0053", "MATH0034"],
       "term": "2",
-      "themes": ["Number Theory", "Geometry"],
       "title": "Elliptic Curves",
       "years": ["3"]
     },
@@ -583,7 +550,6 @@
       "level": "6",
       "prereqs": ["MATH0006"],
       "term": "1",
-      "themes": ["Modelling"],
       "title": "Logic",
       "years": ["3"]
     },
@@ -593,7 +559,6 @@
       "lead": "Mr S Rose",
       "level": "6",
       "term": "2",
-      "themes": ["Geometry"],
       "title": "History of Mathematics",
       "years": ["3"]
     },
@@ -603,7 +568,6 @@
       "lead": "Teymour Gray & Elvar Atlason",
       "level": "4",
       "term": "1",
-      "themes": ["Analysis", "Computation"],
       "title": "Differential and Integral Calculus",
       "years": ["1"]
     },
@@ -613,7 +577,6 @@
       "lead": "Dr T Vaidehee",
       "level": "4",
       "term": "1",
-      "themes": ["Algebra", "Analysis", "Number Theory"],
       "title": "Mathematics for Science 1",
       "years": ["1"]
     },
@@ -624,7 +587,6 @@
       "level": "4",
       "prereqs": ["MATH0040", "NSCI0005"],
       "term": "2",
-      "themes": ["Geometry", "Computation", "Number Theory"],
       "title": "Mathematics for Science 2",
       "years": ["1"]
     },
@@ -635,7 +597,6 @@
       "level": "5",
       "prereqs": ["MATH0040", "MATH0041"],
       "term": "1",
-      "themes": ["Number Theory", "Geometry"],
       "title": "Mathematical Methods in Chemistry",
       "years": ["2"]
     },
@@ -646,7 +607,6 @@
       "level": "5",
       "prereqs": ["PHAS0025"],
       "term": "2",
-      "themes": ["Analysis", "Computation", "Modelling"],
       "title": "Mathematics for Physics and Astronomy",
       "years": ["2"]
     },
@@ -656,7 +616,6 @@
       "lead": "Prof J-M Vanden-Broeck",
       "level": "4",
       "term": "1",
-      "themes": ["Number Theory", "Analysis", "Modelling"],
       "title": "Calculus and Linear Algebra",
       "years": ["1"]
     },
@@ -667,7 +626,6 @@
       "level": "4",
       "prereqs": ["MATH0045"],
       "term": "2",
-      "themes": ["Analysis", "Computation", "Modelling"],
       "title": "Calculus in Several Dimensions",
       "years": ["1"]
     },
@@ -678,7 +636,6 @@
       "level": "5",
       "prereqs": ["MATH0045", "MATH0046", "ECON0006", "ECON0010"],
       "term": "1",
-      "themes": ["Algebra", "Number Theory"],
       "title": "Advanced Linear Algebra",
       "years": ["2"]
     },
@@ -688,7 +645,6 @@
       "lead": "Dr ML Roberts",
       "level": "5",
       "term": "2",
-      "themes": ["Number Theory", "Analysis", "Geometry"],
       "title": "Mathematical Analysis",
       "years": ["2"]
     },
@@ -699,7 +655,6 @@
       "level": "6",
       "prereqs": ["MATH0047"],
       "term": "2",
-      "themes": ["Number Theory", "Computation"],
       "title": "Logic",
       "years": ["3"]
     },
@@ -710,7 +665,6 @@
       "level": "6",
       "prereqs": ["MATH0004"],
       "term": "2",
-      "themes": ["Analysis", "Computation"],
       "title": "Analysis 4: Real Analysis",
       "years": ["2", "3"]
     },
@@ -721,7 +675,6 @@
       "level": "6",
       "prereqs": ["MATH0006"],
       "term": "2",
-      "themes": ["Number Theory", "Geometry", "Analysis"],
       "title": "Algebra 4: Groups and Rings",
       "years": ["2", "3"]
     },
@@ -732,7 +685,6 @@
       "level": "6",
       "prereqs": ["MATH0009", "MATH0011"],
       "term": "2",
-      "themes": ["Number Theory", "Geometry", "Modelling"],
       "title": "Analytical Dynamics",
       "years": ["3"]
     },
@@ -743,7 +695,6 @@
       "level": "5",
       "prereqs": ["MATH0016"],
       "term": "2",
-      "themes": ["Analysis", "Computation", "Number Theory"],
       "title": "Mathematics of Electromagnetism and Special Relativity",
       "years": ["2", "3"]
     },
@@ -755,7 +706,6 @@
       "level": "6",
       "prereqs": ["MATH0013", "MATH0016"],
       "term": "2",
-      "themes": ["Analysis", "Computation", "Modelling"],
       "title": "Mathematical Methods 4",
       "years": ["2", "3"]
     },
@@ -766,7 +716,6 @@
       "level": "5",
       "prereqs": ["MATH0011"],
       "term": "2",
-      "themes": ["Number Theory", "Analysis", "Computation"],
       "title": "Probability and Statistics",
       "years": ["2", "3"]
     },
@@ -777,7 +726,6 @@
       "level": "5",
       "prereqs": ["MATH0006", "MATH0010"],
       "term": "2",
-      "themes": ["Number Theory", "Computation", "Modelling"],
       "title": "Computational Methods",
       "years": ["2", "3"]
     },
@@ -788,7 +736,6 @@
       "level": "7",
       "prereqs": ["MATH0035", "MATH0022"],
       "term": "2",
-      "themes": ["Number Theory", "Analysis"],
       "title": "Further Topics in Algebraic Number Theory",
       "years": ["4"]
     },
@@ -809,7 +756,6 @@
       "level": "7",
       "prereqs": ["MATH0017"],
       "term": "2",
-      "themes": ["Analysis", "Number Theory"],
       "title": "Probability",
       "years": ["3", "4"]
     },
@@ -821,7 +767,6 @@
       "level": "7",
       "prereqs": ["MATH0013", "MATH0016", "MATH0051"],
       "term": "1",
-      "themes": ["Number Theory", "Geometry", "Modelling"],
       "title": "Linear Partial Differential Equations",
       "years": ["3", "4"]
     },
@@ -845,7 +790,6 @@
       "prereqs": ["MATH0053"],
       "related": ["MATH0021"],
       "term": "1",
-      "themes": ["Number Theory", "Geometry", "Modelling"],
       "title": "Representation Theory",
       "years": ["3", "4"]
     },
@@ -856,7 +800,6 @@
       "level": "7",
       "prereqs": ["MATH0051", "MATH0053"],
       "term": "1",
-      "themes": ["Number Theory", "Geometry"],
       "title": "Topology and Groups",
       "years": ["3", "4"]
     },
@@ -867,7 +810,6 @@
       "level": "7",
       "prereqs": ["MATH0014", "MATH0053"],
       "term": "2",
-      "themes": ["Geometry", "Number Theory"],
       "title": "Lie Groups and Lie Algebras",
       "years": ["3", "4"]
     },
@@ -877,7 +819,6 @@
       "lead": "Dr D Beraldo",
       "level": "7",
       "term": "1",
-      "themes": ["Number Theory"],
       "title": "Algebraic Geometry",
       "years": ["4"]
     },
@@ -889,7 +830,6 @@
       "level": "7",
       "prereqs": ["MATH0015", "MATH0016", "MATH0056"],
       "term": "1",
-      "themes": ["Analysis", "Computation", "Modelling"],
       "title": "Real Fluids",
       "years": ["3", "4"]
     },
@@ -900,7 +840,6 @@
       "level": "7",
       "prereqs": ["MATH0056"],
       "term": "2",
-      "themes": ["Number Theory", "Computation", "Modelling"],
       "title": "Asymptotic Approximation Methods",
       "years": ["4"]
     },
@@ -911,7 +850,6 @@
       "level": "7",
       "prereqs": ["MATH0025"],
       "term": "2",
-      "themes": ["Analysis", "Geometry", "Modelling"],
       "title": "Cosmology",
       "years": ["4"]
     },
@@ -922,7 +860,6 @@
       "level": "7",
       "prereqs": ["MATH0016"],
       "term": "2",
-      "themes": ["Analysis", "Geometry", "Modelling"],
       "title": "Waves and Wave Scattering",
       "years": ["3", "4"]
     },
@@ -933,7 +870,6 @@
       "level": "7",
       "prereqs": ["MATH0008", "MATH0010", "MATH0003"],
       "term": "2",
-      "themes": ["Number Theory", "Modelling"],
       "title": "Evolutionary Games and Population Genetics",
       "years": ["4"]
     },
@@ -945,7 +881,6 @@
       "level": "7",
       "prereqs": ["MATH0013", "MATH0014", "MATH0051"],
       "term": "1",
-      "themes": ["Number Theory", "Analysis"],
       "title": "Prime Numbers and their Distribution",
       "years": ["3", "4"]
     },
@@ -965,7 +900,6 @@
       "prereqs": ["MATH0056"],
       "related": ["MATH0058"],
       "term": "1",
-      "themes": ["Computation", "Modelling"],
       "title": "Computational and Simulation Methods",
       "years": ["4"]
     },
@@ -977,7 +911,6 @@
       "prereqs": ["MATH0016"],
       "related": ["MATH0031"],
       "term": "2",
-      "themes": ["Number Theory", "Computation", "Modelling"],
       "title": "Quantitative and Computational Finance",
       "years": ["4"]
     },
@@ -1000,7 +933,6 @@
       "level": "7",
       "prereqs": ["MATH0051"],
       "term": "2",
-      "themes": ["Analysis", "Computation", "Modelling"],
       "title": "Variational Methods for PDEs",
       "years": ["3", "4"]
     },
@@ -1010,7 +942,6 @@
       "lead": "Dr Luciano Rila",
       "level": "5",
       "term": "2",
-      "themes": ["Number Theory", "Geometry", "Modelling"],
       "title": "Linear Algebra for Data Science",
       "years": ["2"]
     },
@@ -1023,7 +954,6 @@
       "prereqs": [["MATH0065", "MATH0057"]],
       "related": ["MATH0056", "MATH0031", "MATH0057", "MATH0065"],
       "term": "2",
-      "themes": ["Analysis", "Computation", "Modelling"],
       "title": "Applied Stochastic Methods",
       "years": ["3", "4"]
     },
@@ -1034,7 +964,6 @@
       "level": "5",
       "prereqs": ["MATH0012"],
       "term": "1",
-      "themes": ["Number Theory"],
       "title": "Discrete Mathematics",
       "years": ["2"]
     },
@@ -1047,7 +976,6 @@
       "prereqs": ["MATH0013", "MATH0014", "MATH0034"],
       "related": ["MATH0034"],
       "term": "1",
-      "themes": ["Number Theory", "Geometry"],
       "title": "Modular Forms",
       "years": ["3", "4"]
     },
@@ -1059,7 +987,6 @@
       "prereqs": [["MATH0029", "MATH0028"]],
       "related": ["MATH0029", "MATH0028", "MATH0057"],
       "term": "2",
-      "themes": ["Number Theory", "Geometry", "Modelling"],
       "title": "Probabilistic Method in Combinatorics",
       "years": ["3", "4"]
     },
@@ -1071,7 +998,6 @@
       "level": "6",
       "prereqs": ["MATH0053"],
       "term": "2",
-      "themes": ["Number Theory", "Geometry", "Modelling"],
       "title": "Commutative Rings and Algebras",
       "years": ["3"]
     },
@@ -1080,7 +1006,6 @@
       "description": "A practical course teaching students how to formally prove mathematical theorems interactively using the Lean programming language.",
       "level": "6",
       "term": "1",
-      "themes": ["Algebra", "Analysis", "Computation"],
       "title": "Theorem Proving in Lean",
       "years": ["3"]
     },
@@ -1090,7 +1015,6 @@
       "lead": "Dr M Karpukhin",
       "level": "4",
       "term": "1",
-      "themes": ["Analysis", "Computation"],
       "title": "Analysis for Joint Honours",
       "years": ["1"]
     },
@@ -1123,7 +1047,6 @@
       "prereqs": ["MATH0004", "MATH0011", "MATH0014"],
       "related": ["MATH0057"],
       "term": "1",
-      "themes": ["Number Theory", "Computation", "Modelling"],
       "title": "Mathematics for Machine Learning",
       "years": ["3"]
     },
@@ -1165,7 +1088,6 @@
       "level": "7",
       "prereqs": ["MATH0056", "MATH0014"],
       "term": "1",
-      "themes": ["Applied Mathematics"],
       "title": "Mathematics for Quantum Mechanics",
       "years": ["3", "4"]
     },
@@ -1177,7 +1099,6 @@
       "prereqs": ["MATH0017", ["MATH0019", "MATH0020"]],
       "related": ["MATH0019", "MATH0020"],
       "term": "2",
-      "themes": ["Analysis", "Geometry", "Modelling"],
       "title": "Dynamical Systems",
       "years": ["3", "4"]
     },
