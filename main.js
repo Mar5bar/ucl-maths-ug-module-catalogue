@@ -364,7 +364,11 @@ function processModuleData(moduleData) {
         let prereqsText = module.prereqs
           .map((p) => {
             if (Array.isArray(p)) {
-              return p.sort().join(" <strong style='text-decoration:underline'>or</strong> ");
+              return p
+                .sort()
+                .join(
+                  " <strong style='text-decoration:underline'>or</strong> ",
+                );
             } else {
               return p;
             }
@@ -399,15 +403,16 @@ function processModuleData(moduleData) {
         moduleElement.appendChild(themeElement);
       }
 
-      // Add a link to the syllabus.
+      // Add a link to the syllabus. Default to the latest syllabus, which will then be updated if a relevant pdf is available.
       const syllabusElement = document.createElement("a");
+      syllabusElement.id = `syllabus-link-${module.code}`;
       syllabusElement.href =
         module.syllabus ||
         defaultSyllabusBaseURL +
           "/" +
-          activeYearOfEntry +
+          "latest" +
           "/" +
-          module.code.toLowerCase() +
+          module.code.toUpperCase() +
           ".pdf";
       syllabusElement.className = "syllabus";
       syllabusElement.target = "_blank";
@@ -487,6 +492,40 @@ function processModuleData(moduleData) {
       // themeButton.textContent = theme.replace("Group ", "");
     }
     themeButtonRow.appendChild(themeButton);
+  }
+
+  // Ensure links point to the right place by loading a manifest for the current year. If a module is in the manifest, change the syllabus link to the pdf relevant for the current year.
+  if (activeYearOfEntry != "latest") {
+    const manifestURL = `./pdfs/${activeYearOfEntry}/manifest.json`;
+    fetch(manifestURL)
+      .then((response) => response.json())
+      .then((data) => {
+        if (
+          !data ||
+          !data["modules"] ||
+          !Array.isArray(data["modules"]) ||
+          data["modules"].length === 0
+        ) {
+          // Do nothing (latest is the default).
+          return;
+        }
+        // Update the syllabus URL for each module in the manifest.
+        for (const moduleCode of data["modules"]) {
+          const module = moduleData[moduleCode];
+          if (module && data["modules"].includes(moduleCode)) {
+            module.syllabusURL = `${defaultSyllabusBaseURL}/${activeYearOfEntry}/${moduleCode.toUpperCase()}.pdf`;
+            const syllabusLink = document.getElementById(
+              `syllabus-link-${moduleCode}`,
+            );
+            if (syllabusLink) {
+              syllabusLink.href = module.syllabusURL;
+            }
+          }
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching manifest:", error);
+      });
   }
 }
 
