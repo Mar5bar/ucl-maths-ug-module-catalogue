@@ -31,7 +31,7 @@ const defaultDetailPreferences = {
 };
 
 const urlParams = new URLSearchParams(window.location.search);
-let activeYearOfEntry = urlParams.get("year") || "25-26";
+let activeYearOfEntry = urlParams.get("year") || "latest";
 
 // If there is only 1 year button, hide anything with the year-select class.
 const yearButtons = document.getElementsByClassName("year-button");

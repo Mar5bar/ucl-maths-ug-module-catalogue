@@ -982,6 +982,17 @@
       "years": ["4"]
     },
     {
+      "code": "MATH0090",
+      "description": "An introduction to the theory of second order elliptic partial differential equations, especially linear PDEs.",
+      "lead": "Dr C Bellettini",
+      "level": "7",
+      "prereqs": ["MATH0019", "MATH0051"],
+      "related": ["MATH0018", "MATH0070"],
+      "term": "2",
+      "title": "Elliptic Partial Differential Equations",
+      "years": ["3", "4"]
+    },
+    {
       "code": "MATH0092",
       "description": "Mathematical foundations of modern variational theory and numerical methods for PDEs, including applied functional analysis.",
       "groups": "1A 2",
@@ -1084,6 +1095,27 @@
       "years": ["1"]
     },
     {
+      "code": "MATH0111",
+      "description": "State-of-the-art numerical methods for solving complex problems in mathematics, science, and technology.",
+      "lead": "Prof E Burman, Prof T Betcke, Dr M Jensen",
+      "level": "7",
+      "prereqs": [["MATH0033", "MATH0058"]],
+      "term": "2",
+      "title": "Frontiers in Computational Mathematics",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0112",
+      "description": "A thorough introduction to the theory of abstract smooth manifolds, including many examples.",
+      "lead": "TBA",
+      "level": "7",
+      "prereqs": ["MATH0020"],
+      "related": ["MATH0019"],
+      "term": "1",
+      "title": "Manifolds",
+      "years": ["3", "4"]
+    },
+    {
       "code": "MATH0114",
       "description": "Core principles and practical applications of machine learning and artificial intelligence.",
       "lead": "Dr Alejandro Dias and Dr Luca Grieco",
@@ -1103,6 +1135,17 @@
       "prereqs": ["MATH0015", "MATH0056"],
       "term": "2",
       "title": "Solid Mechanics",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0116",
+      "description": "The definition and basic properties of Riemann surfaces, focusing on examples.",
+      "lead": "Dr A Doan",
+      "level": "7",
+      "prereqs": ["MATH0013", "MATH0051"],
+      "related": ["MATH0019"],
+      "term": "2",
+      "title": "Riemann Surfaces",
       "years": ["3", "4"]
     },
     {
@@ -1136,6 +1179,16 @@
       "term": "2",
       "themes": ["Analysis", "Geometry", "Modelling"],
       "title": "Dynamical Systems",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0120",
+      "description": "Far-reaching theorems in complex analysis, including the Riemann mapping theorem.",
+      "lead": "Prof Y Petridis",
+      "level": "7",
+      "prereqs": ["MATH0013"],
+      "term": "2",
+      "title": "Complex Function Theory",
       "years": ["3", "4"]
     },
     {

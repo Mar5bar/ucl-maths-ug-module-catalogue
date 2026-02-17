@@ -1,0 +1,93 @@
+:root {
+  --ucl-white: #ffffff;
+  --ucl-off-white: #fafafa;
+  --ucl-pale-purple: #eedeff;
+  --ucl-light-purple: #ddbdff;
+  --ucl-bright-purple: #993bff;
+  --ucl-mid-purple: #ba82ff;
+  --ucl-dark-purple: #361a54;
+}
+
+@font-face {
+  font-family: "UCL Sans";
+  src: url("./UCLSans-ExtraLight.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "UCL Sans";
+  src: url("./UCLSans-ExtraLightItalic.otf") format("opentype");
+  font-weight: 200;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "UCL Sans";
+  src: url("./UCLSans-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "UCL Sans";
+  src: url("./UCLSans-LightItalic.otf") format("opentype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "UCL Sans";
+  src: url("./UCLSans-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "UCL Sans";
+  src: url("./UCLSans-Italic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "UCL Sans";
+  src: url("./UCLSans-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "UCL Sans";
+  src: url("./UCLSans-MediumItalic.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "UCL Sans";
+  src: url("./UCLSans-SemiBold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "UCL Sans";
+  src: url("./UCLSans-SemiBoldItalic.otf") format("opentype");
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "UCL Sans";
+  src: url("./UCLSans-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "UCL Sans";
+  src: url("./UCLSans-BoldItalic.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+}

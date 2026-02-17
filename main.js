@@ -48,7 +48,7 @@ let deepDependentsEnabled = defaultDetailPreferences["deepDependents"] === "on";
 
 const urlParams = new URLSearchParams(window.location.search);
 let activeYearOfEntry =
-  urlParams.get("year") || localStorage.getItem("year") || "25-26";
+  urlParams.get("year") || localStorage.getItem("year") || "latest";
 let sectionBy =
   urlParams.get("sectionBy") || localStorage.getItem("sectionBy") || "recYear";
 setSectionByHandler(null, sectionBy);
@@ -248,7 +248,7 @@ function processModuleData(moduleData) {
   for (const section of sections) {
     const levelSection = document.createElement("div");
     levelSection.className = "module-section";
-    const header = document.createElement("h3");
+    const header = document.createElement("h2");
     header.className = "section-header";
     if (sectionBy === "level") {
       header.textContent = `Level ${section}`;
@@ -326,13 +326,13 @@ function processModuleData(moduleData) {
       // Add the title, code, description, etc.
       moduleElement.innerHTML = `
                 <div class='top-container'>
-                <h4>${
+                <h3>${
                   module.title
                 } <br class="title-break"> <span class="module-code">(${
                   module.code + yearOrLevelString + termString
                 }<span class="groups-list">${
                   module.groups ? ", Group " + module.groups.join("/") : ""
-                }</span>)</span></h4>
+                }</span>)</span></h3>
                 <p class="description">${module.description}</p>
                 </div>
             `;
@@ -364,7 +364,7 @@ function processModuleData(moduleData) {
         let prereqsText = module.prereqs
           .map((p) => {
             if (Array.isArray(p)) {
-              return p.sort().join(" or ");
+              return p.sort().join(" <strong style='text-decoration:underline'>or</strong> ");
             } else {
               return p;
             }
@@ -735,6 +735,7 @@ function clearLines() {
   paths.forEach((path) => {
     svg.removeChild(path);
   });
+  svg.classList.add("empty");
 }
 
 function redrawLines() {
@@ -757,6 +758,8 @@ function drawLinesBetweenCodes(linesAsCodes) {
     }
   }
   drawLinesBetweenEls(linesToDrawAsEls);
+  const svg = document.getElementById("svg-lines");
+  svg.classList.remove("empty");
 }
 
 function drawLinesBetweenEls(linesAsElements) {
