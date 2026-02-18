@@ -16,6 +16,8 @@ let modulesAtYear;
 let modulesAtRecYear;
 let themeButtons;
 let modulesTaken = new Set();
+let takenCheckboxes = [];
+let takenLabels = [];
 
 let userActivatedTheme = null;
 let activeTheme;
@@ -84,6 +86,8 @@ function processModuleData(moduleData) {
   themeButtons = {};
   themesToModules = structuredClone(loadedThemesToModules) || {};
   themesToModulesNoPrereqs = {};
+  takenCheckboxes = [];
+  takenLabels = [];
 
   // Record an overall set of modules.
   modules = new Set(Object.keys(moduleData));
@@ -439,22 +443,13 @@ function processModuleData(moduleData) {
         } else {
           modulesTaken.delete(moduleCode);
         }
-        const takenSectionButtons = document.getElementsByClassName(
-          "taken-section-button",
-        );
-        if (modulesTaken.size > 0) {
-          for (const btn of takenSectionButtons) {
-            btn.style.visibility = "visible";
-          }
-        } else {
-          for (const btn of takenSectionButtons) {
-            btn.style.visibility = "";
-          }
-        }
+        styleTakenButtons();
         styleModulesWithUnmetPrereqs();
       }
       takenCheckbox.onclick = handler;
       takenLabel.onclick = handler;
+      takenLabels.push(takenLabel);
+      takenCheckboxes.push(takenCheckbox);
       takenLabel.appendChild(takenCheckbox);
       moduleElement.appendChild(takenLabel);
 
@@ -1054,9 +1049,8 @@ function refreshAll(scrollTo = true) {
     activateTheme(activeTheme);
   }
   // If any modules have been marked as taken, deactivate modules with unmet prerequisites.
-  if (modulesTaken.size > 0) {
-    styleModulesWithUnmetPrereqs();
-  }
+  styleModulesWithUnmetPrereqs();
+  styleTakenButtons();
 }
 
 function restoreDetailPreferences() {
@@ -1299,6 +1293,38 @@ function unpackPrereqs(prereqList) {
     }
   }
   return Array.from(unpacked);
+}
+
+function styleTakenButtons() {
+  const takenSectionButtons = document.getElementsByClassName(
+    "taken-section-button",
+  );
+  if (modulesTaken.size > 0) {
+    for (const btn of takenSectionButtons) {
+      btn.style.visibility = "visible";
+    }
+    document.getElementById("clear-taken-modules-button").style.visibility =
+      "visible";
+  } else {
+    for (const btn of takenSectionButtons) {
+      btn.style.visibility = "";
+    }
+    document.getElementById("clear-taken-modules-button").style.visibility =
+      "hidden";
+  }
+}
+
+function clearTakenModules() {
+  for (const checkbox of takenCheckboxes) {
+    checkbox.checked = false;
+    checkbox.dataset.checked = false;
+  }
+  for (const label of takenLabels) {
+    label.dataset.checked = false;
+  }
+  modulesTaken.clear();
+  styleTakenButtons();
+  styleModulesWithUnmetPrereqs();
 }
 
 const input = document.getElementById("search-input");

@@ -74,9 +74,10 @@ details[open] > summary {
   list-style-type: "▾ ";
 }
 
-details h4 {
+details h2 {
   text-align: center;
   text-decoration: underline;
+  font-size: medium;
 }
 
 .module-section:has(.active-theme),
@@ -93,13 +94,24 @@ details h4 {
   margin-bottom: 8px;
 }
 
+.section-header {
+  position: relative;
+  font-size: medium;
+}
+
 .taken-section-button {
   position: absolute;
   bottom: 50%;
   right: 0;
   transform: translateY(50%);
   visibility: hidden;
-  font-size: smaller;
+  font-size: 15px;
+}
+
+#clear-taken-modules-button {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
 }
 
 @media (hover: hover) {
