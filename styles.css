@@ -120,6 +120,10 @@ details h2 {
   }
 }
 
+#module-grid {
+  margin-bottom: 50px;
+}
+
 .module-group {
   display: flex;
   flex-wrap: wrap;
@@ -189,6 +193,8 @@ br.title-break {
   text-align: center;
   font: inherit;
   font-size: 14px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .module .top-container {
