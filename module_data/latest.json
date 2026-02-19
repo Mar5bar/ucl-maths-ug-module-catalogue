@@ -50,7 +50,6 @@
       "MATH0056",
       "MATH0057",
       "MATH0058",
-      "MATH0065",
       "MATH0077",
       "MATH0078",
       "MATH0079",
@@ -112,7 +111,6 @@
       "MATH0114",
       "MATH0102",
       "MATH0117",
-      "MATH0065",
       "MATH0086",
       "MATH0082",
       "MATH0088"
@@ -740,15 +738,6 @@
       "years": ["4"]
     },
     {
-      "code": "MATH0065",
-      "description": "Techniques for mathematical modelling, including perturbation methods and solution methods for PDEs.",
-      "level": "7",
-      "prereqs": ["MATH0010", "MATH0011", "MATH0013"],
-      "term": "1",
-      "title": "Advanced Modelling Mathematical Techniques",
-      "years": ["4"]
-    },
-    {
       "code": "MATH0069",
       "description": "The rigorous theory of probability, focussing on the strong law of large numbers and the central limit theorem.",
       "groups": "1A",
@@ -951,8 +940,8 @@
       "groups": "2",
       "lead": "Prof G Esler",
       "level": "7",
-      "prereqs": [["MATH0065", "MATH0057"]],
-      "related": ["MATH0056", "MATH0031", "MATH0057", "MATH0065"],
+      "prereqs": ["MATH0057"],
+      "related": ["MATH0056", "MATH0031", "MATH0057"],
       "term": "2",
       "title": "Applied Stochastic Methods",
       "years": ["3", "4"]
