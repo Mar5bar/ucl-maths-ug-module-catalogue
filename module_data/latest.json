@@ -807,6 +807,7 @@
       "description": "The study of algebraic varieties, defined by polynomial equations, with a focus on basic notions and explicit examples.",
       "lead": "Dr D Beraldo",
       "level": "7",
+      "prereqs": ["MATH0053"],
       "term": "1",
       "title": "Algebraic Geometry",
       "years": ["4"]
