@@ -959,6 +959,7 @@ function setYearOfEntryHandler(button) {
 }
 
 function loadYear(year, updating = false) {
+  activeYearOfEntry = year;
   // Update the year buttons.
   const yearButtons = document.getElementsByClassName("year-button");
   for (const yb of yearButtons) {
@@ -973,7 +974,12 @@ function loadYear(year, updating = false) {
   moduleData = {};
   // Fetch module_data.
   fetch(dataURL)
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Module data unavailable for year: ${year}`);
+      }
+      return response.json();
+    })
     .then((data) => {
       ancillaryModules = new Set(data.ancillaryModules || []);
       for (const module of data.modules) {
@@ -1010,6 +1016,16 @@ function loadYear(year, updating = false) {
       runMathJax();
     })
     .catch((error) => {
+      if (year !== "latest") {
+        console.warn(
+          `Module data for year '${year}' is unavailable; falling back to latest.`,
+          error,
+        );
+        setQueryParameter("year", "latest");
+        localStorage.setItem("year", "latest");
+        loadYear("latest", updating);
+        return;
+      }
       console.error("Error fetching module data:", error);
     });
 }

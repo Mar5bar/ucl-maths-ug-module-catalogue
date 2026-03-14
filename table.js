@@ -45,26 +45,8 @@ if (yearButtons.length <= 1) {
 // Load the specified (or most recent) module data.
 loadYear(activeYearOfEntry);
 
-// Fetch module_data.
-fetch(`./module_data/${activeYearOfEntry}.json`)
-  .then((response) => response.json())
-  .then((data) => {
-    ancillaryModules = new Set(data.ancillaryModules || []);
-    for (const module of data.modules) {
-      // Skip ancillary modules.
-      if (hideAncillaryModules && ancillaryModules.has(module.code)) {
-        continue;
-      }
-      moduleData[module.code] = module;
-    }
-    themesToModules = data.themesToModules;
-    processModuleData(moduleData);
-  })
-  .catch((error) => {
-    console.error("Error fetching module data:", error);
-  });
-
 function loadYear(year, updating = false) {
+  activeYearOfEntry = year;
   // Update the URL parameter.
   setQueryParameter("year", year);
   // Update the year buttons.
@@ -81,7 +63,12 @@ function loadYear(year, updating = false) {
   moduleData = {};
   // Fetch module_data.
   fetch(dataURL)
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Module data unavailable for year: ${year}`);
+      }
+      return response.json();
+    })
     .then((data) => {
       ancillaryModules = new Set(data.ancillaryModules || []);
       for (const module of data.modules) {
@@ -95,6 +82,14 @@ function loadYear(year, updating = false) {
       processModuleData(moduleData);
     })
     .catch((error) => {
+      if (year !== "latest") {
+        console.warn(
+          `Module data for year '${year}' is unavailable; falling back to latest.`,
+          error,
+        );
+        loadYear("latest", updating);
+        return;
+      }
       console.error("Error fetching module data:", error);
     });
 }
