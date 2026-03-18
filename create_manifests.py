@@ -7,7 +7,7 @@ pdfs_dir = Path("pdfs")
 
 # Loop through subfolders in pdfs directory
 for subfolder in pdfs_dir.iterdir():
-    # Skip if not a directory or if it's the "latest" folder
+    # Skip if not a directory
     if not subfolder.is_dir():
         continue
     
