@@ -1,7 +1,7 @@
 {
   "ancillaryModules": [
-    "MATH0002",
     "STAT0001",
+    "MATH0002",
     "MATH0007",
     "MATH0012",
     "MATH0039",
@@ -14,8 +14,8 @@
     "MATH0047",
     "MATH0048",
     "MATH0050",
-    "MATH0103",
     "MATH0101",
+    "MATH0103",
     "MATH0110"
   ],
   "themesToModules": {
@@ -272,6 +272,14 @@
       "years": ["1"]
     },
     {
+      "code": "MATH0012",
+      "description": "This course equips BASc students with fundamental calculus skills to prepare them for advanced studies and potential departmental placements.",
+      "level": "4",
+      "term": "1",
+      "title": "Mathematical Methods for Arts and Sciences",
+      "years": ["1"]
+    },
+    {
       "code": "MATH0013",
       "description": "Rigorous study of complex functions, covering fundamental theorems and applications.",
       "level": "5",
@@ -516,12 +524,98 @@
       "years": ["3"]
     },
     {
+      "code": "MATH0039",
+      "description": "Calculus concepts suitable for students with a basic understanding of mathematics.",
+      "level": "4",
+      "term": "1",
+      "title": "Differential and Integral Calculus",
+      "years": ["1"]
+    },
+    {
+      "code": "MATH0040",
+      "description": "Strengthening A-level mathematics skills.",
+      "level": "4",
+      "term": "1",
+      "title": "Mathematics for Science 1",
+      "years": ["1"]
+    },
+    {
+      "code": "MATH0041",
+      "description": "Advanced mathematical concepts, including 3D geometry, calculus, and linear algebra, focusing on solving problems with matrices and vectors.",
+      "level": "4",
+      "prereqs": ["MATH0040", "NSCI0005"],
+      "term": "2",
+      "title": "Mathematics for Science 2",
+      "years": ["1"]
+    },
+    {
+      "code": "MATH0042",
+      "description": "Advanced mathematical techniques crucial for solving complex chemical problems.",
+      "level": "5",
+      "prereqs": ["MATH0040", "MATH0041"],
+      "term": "1",
+      "title": "Mathematical Methods in Chemistry",
+      "years": ["2"]
+    },
+    {
+      "code": "MATH0043",
+      "description": "Advanced mathematical techniques crucial for theoretical physics and astronomy study.",
+      "level": "5",
+      "prereqs": ["PHAS0025"],
+      "term": "2",
+      "title": "Mathematics for Physics and Astronomy",
+      "years": ["2"]
+    },
+    {
+      "code": "MATH0045",
+      "description": "Applying mathematical techniques to economics, statistics, and related fields through practical examples.",
+      "level": "4",
+      "term": "1",
+      "title": "Calculus and Linear Algebra",
+      "years": ["1"]
+    },
+    {
+      "code": "MATH0046",
+      "description": "Mastering advanced mathematical techniques through problem-solving and application.",
+      "level": "4",
+      "prereqs": ["MATH0045"],
+      "term": "2",
+      "title": "Calculus in Several Dimensions",
+      "years": ["1"]
+    },
+    {
+      "code": "MATH0047",
+      "description": "Mathematical concepts, particularly matrices and linear algebra, through examples and theoretical explanations.",
+      "level": "5",
+      "prereqs": ["MATH0045", "MATH0046", "ECON0006", "ECON0010"],
+      "term": "1",
+      "title": "Advanced Linear Algebra",
+      "years": ["2"]
+    },
+    {
+      "code": "MATH0048",
+      "description": "This module introduces fundamental mathematical concepts, particularly rigorous proofs and definitions, crucial for advanced studies in economics and statistics.",
+      "level": "5",
+      "term": "2",
+      "title": "Mathematical Analysis",
+      "years": ["2"]
+    },
+    {
+      "code": "MATH0050",
+      "description": "Introductory first order logic, computability, and undecidability.",
+      "level": "6",
+      "prereqs": ["MATH0047"],
+      "term": "2",
+      "title": "Logic",
+      "years": ["3"]
+    },
+    {
       "code": "MATH0051",
       "description": "Convergence, continuity, compactness, and contractions in metric spaces.",
       "level": "6",
       "prereqs": ["MATH0004"],
       "term": "2",
-      "title": "Analysis 4: Real Analysis",
+      "title": "Analysis 4: Metric Spaces",
       "years": ["2", "3"]
     },
     {
@@ -586,15 +680,6 @@
       "prereqs": ["MATH0035", "MATH0022"],
       "term": "2",
       "title": "Further Topics in Algebraic Number Theory",
-      "years": ["4"]
-    },
-    {
-      "code": "MATH0066",
-      "description": "A rigorous introduction to commutative algebra, covering key tools like localisation and integral extensions.",
-      "level": "6",
-      "prereqs": ["MATH0053"],
-      "term": "2",
-      "title": "Commutative Rings and Algebras",
       "years": ["4"]
     },
     {
@@ -751,6 +836,17 @@
       "years": ["4"]
     },
     {
+      "code": "MATH0090",
+      "description": "An introduction to the theory of second order elliptic partial differential equations, especially linear PDEs.",
+      "lead": "Dr C Bellettini",
+      "level": "7",
+      "prereqs": ["MATH0019", "MATH0051"],
+      "related": ["MATH0018", "MATH0070"],
+      "term": "2",
+      "title": "Elliptic Partial Differential Equations",
+      "years": ["3", "4"]
+    },
+    {
       "code": "MATH0092",
       "description": "Mathematical foundations of modern variational theory and numerical methods for PDEs, including applied functional analysis.",
       "groups": "1A 2",
@@ -759,6 +855,14 @@
       "term": "2",
       "title": "Variational Methods for PDEs",
       "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0101",
+      "description": "Learn fundamental linear algebra concepts (vectors, matrices, and least squares) essential for data science applications.",
+      "level": "5",
+      "term": "2",
+      "title": "Linear Algebra for Data Science",
+      "years": ["2"]
     },
     {
       "code": "MATH0102",
@@ -770,6 +874,15 @@
       "term": "2",
       "title": "Applied Stochastic Methods",
       "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0103",
+      "description": "Developing a strong understanding of group theory and number theory through abstract concepts and rigorous proof techniques.",
+      "level": "5",
+      "prereqs": ["MATH0012"],
+      "term": "1",
+      "title": "Discrete Mathematics",
+      "years": ["2"]
     },
     {
       "code": "MATH0104",
@@ -820,6 +933,25 @@
       "years": ["1"]
     },
     {
+      "code": "MATH0111",
+      "description": "State-of-the-art numerical methods for solving complex problems in mathematics, science, and technology.",
+      "level": "7",
+      "prereqs": [["MATH0033", "MATH0058"]],
+      "term": "2",
+      "title": "Frontiers in Computational Mathematics",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0112",
+      "description": "A thorough introduction to the theory of abstract smooth manifolds, including many examples.",
+      "level": "7",
+      "prereqs": ["MATH0020"],
+      "related": ["MATH0019"],
+      "term": "1",
+      "title": "Manifolds",
+      "years": ["3", "4"]
+    },
+    {
       "code": "MATH0114",
       "description": "Core principles and practical applications of machine learning and artificial intelligence.",
       "level": "6",
@@ -843,6 +975,16 @@
       "prereqs": ["MATH0015", "MATH0056"],
       "term": "1",
       "title": "Solid Mechanics",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0116",
+      "description": "The definition and basic properties of Riemann surfaces, focusing on examples.",
+      "level": "7",
+      "prereqs": ["MATH0013", "MATH0051"],
+      "related": ["MATH0019"],
+      "term": "2",
+      "title": "Riemann Surfaces",
       "years": ["3", "4"]
     },
     {
@@ -873,13 +1015,22 @@
       "years": ["3", "4"]
     },
     {
+      "code": "MATH0120",
+      "description": "Far-reaching theorems in complex analysis, including the Riemann mapping theorem.",
+      "level": "7",
+      "prereqs": ["MATH0013"],
+      "term": "2",
+      "title": "Complex Function Theory",
+      "years": ["3", "4"]
+    },
+    {
       "code": "MATH0128",
       "description": "The basics of harmonic analysis, with emphasis on topics that find applications in other fields of mathematics.",
       "level": "7",
       "prereqs": ["MATH0017"],
       "term": "2",
       "title": "Harmonic Analysis",
-      "years": "4"
+      "years": ["4"]
     },
     {
       "code": "STAT0001",
