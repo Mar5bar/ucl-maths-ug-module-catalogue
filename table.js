@@ -217,7 +217,7 @@ function processModuleData(moduleData) {
             "/" +
             activeYearOfEntry +
             "/" +
-            module.code.toLowerCase() +
+            module.code.toUpperCase() +
             ".pdf"
         } target="_blank">${moduleCode.toUpperCase()} ${module.title}</a>`,
         term: module.term || "",
