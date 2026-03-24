@@ -443,6 +443,7 @@ function processModuleData(moduleData) {
         } else {
           modulesTaken.delete(moduleCode);
         }
+        syncTakenModulesQueryParameters();
         styleTakenButtons();
         styleModulesWithUnmetPrereqs();
       }
@@ -989,8 +990,12 @@ function loadYear(year, updating = false) {
         }
         moduleData[module.code] = module;
       }
+      modulesTaken = getTakenModulesFromQuery(new Set(Object.keys(moduleData)));
       loadedThemesToModules = data.themesToModules;
       processModuleData(moduleData);
+      syncTakenModulesQueryParameters();
+      styleTakenButtons();
+      styleModulesWithUnmetPrereqs();
       if (!updating) {
         // If there's a theme in the URL query string, activate it.
         const urlParams = new URLSearchParams(window.location.search);
@@ -1282,6 +1287,35 @@ function setQueryParameter(key, value) {
   window.history.replaceState({}, "", url);
 }
 
+function getTakenModulesFromQuery(validModuleCodes = null) {
+  const url = new URL(window.location);
+  const takenModules = new Set();
+  for (const value of url.searchParams.getAll("taken")) {
+    for (const moduleCode of value.split(",")) {
+      const normalizedCode = moduleCode.trim().toUpperCase();
+      if (!normalizedCode) {
+        continue;
+      }
+      if (validModuleCodes && !validModuleCodes.has(normalizedCode)) {
+        continue;
+      }
+      takenModules.add(normalizedCode);
+    }
+  }
+  return takenModules;
+}
+
+function syncTakenModulesQueryParameters() {
+  const url = new URL(window.location);
+  url.searchParams.delete("taken");
+  Array.from(modulesTaken)
+    .sort()
+    .forEach((moduleCode) => {
+      url.searchParams.append("taken", moduleCode);
+    });
+  window.history.replaceState({}, "", url);
+}
+
 function clearQueryParameter(key) {
   const url = new URL(window.location);
   url.searchParams.delete(key);
@@ -1339,6 +1373,7 @@ function clearTakenModules() {
     label.dataset.checked = false;
   }
   modulesTaken.clear();
+  syncTakenModulesQueryParameters();
   styleTakenButtons();
   styleModulesWithUnmetPrereqs();
 }
