@@ -18,6 +18,7 @@ let themeButtons;
 let modulesTaken = new Set();
 let takenCheckboxes = [];
 let takenLabels = [];
+let selectModulesModeEnabled = false;
 
 let userActivatedTheme = null;
 let activeTheme;
@@ -157,6 +158,9 @@ function processModuleData(moduleData) {
     }
   }
 
+  // Make related links symmetric, while excluding prerequisite/dependent pairs.
+  normalizeRelatedModules(moduleData);
+
   // We will override the themes.
   if (themesOverride) {
     themes = Array.from(Object.keys(themesToModules)) || [];
@@ -262,27 +266,6 @@ function processModuleData(moduleData) {
       header.textContent = `Year ${section}`;
     }
     levelSection.appendChild(header);
-    if (
-      (sectionBy === "year" || sectionBy === "recYear") &&
-      (section[0] === "1" || section[0] === "2")
-    ) {
-      const takenSectionButton = document.createElement("button");
-      takenSectionButton.className = "taken-section-button";
-      takenSectionButton.textContent = "Mark all as taken";
-      takenSectionButton.addEventListener("click", () => {
-        for (const moduleCode of moduleCodes) {
-          // For every module in this section, if its checkbox is not already ticked, tick it by triggering a click.
-          const module = moduleData[moduleCode];
-          const moduleElement = module.element;
-          const takenCheckbox = moduleElement.querySelector(".taken-checkbox");
-          if (!takenCheckbox.checked) {
-            takenCheckbox.click();
-          }
-        }
-        styleModulesWithUnmetPrereqs();
-      });
-      header.appendChild(takenSectionButton);
-    }
     const moduleGroup = document.createElement("div");
     moduleGroup.className = "module-group";
     levelSection.appendChild(moduleGroup);
@@ -343,22 +326,14 @@ function processModuleData(moduleData) {
 
       // Add related modules information.
       const related = module.related || [];
-      // Filter out any overlaps with prereqs and requiredFor.
-      if (related && related.length > 0) {
-        const filteredRelated = related.filter((code) => {
-          return (
-            !prereqsMap[moduleCode]?.includes(code) &&
-            !requiredForMap[moduleCode]?.includes(code)
-          );
-        });
-        if (filteredRelated.length > 0) {
-          const relatedElement = document.createElement("p");
-          relatedElement.className = "related-list";
-          relatedElement.innerHTML = `<strong>Related:</strong> <span class="module-code">${filteredRelated
-            .sort()
-            .join(", ")}</span>`;
-          moduleElement.appendChild(relatedElement);
-        }
+      if (related.length > 0) {
+        const relatedElement = document.createElement("p");
+        relatedElement.className = "related-list";
+        relatedElement.innerHTML = `<strong>Related:</strong> <span class="module-code">${related
+          .slice()
+          .sort()
+          .join(", ")}</span>`;
+        moduleElement.appendChild(relatedElement);
       }
 
       // Add prerequisite information.
@@ -456,8 +431,10 @@ function processModuleData(moduleData) {
 
       // Make the module element clickable to highlight it.
       moduleElement.addEventListener("click", () => {
-        const prereqCodes = prereqsMap[moduleCode] || [];
-        const dependentCodes = requiredForMap[moduleCode] || [];
+        if (selectModulesModeEnabled) {
+          toggleModuleTaken(moduleCode);
+          return;
+        }
         clearHighlightedModules();
         if (activeModule === moduleCode) {
           // Deactivate the module.
@@ -489,6 +466,32 @@ function processModuleData(moduleData) {
     }
     themeButtonRow.appendChild(themeButton);
   }
+
+  // Place the action buttons row in the sticky container (remove any prior instance first).
+  document.getElementById("sticky-action-row")?.remove();
+  const stickyActionRow = document.createElement("div");
+  stickyActionRow.id = "sticky-action-row";
+
+  const selectModulesButton = document.createElement("button");
+  selectModulesButton.id = "select-modules-mode-button";
+  selectModulesButton.type = "button";
+  selectModulesButton.textContent = selectModulesModeEnabled ? "Confirm selection" : "Select modules";
+  selectModulesButton.title = "Toggle module selection mode so clicking modules marks them as taken.";
+  if (selectModulesModeEnabled) {
+    selectModulesButton.setAttribute("data-state", "on");
+  }
+  selectModulesButton.onclick = () => enterSelectModulesMode();
+  stickyActionRow.appendChild(selectModulesButton);
+
+  const clearTakenButton = document.createElement("button");
+  clearTakenButton.id = "clear-taken-modules-button";
+  clearTakenButton.type = "button";
+  clearTakenButton.textContent = "Clear taken modules";
+  clearTakenButton.disabled = modulesTaken.size === 0;
+  clearTakenButton.onclick = () => clearTakenModules();
+  stickyActionRow.appendChild(clearTakenButton);
+
+  document.getElementById("sticky-row-container").appendChild(stickyActionRow);
 
   // Ensure links point to the right place by loading a manifest for the current year. If a module is in the manifest, change the syllabus link to the pdf relevant for the current year.
   if (activeYearOfEntry != "latest") {
@@ -1330,6 +1333,40 @@ function runMathJax() {
   }
 }
 
+function normalizeRelatedModules(moduleData) {
+  const relatedMap = {};
+  for (const moduleCode in moduleData) {
+    relatedMap[moduleCode] = new Set();
+  }
+
+  for (const moduleCode in moduleData) {
+    const related = moduleData[moduleCode].related || [];
+    for (const relatedCode of related) {
+      if (!moduleData[relatedCode] || relatedCode === moduleCode) {
+        continue;
+      }
+      if (areModulesPrereqLinked(moduleCode, relatedCode)) {
+        continue;
+      }
+      relatedMap[moduleCode].add(relatedCode);
+      relatedMap[relatedCode].add(moduleCode);
+    }
+  }
+
+  for (const moduleCode in moduleData) {
+    moduleData[moduleCode].related = Array.from(relatedMap[moduleCode]).sort();
+  }
+}
+
+function areModulesPrereqLinked(moduleA, moduleB) {
+  return (
+    prereqsMap[moduleA]?.includes(moduleB) ||
+    prereqsMap[moduleB]?.includes(moduleA) ||
+    requiredForMap[moduleA]?.includes(moduleB) ||
+    requiredForMap[moduleB]?.includes(moduleA)
+  );
+}
+
 function unpackPrereqs(prereqList) {
   if (!Array.isArray(prereqList)) {
     return [prereqList];
@@ -1349,18 +1386,13 @@ function styleTakenButtons() {
   const takenSectionButtons = document.getElementsByClassName(
     "taken-section-button",
   );
-  if (modulesTaken.size > 0) {
-    for (const btn of takenSectionButtons) {
-      btn.style.visibility = "visible";
-    }
-    document.getElementById("clear-taken-modules-button").style.visibility =
-      "visible";
-  } else {
-    for (const btn of takenSectionButtons) {
-      btn.style.visibility = "";
-    }
-    document.getElementById("clear-taken-modules-button").style.visibility =
-      "hidden";
+  const hasTaken = modulesTaken.size > 0;
+  for (const btn of takenSectionButtons) {
+    btn.style.visibility = hasTaken ? "visible" : "";
+  }
+  const clearBtn = document.getElementById("clear-taken-modules-button");
+  if (clearBtn) {
+    clearBtn.disabled = !hasTaken;
   }
 }
 
@@ -1376,6 +1408,42 @@ function clearTakenModules() {
   syncTakenModulesQueryParameters();
   styleTakenButtons();
   styleModulesWithUnmetPrereqs();
+}
+
+function toggleModuleTaken(moduleCode) {
+  const module = moduleData[moduleCode];
+  if (!module || !module.element) {
+    return;
+  }
+  const takenCheckbox = module.element.querySelector(".taken-checkbox");
+  if (!takenCheckbox) {
+    return;
+  }
+  takenCheckbox.click();
+}
+
+function enterSelectModulesMode() {
+  if (selectModulesModeEnabled) {
+    exitSelectModulesMode();
+    return;
+  }
+  selectModulesModeEnabled = true;
+  document.body.classList.add("select-modules-mode");
+  const selectButton = document.getElementById("select-modules-mode-button");
+  if (selectButton) {
+    selectButton.setAttribute("data-state", "on");
+    selectButton.textContent = "Confirm selection";
+  }
+}
+
+function exitSelectModulesMode() {
+  selectModulesModeEnabled = false;
+  document.body.classList.remove("select-modules-mode");
+  const selectButton = document.getElementById("select-modules-mode-button");
+  if (selectButton) {
+    selectButton.setAttribute("data-state", "off");
+    selectButton.textContent = "Select modules";
+  }
 }
 
 const input = document.getElementById("search-input");

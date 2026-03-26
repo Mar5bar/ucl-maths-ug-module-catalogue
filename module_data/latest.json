@@ -383,7 +383,7 @@
       "level": "6",
       "prereqs": ["MATH0014"],
       "term": "1",
-      "title": "Algebraic Toplogy",
+      "title": "Algebraic Topology",
       "years": ["3"]
     },
     {
@@ -641,6 +641,7 @@
       "description": "An introduction to electromagnetism and relativistic mechanics.",
       "level": "5",
       "prereqs": ["MATH0016"],
+      "related": ["MATH0025"],
       "term": "2",
       "title": "Mathematics of Electromagnetism and Special Relativity",
       "years": ["2", "3"]

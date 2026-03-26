@@ -27,6 +27,34 @@ body {
   margin: 0;
   min-height: 100vh;
   margin-bottom: 20px;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  border: 0 solid transparent;
+  pointer-events: none;
+  z-index: 1000;
+  box-sizing: border-box;
+  transition: border-width 0.25s ease;
+}
+
+body.select-modules-mode::before {
+  border-width: 8px;
+  border-color: var(--ucl-mid-purple);
+  animation: select-mode-border-fade 1.8s ease-in-out infinite;
+}
+
+@keyframes select-mode-border-fade {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 a {
@@ -50,9 +78,12 @@ a {
   margin: 0;
 }
 
-#theme-button-row {
+#sticky-row-container {
   background: #ffffff;
   border-bottom: 1px solid var(--ucl-dark-purple);
+}
+
+#theme-button-row {
   padding-bottom: 8px;
 }
 
@@ -108,10 +139,25 @@ details h2 {
   font-size: 15px;
 }
 
-#clear-taken-modules-button {
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
+#sticky-action-row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px 0;
+}
+
+#clear-taken-modules-button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+body.select-modules-mode #select-modules-mode-button {
+  border-color: var(--ucl-mid-purple);
+  animation: select-mode-border-fade 1.8s ease-in-out infinite;
+}
+
+body.select-modules-mode .module {
+  cursor: pointer;
 }
 
 @media (hover: hover) {
@@ -143,7 +189,7 @@ details h2 {
   background: var(--ucl-off-white);
   width: 180px;
   box-shadow: 0 2px 12px rgba(60, 80, 120, 0.07);
-  transition: box-shadow 0.2s, background-color 0.5s, border-color 0.5s;
+  transition: box-shadow 0.2s, background-color 0.5s, border-color 0.5s, opacity 0.5s;
   flex-shrink: 0;
   font-size: 14px;
   display: flex;
@@ -224,6 +270,10 @@ br.title-break {
 
 .taken-checkbox[data-checked="true"] {
   visibility: visible;
+}
+
+.module:has(.taken-checkbox[data-checked="true"]) {
+  opacity: 0.7;
 }
 
 /* Always show the button (not the text) if you can't hover */
@@ -359,7 +409,7 @@ button[data-state="on"] {
 .inactive-theme,
 .inactive-module,
 .unmet-prereqs {
-  opacity: 0.3;
+  opacity: 0.2;
 }
 
 .module.inactive-theme {
@@ -372,7 +422,7 @@ button[data-state="on"] {
   left: 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 100;
+  opacity: 1;
   transition: opacity 0.5s;
 }
 
@@ -438,7 +488,7 @@ input[type="text"] {
 }
 
 @media screen and (min-width: 769px) {
-  #theme-button-row {
+  #sticky-row-container {
     position: sticky;
     top: 0;
     z-index: 100;
