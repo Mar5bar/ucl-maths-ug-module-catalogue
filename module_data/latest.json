@@ -468,7 +468,7 @@
     },
     {
       "code": "MATH0033",
-      "description": "A rigorous analysis of accuracy and stability of computational methods, including those in linear algebra and ODEs.",
+      "description": "A rigorous analysis of accuracy and stability of computational methods, including iterative methods and ODEs.",
       "groups": "2",
       "level": "6",
       "prereqs": ["MATH0004", "MATH0006", "MATH0011"],
@@ -667,7 +667,7 @@
     },
     {
       "code": "MATH0058",
-      "description": "Numerical methods in linear algebra and its applications through Python programming.",
+      "description": "Numerical linear algebra and numerical analysis, complemented by Python programming.",
       "level": "5",
       "prereqs": ["MATH0006", "MATH0010"],
       "term": "2",
