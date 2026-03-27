@@ -493,6 +493,14 @@ function processModuleData(moduleData) {
 
   document.getElementById("sticky-row-container").appendChild(stickyActionRow);
 
+  // Place the taken-gutter inside the sticky container, below the action row.
+  document.getElementById("taken-gutter")?.remove();
+  const takenGutter = document.createElement("div");
+  takenGutter.id = "taken-gutter";
+  takenGutter.hidden = true;
+  document.getElementById("sticky-row-container").appendChild(takenGutter);
+  updateTakenGutter();
+
   // Ensure links point to the right place by loading a manifest for the current year. If a module is in the manifest, change the syllabus link to the pdf relevant for the current year.
   if (activeYearOfEntry != "latest") {
     const manifestURL = `./pdfs/${activeYearOfEntry}/manifest.json`;
@@ -1394,6 +1402,34 @@ function styleTakenButtons() {
   if (clearBtn) {
     clearBtn.disabled = !hasTaken;
   }
+  updateTakenGutter();
+}
+
+function updateTakenGutter() {
+  const gutter = document.getElementById("taken-gutter");
+  if (!gutter) return;
+  if (modulesTaken.size === 0) {
+    gutter.hidden = true;
+    gutter.textContent = "";
+    return;
+  }
+  const sorted = Array.from(modulesTaken).sort();
+  gutter.hidden = false;
+  gutter.innerHTML = "";
+  const label = document.createElement("span");
+  label.className = "taken-gutter-label";
+  label.textContent = "Taken: ";
+  gutter.appendChild(label);
+  sorted.forEach((code, i) => {
+    const span = document.createElement("span");
+    span.className = "module-code taken-gutter-code";
+    span.textContent = code;
+    span.addEventListener("click", () => activateModule(code));
+    gutter.appendChild(span);
+    if (i < sorted.length - 1) {
+      gutter.appendChild(document.createTextNode(", "));
+    }
+  });
 }
 
 function clearTakenModules() {

@@ -83,10 +83,6 @@ a {
   border-bottom: 1px solid var(--ucl-dark-purple);
 }
 
-#theme-button-row {
-  padding-bottom: 8px;
-}
-
 .module-section {
   display: none;
 }
@@ -168,6 +164,24 @@ body.select-modules-mode .module {
 
 #module-grid {
   margin-bottom: 50px;
+}
+
+#taken-gutter {
+  background: var(--ucl-off-white);
+  border-top: 1px solid var(--ucl-light-purple);
+  padding: 4px 16px;
+  font-size: 13px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.taken-gutter-label {
+  font-weight: 600;
+  color: var(--ucl-dark-purple);
+}
+
+.taken-gutter-code {
+  cursor: pointer;
 }
 
 .module-group {
