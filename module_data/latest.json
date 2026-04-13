@@ -349,7 +349,6 @@
     {
       "code": "MATH0020",
       "description": "Geometry of smooth curves and surfaces in $\\mathbb{R}^3$, looking at local properties, global theorems, and relations between curvature and topology.",
-      "groups": "1A",
       "level": "6",
       "prereqs": ["MATH0011", "MATH0003", "MATH0005"],
       "term": "2",
