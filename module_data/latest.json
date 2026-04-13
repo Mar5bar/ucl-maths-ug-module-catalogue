@@ -492,7 +492,7 @@
       "level": "6",
       "prereqs": ["MATH0034", "MATH0053"],
       "related": ["MATH0022"],
-      "term": "2",
+      "term": "1",
       "title": "Algebraic Number Theory",
       "years": ["3"]
     },
