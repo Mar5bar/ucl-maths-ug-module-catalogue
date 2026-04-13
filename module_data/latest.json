@@ -349,6 +349,7 @@
     {
       "code": "MATH0020",
       "description": "Geometry of smooth curves and surfaces in $\\mathbb{R}^3$, looking at local properties, global theorems, and relations between curvature and topology.",
+      "groups": "1A",
       "level": "6",
       "prereqs": ["MATH0011", "MATH0003", "MATH0005"],
       "term": "2",
@@ -648,7 +649,6 @@
     {
       "code": "MATH0056",
       "description": "Separation of variables in cylindrical and spherical coordinates, and transform methods for PDEs.",
-      "groups": "2",
       "level": "6",
       "prereqs": ["MATH0013", "MATH0016"],
       "term": "2",
@@ -1008,6 +1008,7 @@
     {
       "code": "MATH0119",
       "description": "Tools and techniques for analysing and modelling dynamical systems through topology, analysis, and measure theory.",
+      "groups": "1A",
       "level": "7",
       "prereqs": ["MATH0017", ["MATH0019", "MATH0020"]],
       "term": "2",
