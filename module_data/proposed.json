@@ -1,0 +1,1035 @@
+{
+  "ancillaryModules": [
+    "STAT0001",
+    "MATH0002",
+    "MATH0007",
+    "MATH0012",
+    "MATH0039",
+    "MATH0040",
+    "MATH0041",
+    "MATH0042",
+    "MATH0043",
+    "MATH0045",
+    "MATH0046",
+    "MATH0047",
+    "MATH0048",
+    "MATH0050",
+    "MATH0101",
+    "MATH0103",
+    "MATH0110"
+  ],
+  "themesToModules": {
+    "Algebra": [
+      "MATH0005",
+      "MATH0006",
+      "MATH0014",
+      "MATH0022",
+      "MATH0036",
+      "MATH0053",
+      "MATH0073",
+      "MATH0075",
+      "MATH0076",
+      "MATH0108"
+    ],
+    "Applied": [
+      "MATH0008",
+      "MATH0009",
+      "MATH0010",
+      "MATH0011",
+      "MATH0015",
+      "MATH0016",
+      "MATH0024",
+      "MATH0025",
+      "MATH0026",
+      "MATH0027",
+      "MATH0030",
+      "MATH0031",
+      "MATH0033",
+      "MATH0054",
+      "MATH0055",
+      "MATH0056",
+      "MATH0057",
+      "MATH0058",
+      "MATH0077",
+      "MATH0078",
+      "MATH0079",
+      "MATH0080",
+      "MATH0082",
+      "MATH0084",
+      "MATH0086",
+      "MATH0088",
+      "MATH0102",
+      "MATH0106",
+      "MATH0114",
+      "MATH0115",
+      "MATH0117",
+      "MATH0118",
+      "MATH0119",
+      "MATH2000"
+    ],
+    "Analysis": [
+      "MATH0003",
+      "MATH0004",
+      "MATH0013",
+      "MATH0051",
+      "MATH0017",
+      "MATH0019",
+      "MATH0018",
+      "MATH0070",
+      "MATH0069",
+      "MATH0083",
+      "MATH0092",
+      "MATH0090",
+      "MATH0107",
+      "MATH0128",
+      "MATH0071"
+    ],
+    "Biology": ["MATH0026", "MATH0030", "MATH0082", "MATH0117"],
+    "Combinatorics": ["MATH0028", "MATH0029", "MATH0107"],
+    "Continuum Mechanics": [
+      "MATH0015",
+      "MATH0024",
+      "MATH0077",
+      "MATH0080",
+      "MATH0115"
+    ],
+    "Geometry and Topology": [
+      "MATH0020",
+      "MATH0023",
+      "MATH0025",
+      "MATH0019",
+      "MATH0036",
+      "MATH0074",
+      "MATH0075",
+      "MATH0076"
+    ],
+    "Modelling": [
+      "MATH0026",
+      "MATH0030",
+      "MATH0033",
+      "MATH0028",
+      "MATH0031",
+      "MATH0114",
+      "MATH0102",
+      "MATH0117",
+      "MATH0086",
+      "MATH0082",
+      "MATH0088"
+    ],
+    "Number Theory": [
+      "MATH0034",
+      "MATH0035",
+      "MATH0036",
+      "MATH0061",
+      "MATH0083",
+      "MATH0104"
+    ],
+    "Numerics": [
+      "MATH0011",
+      "MATH0058",
+      "MATH0033",
+      "MATH0086",
+      "MATH0092",
+      "MATH0088"
+    ],
+    "Physics": [
+      "MATH0009",
+      "MATH0025",
+      "MATH0043",
+      "MATH0055",
+      "MATH0079",
+      "MATH0118"
+    ],
+    "Probability": ["MATH0057", "MATH0031", "MATH0107", "MATH0069"],
+    "Pure": [
+      "MATH0003",
+      "MATH0004",
+      "MATH0005",
+      "MATH0006",
+      "MATH0010",
+      "MATH0011",
+      "MATH0013",
+      "MATH0014",
+      "MATH0016",
+      "MATH0017",
+      "MATH0018",
+      "MATH0019",
+      "MATH0020",
+      "MATH0021",
+      "MATH0022",
+      "MATH0023",
+      "MATH0028",
+      "MATH0029",
+      "MATH0034",
+      "MATH0035",
+      "MATH0036",
+      "MATH0037",
+      "MATH0038",
+      "MATH0051",
+      "MATH0053",
+      "MATH0057",
+      "MATH0061",
+      "MATH0069",
+      "MATH0070",
+      "MATH0071",
+      "MATH0073",
+      "MATH0074",
+      "MATH0075",
+      "MATH0076",
+      "MATH0083",
+      "MATH0084",
+      "MATH0092",
+      "MATH0104",
+      "MATH0107",
+      "MATH0108",
+      "MATH0109",
+      "MATH0119",
+      "MATH0128"
+    ]
+  },
+  "modules": [
+    {
+      "code": "MATH0002",
+      "description": "Fundamentals of economic resource allocation and analysis, focusing on both individual and aggregate economic principles.",
+      "level": "4",
+      "term": "1",
+      "title": "Economics 1",
+      "years": ["1"]
+    },
+    {
+      "code": "MATH0003",
+      "description": "Concepts in real analysis, focusing on proofs and rigorous mathematical techniques.",
+      "level": "4",
+      "term": "1",
+      "title": "Analysis 1",
+      "years": ["1"]
+    },
+    {
+      "code": "MATH0004",
+      "description": "Concepts in real analysis, including Riemann integration and power series.",
+      "level": "4",
+      "prereqs": ["MATH0003"],
+      "term": "2",
+      "title": "Analysis 2",
+      "years": ["1"]
+    },
+    {
+      "code": "MATH0005",
+      "description": "Basics of linear algebra, including vectors, matrices, and their applications.",
+      "level": "4",
+      "term": "1",
+      "title": "Algebra 1",
+      "years": ["1"]
+    },
+    {
+      "code": "MATH0006",
+      "description": "Introduction to groups, rings, fields, and vector spaces.",
+      "level": "4",
+      "prereqs": ["MATH0005"],
+      "term": "2",
+      "title": "Algebra 2",
+      "years": ["1"]
+    },
+    {
+      "code": "MATH0007",
+      "description": "Concepts of group theory and linear algebra, essential for understanding mathematics and its applications.",
+      "level": "4",
+      "term": "2",
+      "title": "Algebra for Joint Honours",
+      "years": ["1"]
+    },
+    {
+      "code": "MATH0009",
+      "description": "Principles of Newtonian mechanics, including force, motion, and energy.",
+      "level": "4",
+      "term": "1",
+      "title": "Mechanics and Dynamics",
+      "years": ["1"]
+    },
+    {
+      "code": "MATH0010",
+      "description": "Foundational skills across vectors, calculus, and differential equations.",
+      "level": "4",
+      "term": "1",
+      "title": "Advanced Calculus",
+      "years": ["1"]
+    },
+    {
+      "code": "MATH0011",
+      "description": "Programming fundamentals in Python and introductory multivariable calculus.",
+      "level": "4",
+      "prereqs": ["MATH0010"],
+      "term": "2",
+      "title": "Programming and Vector Calculus",
+      "years": ["1"]
+    },
+    {
+      "code": "MATH0012",
+      "description": "This course equips BASc students with fundamental calculus skills to prepare them for advanced studies and potential departmental placements.",
+      "level": "4",
+      "term": "1",
+      "title": "Mathematical Methods for Arts and Sciences",
+      "years": ["1"]
+    },
+    {
+      "code": "MATH0013",
+      "description": "Rigorous study of complex functions, covering fundamental theorems and applications.",
+      "level": "5",
+      "prereqs": ["MATH0003"],
+      "related": ["MATH0004"],
+      "term": "1",
+      "title": "Analysis 3: Complex Analysis",
+      "years": ["2"]
+    },
+    {
+      "code": "MATH0014",
+      "description": "Polynomial rings, linear maps and matrices, and inner product spaces.",
+      "level": "5",
+      "prereqs": ["MATH0006"],
+      "term": "1",
+      "title": "Algebra 3: Further Linear Algebra",
+      "years": ["2"]
+    },
+    {
+      "code": "MATH0015",
+      "description": "Principles of fluid motion, focusing on planar flows, dynamics, and an introduction to surface waves.",
+      "level": "5",
+      "prereqs": ["MATH0011"],
+      "term": "2",
+      "title": "Fluid Mechanics",
+      "years": ["2"]
+    },
+    {
+      "code": "MATH0016",
+      "description": "Fourier analysis and an introduction to linear partial differential equations.",
+      "level": "5",
+      "prereqs": ["MATH0011"],
+      "term": "1",
+      "title": "Fourier Methods and Linear PDEs",
+      "years": ["2"]
+    },
+    {
+      "code": "MATH0017",
+      "description": "Foundations of measure theory and Lebesgue integration.",
+      "groups": "1A",
+      "level": "6",
+      "prereqs": ["MATH0051"],
+      "term": "1",
+      "title": "Measure Theory",
+      "years": ["3"]
+    },
+    {
+      "code": "MATH0018",
+      "description": "Introduction to function spaces, Banach spaces and Hilbert spaces.",
+      "groups": "1A",
+      "level": "7",
+      "prereqs": ["MATH0051"],
+      "term": "1",
+      "title": "Functional Analysis",
+      "years": ["3"]
+    },
+    {
+      "code": "MATH0019",
+      "description": "Key notions and theorems of analysis in $\\mathbb{R}^n$, unifying vector analysis and differential forms.",
+      "groups": "1A",
+      "level": "6",
+      "prereqs": ["MATH0051"],
+      "term": "1",
+      "title": "Multivariable Analysis",
+      "years": ["3"]
+    },
+    {
+      "code": "MATH0020",
+      "description": "Geometry of smooth curves and surfaces in $\\mathbb{R}^3$, looking at local properties, global theorems, and relations between curvature and topology.",
+      "level": "6",
+      "prereqs": ["MATH0011", "MATH0003", "MATH0005"],
+      "term": "2",
+      "title": "Curves and Surfaces",
+      "years": ["2"]
+    },
+    {
+      "code": "MATH0021",
+      "description": "Generalising linear algebra via commutative rings, as an introduction to the theory of modules.",
+      "groups": "1B",
+      "level": "7",
+      "prereqs": ["MATH0053"],
+      "term": "2",
+      "title": "Homological Algebra",
+      "years": ["3"]
+    },
+    {
+      "code": "MATH0022",
+      "description": "Introduction to Galois theory, bringing together ideas from groups, rings, and linear algebra.",
+      "groups": "1B",
+      "level": "6",
+      "prereqs": ["MATH0053"],
+      "term": "1",
+      "title": "Galois Theory",
+      "years": ["3"]
+    },
+    {
+      "code": "MATH0023",
+      "description": "Introductory algebraic and geometric topology via the homology of simplicial complexes.",
+      "groups": "1B",
+      "level": "6",
+      "prereqs": ["MATH0014"],
+      "term": "1",
+      "title": "Algebraic Topology",
+      "years": ["3"]
+    },
+    {
+      "code": "MATH0024",
+      "description": "Ocean and atmosphere dynamics, focussing on global weather and transport processes.",
+      "groups": "2",
+      "level": "6",
+      "prereqs": ["MATH0015", "MATH0016"],
+      "term": "2",
+      "title": "Geophysical Fluid Dynamics",
+      "years": ["3"]
+    },
+    {
+      "code": "MATH0025",
+      "description": "Einstein’s revolutionary theories of relativity, including gravity and electromagnetism.",
+      "groups": "2",
+      "level": "6",
+      "prereqs": ["MATH0016"],
+      "related": ["MATH0020"],
+      "term": "1",
+      "title": "Mathematics for General Relativity",
+      "years": ["3"]
+    },
+    {
+      "code": "MATH0026",
+      "description": "The mathematical study of the normal function in living systems, including organs, cells, and biomolecules.",
+      "groups": "2",
+      "level": "6",
+      "prereqs": ["MATH0011"],
+      "term": "1",
+      "title": "Quantitative Physiology and Biomechanics",
+      "years": ["3"]
+    },
+    {
+      "code": "MATH0028",
+      "description": "Combinatorial algorithms and their efficiency, focussing on network flows and problems on graphs.",
+      "groups": "2",
+      "level": "6",
+      "prereqs": ["MATH0014"],
+      "term": "2",
+      "title": "Combinatorial Optimisation",
+      "years": ["3"]
+    },
+    {
+      "code": "MATH0029",
+      "description": "Discrete mathematics, including graph theory, combinatorics, emphasising extremal results and methods.",
+      "groups": "1A 1B",
+      "level": "6",
+      "related": ["MATH0057"],
+      "term": "1",
+      "title": "Graph Theory and Combinatorics",
+      "years": ["3"]
+    },
+    {
+      "code": "MATH0030",
+      "description": "Construction and analysis of mathematical models used to understand population dynamics in ecology.",
+      "groups": "2",
+      "level": "6",
+      "prereqs": ["MATH0010"],
+      "term": "1",
+      "title": "Mathematical Ecology",
+      "years": ["3"]
+    },
+    {
+      "code": "MATH0031",
+      "description": "Foundations of finance and essentials of probability and stochastic calculus.",
+      "level": "6",
+      "prereqs": ["MATH0016", "MATH0057"],
+      "term": "2",
+      "title": "Financial Mathematics",
+      "years": ["3"]
+    },
+    {
+      "code": "MATH0033",
+      "description": "A rigorous analysis of accuracy and stability of computational methods, including iterative methods and ODEs.",
+      "groups": "2",
+      "level": "6",
+      "prereqs": ["MATH0004", "MATH0006", "MATH0011"],
+      "term": "1",
+      "title": "Numerical Methods",
+      "years": ["3"]
+    },
+    {
+      "code": "MATH0034",
+      "description": "Elementary number theory, including equations, congruences, and the properties of integers and their rings.",
+      "level": "5",
+      "prereqs": ["MATH0006"],
+      "term": "2",
+      "title": "Number Theory",
+      "years": ["2", "3"]
+    },
+    {
+      "code": "MATH0035",
+      "description": "Finite algebraic extensions of rational numbers (algebraic number fields) and their arithmetic.",
+      "groups": "1B",
+      "level": "6",
+      "prereqs": ["MATH0034", "MATH0053"],
+      "related": ["MATH0022"],
+      "term": "1",
+      "title": "Algebraic Number Theory",
+      "years": ["3"]
+    },
+    {
+      "code": "MATH0036",
+      "description": "Study of curves of the form $y^2 = x^3 + ax^2 + bx + c$, with $a,b,c\\in\\mathbb{Q}$, and their rational solutions.",
+      "groups": "1B",
+      "level": "7",
+      "prereqs": ["MATH0053", "MATH0034"],
+      "term": "2",
+      "title": "Elliptic Curves",
+      "years": ["3"]
+    },
+    {
+      "code": "MATH0037",
+      "description": "An introduction to propositional and first order logic, including set theory and countability.",
+      "level": "6",
+      "prereqs": ["MATH0006"],
+      "term": "1",
+      "title": "Logic",
+      "years": ["3"]
+    },
+    {
+      "code": "MATH0038",
+      "description": "Evolution of mathematics from ancient times to the early 19th century, focusing on key figures and discoveries.",
+      "level": "6",
+      "term": "2",
+      "title": "History of Mathematics",
+      "years": ["3"]
+    },
+    {
+      "code": "MATH0039",
+      "description": "Calculus concepts suitable for students with a basic understanding of mathematics.",
+      "level": "4",
+      "term": "1",
+      "title": "Differential and Integral Calculus",
+      "years": ["1"]
+    },
+    {
+      "code": "MATH0040",
+      "description": "Strengthening A-level mathematics skills.",
+      "level": "4",
+      "term": "1",
+      "title": "Mathematics for Science 1",
+      "years": ["1"]
+    },
+    {
+      "code": "MATH0041",
+      "description": "Advanced mathematical concepts, including 3D geometry, calculus, and linear algebra, focusing on solving problems with matrices and vectors.",
+      "level": "4",
+      "prereqs": ["MATH0040", "NSCI0005"],
+      "term": "2",
+      "title": "Mathematics for Science 2",
+      "years": ["1"]
+    },
+    {
+      "code": "MATH0042",
+      "description": "Advanced mathematical techniques crucial for solving complex chemical problems.",
+      "level": "5",
+      "prereqs": ["MATH0040", "MATH0041"],
+      "term": "1",
+      "title": "Mathematical Methods in Chemistry",
+      "years": ["2"]
+    },
+    {
+      "code": "MATH0043",
+      "description": "Advanced mathematical techniques crucial for theoretical physics and astronomy study.",
+      "level": "5",
+      "prereqs": ["PHAS0025"],
+      "term": "2",
+      "title": "Mathematics for Physics and Astronomy",
+      "years": ["2"]
+    },
+    {
+      "code": "MATH0045",
+      "description": "Applying mathematical techniques to economics, statistics, and related fields through practical examples.",
+      "level": "4",
+      "term": "1",
+      "title": "Calculus and Linear Algebra",
+      "years": ["1"]
+    },
+    {
+      "code": "MATH0046",
+      "description": "Mastering advanced mathematical techniques through problem-solving and application.",
+      "level": "4",
+      "prereqs": ["MATH0045"],
+      "term": "2",
+      "title": "Calculus in Several Dimensions",
+      "years": ["1"]
+    },
+    {
+      "code": "MATH0047",
+      "description": "Mathematical concepts, particularly matrices and linear algebra, through examples and theoretical explanations.",
+      "level": "5",
+      "prereqs": ["MATH0045", "MATH0046", "ECON0006", "ECON0010"],
+      "term": "1",
+      "title": "Advanced Linear Algebra",
+      "years": ["2"]
+    },
+    {
+      "code": "MATH0048",
+      "description": "This module introduces fundamental mathematical concepts, particularly rigorous proofs and definitions, crucial for advanced studies in economics and statistics.",
+      "level": "5",
+      "term": "2",
+      "title": "Mathematical Analysis",
+      "years": ["2"]
+    },
+    {
+      "code": "MATH0050",
+      "description": "Introductory first order logic, computability, and undecidability.",
+      "level": "6",
+      "prereqs": ["MATH0047"],
+      "term": "2",
+      "title": "Logic",
+      "years": ["3"]
+    },
+    {
+      "code": "MATH0051",
+      "description": "Convergence, continuity, compactness, and contractions in metric spaces.",
+      "level": "6",
+      "prereqs": ["MATH0004"],
+      "term": "2",
+      "title": "Analysis 4: Metric Spaces",
+      "years": ["2", "3"]
+    },
+    {
+      "code": "MATH0053",
+      "description": "Groups of small order, Sylow's theorems, and the fundamentals of ring theory.",
+      "level": "6",
+      "prereqs": ["MATH0006"],
+      "term": "2",
+      "title": "Algebra 4: Groups and Rings",
+      "years": ["2", "3"]
+    },
+    {
+      "code": "MATH0054",
+      "description": "Rotating frames, Lagrangian and Hamiltonian dynamics, and rigid body motion, with an emphasis on formal development of the theory.",
+      "level": "6",
+      "prereqs": ["MATH0009", "MATH0011"],
+      "term": "2",
+      "title": "Analytical Dynamics",
+      "years": ["3"]
+    },
+    {
+      "code": "MATH0055",
+      "description": "An introduction to electromagnetism, relativistic mechanics, and calculus of variations.",
+      "level": "5",
+      "prereqs": ["MATH0016"],
+      "related": ["MATH0025"],
+      "term": "2",
+      "title": "Mathematical Physics",
+      "years": ["2", "3"]
+    },
+    {
+      "code": "MATH0056",
+      "description": "Techniques for ODEs and PDEs, including Green's functions and characteristics.",
+      "level": "6",
+      "prereqs": ["MATH0013", "MATH0016"],
+      "term": "2",
+      "title": "Advanced Differential Equations",
+      "years": ["2", "3"]
+    },
+    {
+      "code": "MATH0057",
+      "description": "Axiomatic approach to probability and related statistical methods.",
+      "level": "4",
+      "prereqs": ["MATH0011"],
+      "term": "2",
+      "title": "Probability and Statistics",
+      "years": ["1"]
+    },
+    {
+      "code": "MATH0058",
+      "description": "Numerical linear algebra and numerical analysis, complemented by Python programming.",
+      "level": "5",
+      "prereqs": ["MATH0006", "MATH0010"],
+      "term": "2",
+      "title": "Computational Methods",
+      "years": ["2", "3"]
+    },
+    {
+      "code": "MATH0061",
+      "description": "Units in number fields, class numbers, L-functions, and class field theory, as the basis for the Langlands programme.",
+      "level": "7",
+      "prereqs": ["MATH0035", "MATH0022"],
+      "term": "2",
+      "title": "Further Topics in Algebraic Number Theory",
+      "years": ["4"]
+    },
+    {
+      "code": "MATH0069",
+      "description": "The rigorous theory of probability, focussing on the strong law of large numbers and the central limit theorem.",
+      "groups": "1A",
+      "level": "7",
+      "prereqs": ["MATH0017"],
+      "term": "2",
+      "title": "Probability",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0070",
+      "description": "An introduction to distributions, the Fourier transform in various spaces, elliptic regularity, and harmonic functions.",
+      "groups": "1A",
+      "level": "7",
+      "prereqs": ["MATH0013", "MATH0016", "MATH0051"],
+      "term": "1",
+      "title": "Analysis of Linear PDEs",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0071",
+      "description": "Fundamental theory behind the operators used in quantum mechanics, including the Riesz representation theorem and the spectral theorem for compact self-adjoint operators.",
+      "level": "7",
+      "prereqs": ["MATH0018"],
+      "related": ["MATH0017", "MATH0019"],
+      "term": "2",
+      "title": "Spectral Theory",
+      "years": ["4"]
+    },
+    {
+      "code": "MATH0073",
+      "description": "Representations of finite groups over the complex numbers, including Maschke's theorem, Schur's lemma, classification, and characters.",
+      "groups": "1B",
+      "level": "7",
+      "prereqs": ["MATH0053"],
+      "related": ["MATH0021"],
+      "term": "1",
+      "title": "Representation Theory",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0074",
+      "description": "Fundamental groups, free groups, and group presentations, including the Wirtinger presentation.",
+      "level": "7",
+      "prereqs": ["MATH0051", "MATH0053"],
+      "term": "1",
+      "title": "Topology and Groups",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0075",
+      "description": "Algebraic structure of Lie groups and their representations, utilising tools from geometry and linear algebra.",
+      "level": "7",
+      "prereqs": ["MATH0014", "MATH0053"],
+      "term": "2",
+      "title": "Lie Groups and Lie Algebras",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0076",
+      "description": "The study of algebraic varieties, defined by polynomial equations, with a focus on basic notions and explicit examples.",
+      "level": "7",
+      "prereqs": ["MATH0053"],
+      "term": "2",
+      "title": "Algebraic Geometry",
+      "years": ["4"]
+    },
+    {
+      "code": "MATH0077",
+      "description": "Flows of Newtonian fluids, taking into account for viscosity (internal friction) and exploring a range of examples, instabilities, and techniques.",
+      "groups": "2",
+      "level": "7",
+      "prereqs": ["MATH0015", "MATH0016", "MATH2000"],
+      "term": "1",
+      "title": "Real Fluids",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0078",
+      "description": "Systematic methods for solving problems involving a small parameter, enabling progress where exact solutions are unavailable.",
+      "level": "7",
+      "prereqs": ["MATH2000"],
+      "term": "2",
+      "title": "Asymptotic Approximation Methods",
+      "years": ["4"]
+    },
+    {
+      "code": "MATH0079",
+      "description": "History and structure of the universe through the study of general relativity, including the expansion rate of the universe and cosmological perturbations.",
+      "level": "7",
+      "prereqs": ["MATH0025"],
+      "term": "2",
+      "title": "Cosmology",
+      "years": ["4"]
+    },
+    {
+      "code": "MATH0080",
+      "description": "Linear and nonlinear wave theory and techniques for analysing wave reflection, transmission, and scattering in various media.",
+      "level": "7",
+      "prereqs": ["MATH0016"],
+      "term": "2",
+      "title": "Waves and Wave Scattering",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0082",
+      "description": "Introductions to evolutionary game theory and population genetics, including mutation-selection balance and Mendelian genetics.",
+      "level": "7",
+      "prereqs": ["MATH0008", "MATH0010", "MATH0003"],
+      "term": "2",
+      "title": "Evolutionary Games and Population Genetics",
+      "years": ["4"]
+    },
+    {
+      "code": "MATH0083",
+      "description": "Properties of prime numbers, culminating in proofs of Dirichlet's theorem and the prime number theorem.",
+      "groups": "1A 1B",
+      "level": "7",
+      "prereqs": ["MATH0034", "MATH0014", "MATH0051"],
+      "term": "2",
+      "title": "Prime Numbers and their Distribution",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0084",
+      "description": "Experience independent research-style mathematics with a supervisor over two terms.",
+      "level": "7",
+      "syllabus": "https://www.ucl.ac.uk/mathematical-physical-sciences/maths/current-students/current-undergraduates/degree-structures-and-options/year-4-project",
+      "term": "1 & 2",
+      "title": "Project",
+      "years": ["4"]
+    },
+    {
+      "code": "MATH0086",
+      "description": "Numerical methods for solving ODEs and PDEs, focusing on finite difference and finite element methods.",
+      "level": "7",
+      "prereqs": ["MATH2000"],
+      "related": ["MATH0058"],
+      "term": "1",
+      "title": "Computational and Simulation Methods",
+      "years": ["4"]
+    },
+    {
+      "code": "MATH0088",
+      "description": "Developing the PDE approach to the pricing of options, including an introduction to Excel for computation.",
+      "level": "7",
+      "prereqs": ["MATH0016"],
+      "related": ["MATH0031"],
+      "term": "2",
+      "title": "Quantitative and Computational Finance",
+      "years": ["4"]
+    },
+    {
+      "code": "MATH0090",
+      "description": "An introduction to the theory of second order elliptic partial differential equations, especially linear PDEs.",
+      "lead": "Dr C Bellettini",
+      "level": "7",
+      "prereqs": ["MATH0019", "MATH0051"],
+      "related": ["MATH0018", "MATH0070"],
+      "term": "2",
+      "title": "Elliptic Partial Differential Equations",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0092",
+      "description": "Mathematical foundations of modern variational theory and numerical methods for PDEs, including applied functional analysis.",
+      "groups": "1A 2",
+      "level": "7",
+      "prereqs": ["MATH0051"],
+      "term": "2",
+      "title": "Variational Methods for PDEs",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0101",
+      "description": "Learn fundamental linear algebra concepts (vectors, matrices, and least squares) essential for data science applications.",
+      "level": "5",
+      "term": "2",
+      "title": "Linear Algebra for Data Science",
+      "years": ["2"]
+    },
+    {
+      "code": "MATH0102",
+      "description": "Applying stochastic differential equations to model physical, chemical, and biological systems.",
+      "groups": "2",
+      "level": "7",
+      "prereqs": ["MATH0010", "MATH0011"],
+      "related": ["MATH2000", "MATH0031", "MATH0057", "MATH0065"],
+      "term": "2",
+      "title": "Applied Stochastic Methods",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0103",
+      "description": "Developing a strong understanding of group theory and number theory through abstract concepts and rigorous proof techniques.",
+      "level": "5",
+      "prereqs": ["MATH0012"],
+      "term": "1",
+      "title": "Discrete Mathematics",
+      "years": ["2"]
+    },
+    {
+      "code": "MATH0104",
+      "description": "Concepts and applications of modular forms, including Eisenstein series, theta series, and Hecke operators.",
+      "groups": "1B",
+      "level": "7",
+      "prereqs": ["MATH0013", "MATH0014"],
+      "related": ["MATH0034"],
+      "term": "1",
+      "title": "Modular Forms",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0107",
+      "description": "The probabilistic method and its applications across combinatorics, number theory, and geometry.",
+      "level": "7",
+      "prereqs": [["MATH0029", "MATH0028"]],
+      "related": ["MATH0029", "MATH0028", "MATH0057"],
+      "term": "2",
+      "title": "Probabilistic Method in Combinatorics",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0108",
+      "description": "Principles of commutative algebra and algebraic geometry, including integral extensions of rings.",
+      "groups": "1B",
+      "level": "6",
+      "prereqs": ["MATH0053"],
+      "related": ["MATH0076"],
+      "term": "2",
+      "title": "Commutative Rings and Algebras",
+      "years": ["3"]
+    },
+    {
+      "code": "MATH0109",
+      "description": "A practical course teaching students how to formally prove mathematical theorems interactively using the Lean programming language.",
+      "level": "6",
+      "term": "2",
+      "title": "Theorem Proving in Lean",
+      "years": ["3"]
+    },
+    {
+      "code": "MATH0110",
+      "description": "Fundamental concepts in mathematical analysis, focusing on rigorous proofs and logical thinking.",
+      "level": "4",
+      "term": "1",
+      "title": "Analysis for Joint Honours",
+      "years": ["1"]
+    },
+    {
+      "code": "MATH0111",
+      "description": "State-of-the-art numerical methods for solving complex problems in mathematics, science, and technology.",
+      "level": "7",
+      "prereqs": [["MATH0033", "MATH0058"]],
+      "term": "2",
+      "title": "Frontiers in Computational Mathematics",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0112",
+      "description": "A thorough introduction to the theory of abstract smooth manifolds, including many examples.",
+      "level": "7",
+      "prereqs": ["MATH0020"],
+      "related": ["MATH0019"],
+      "term": "1",
+      "title": "Manifolds",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0114",
+      "description": "Core principles and practical applications of machine learning and artificial intelligence.",
+      "level": "6",
+      "prereqs": [
+        "MATH0003",
+        "MATH0004",
+        "MATH0005",
+        "MATH0006",
+        "MATH0011",
+        "MATH0014"
+      ],
+      "related": ["MATH0057"],
+      "term": "2",
+      "title": "Mathematics for Machine Learning and Artificial Intelligence",
+      "years": ["3"]
+    },
+    {
+      "code": "MATH0115",
+      "description": "Modelling elastic materials through the PDEs of linear elasticity.",
+      "level": "7",
+      "prereqs": ["MATH0015", "MATH2000"],
+      "term": "1",
+      "title": "Solid Mechanics",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0116",
+      "description": "The definition and basic properties of Riemann surfaces, focusing on examples.",
+      "level": "7",
+      "prereqs": ["MATH0013", "MATH0051"],
+      "related": ["MATH0019"],
+      "term": "2",
+      "title": "Riemann Surfaces",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0117",
+      "description": "Modelling biological phenomena that occur over space and time, with a focus on PDE models, Turing patterns, and their origins.",
+      "level": "7",
+      "prereqs": ["MATH0016", "MATH0030"],
+      "term": "2",
+      "title": "Spatial Mathematical Biology",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0118",
+      "description": "Mathematical foundations of quantum mechanics through approximation methods and key concepts like the Schrödinger equation and quantum states.",
+      "level": "7",
+      "prereqs": ["MATH2000", "MATH0014"],
+      "term": "1",
+      "title": "Mathematics for Quantum Mechanics",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0119",
+      "description": "Tools and techniques for analysing and modelling dynamical systems through topology, analysis, and measure theory.",
+      "groups": "1A",
+      "level": "7",
+      "prereqs": ["MATH0017", ["MATH0019", "MATH0020"]],
+      "term": "2",
+      "title": "Dynamical Systems",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0120",
+      "description": "Far-reaching theorems in complex analysis, including the Riemann mapping theorem.",
+      "level": "7",
+      "prereqs": ["MATH0013"],
+      "term": "2",
+      "title": "Complex Function Theory",
+      "years": ["3", "4"]
+    },
+    {
+      "code": "MATH0128",
+      "description": "The basics of harmonic analysis, with emphasis on topics that find applications in other fields of mathematics.",
+      "level": "7",
+      "prereqs": ["MATH0017"],
+      "term": "2",
+      "title": "Harmonic Analysis",
+      "years": ["4"]
+    },
+    {
+      "code": "STAT0001",
+      "description": "Economic principles and modelling techniques.",
+      "level": "5",
+      "prereqs": ["MATH0002"],
+      "term": "1",
+      "title": "Economics 2",
+      "years": ["2"]
+    },
+    {
+      "code": "MATH2000",
+      "description": "Practical methods for modelling with ODEs, including phase planes, perturbation methods, and numerical techniques.",
+      "level": "5",
+      "term": "1",
+      "title": "Modelling, ODEs, and Approximation",
+      "years": ["2"]
+    }
+  ]
+}
