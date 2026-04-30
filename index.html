@@ -228,19 +228,19 @@
           tabular version of the module catalogue can be found
           <a href="table.html">here</a>. Information correct as of 20th March 2026.
         </p>
+      </div>
+      <div id="sticky-row-container">
         <div id="module-search">
           <input
             type="text"
             id="search-input"
-            placeholder="Enter module code..."
+            placeholder="Enter module name or code..."
           />
           <button id="search-button" type="button" onclick="searchModules()">
             Search
           </button>
-
+  
         </div>
-      </div>
-      <div id="sticky-row-container">
         <div id="theme-button-row" class="button-row"></div>
       </div>
       <div id="module-grid"></div>
@@ -262,5 +262,6 @@
       </defs>
     </svg>
   </body>
+    <script src="lunr.js"></script>
   <script src="main.js"></script>
 </html>

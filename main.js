@@ -30,6 +30,7 @@ let loadedThemesToModules;
 let themesToModules;
 let themesToModulesNoPrereqs;
 let ancillaryModules;
+let moduleSearchIndex = null;
 
 const defaultSyllabusBaseURL = "./pdfs";
 const defaultDetailPreferences = {
@@ -160,6 +161,9 @@ function processModuleData(moduleData) {
 
   // Make related links symmetric, while excluding prerequisite/dependent pairs.
   normalizeRelatedModules(moduleData);
+
+  // Rebuild the module title search index whenever module data is processed/refreshed.
+  buildModuleSearchIndex(moduleData);
 
   // We will override the themes.
   if (themesOverride) {
@@ -534,6 +538,74 @@ function processModuleData(moduleData) {
         console.error("Error fetching manifest:", error);
       });
   }
+}
+
+function buildModuleSearchIndex(currentModuleData) {
+  moduleSearchIndex = null;
+  if (!currentModuleData || Object.keys(currentModuleData).length === 0) {
+    return;
+  }
+  if (typeof lunr === "undefined") {
+    return;
+  }
+
+  moduleSearchIndex = lunr(function () {
+    // Keep original tokens so wildcard queries match literal title text.
+    this.pipeline.remove(lunr.stemmer);
+    this.searchPipeline.remove(lunr.stemmer);
+
+    this.ref("code");
+    this.field("title");
+    this.field("code");
+
+    for (const moduleCode in currentModuleData) {
+      const module = currentModuleData[moduleCode];
+      this.add({
+        code: moduleCode,
+        title: module.title || "",
+      });
+    }
+  });
+}
+
+function findTopModuleByTitle(query) {
+  if (!moduleSearchIndex || !query) {
+    return null;
+  }
+
+  const terms = query
+    .trim()
+    .toLowerCase()
+    .split(/\s+/)
+    .filter(Boolean);
+  if (terms.length === 0) {
+    return null;
+  }
+
+  let results = [];
+  try {
+    results = moduleSearchIndex.query((q) => {
+      for (const term of terms) {
+        q.term(term, {
+          fields: ["title"],
+          presence: lunr.Query.presence.REQUIRED,
+          wildcard:
+            lunr.Query.wildcard.LEADING | lunr.Query.wildcard.TRAILING,
+          usePipeline: false,
+        });
+      }
+    });
+  } catch (error) {
+    console.warn("Error running title search:", error);
+    return null;
+  }
+
+  if (!results || results.length === 0) {
+    return null;
+  }
+
+  const topRef = results[0].ref;
+  return moduleData[topRef] || null;
 }
 
 function toggleThemeOnClick(theme) {
@@ -1142,17 +1214,22 @@ function checkAnyDetails() {
 
 function searchModules() {
   const input = document.getElementById("search-input");
-  let query = input.value.trim().toUpperCase();
-  if (!query) {
+  const rawQuery = input.value.trim();
+  if (!rawQuery) {
     return;
   }
+  let query = rawQuery.toUpperCase();
   // If the query contains no letters, add in MATH as a prefix.
   if (!/[A-Z]/.test(query)) {
     // If the query has fewer than 4 digits, pad with leading zeros.
     query = query.padStart(4, "0");
     query = "MATH" + query;
   }
-  const module = moduleData[query];
+  let module = moduleData[query];
+  // Fall back to title search and use the top result if no exact module code match is found.
+  if (!module) {
+    module = findTopModuleByTitle(rawQuery);
+  }
   if (module) {
     // If the module is not visible due to theme filtering, deactivate the theme.
     if (!isModuleVisible(module.code) && activeTheme) {
