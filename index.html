@@ -223,14 +223,26 @@
             >Select your year of entry above to load the relevant modules.</span
           >
           Select modules to see how they are connected as prerequisites of one
-          another, or filter by theme using the buttons below. Tick modules as
+          another, or filter by theme using the buttons below. Mark modules as
           taken to explore your available options going forward. An accessible
           tabular version of the module catalogue can be found
           <a href="table.html">here</a>. Information correct as of 20th March 2026.
         </p>
       </div>
       <div id="sticky-row-container">
-        <div id="module-search">
+        <div id="theme-button-row" class="button-row"></div>
+        <div id="sticky-action-row">
+          <button
+            id="select-modules-mode-button"
+            type="button"
+            title="Toggle module selection mode so clicking modules marks them as taken."
+          >
+            Select modules
+          </button>
+          <button id="clear-taken-modules-button" type="button" disabled>
+            Clear modules
+          </button>
+          <span style="padding-top:4px">|</span>
           <input
             type="text"
             id="search-input"
@@ -241,7 +253,7 @@
           </button>
   
         </div>
-        <div id="theme-button-row" class="button-row"></div>
+        <div id="taken-gutter" hidden></div>
       </div>
       <div id="module-grid"></div>
     </main>

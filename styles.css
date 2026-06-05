@@ -287,7 +287,8 @@ br.title-break {
 }
 
 .module:has(.taken-checkbox[data-checked="true"]) {
-  opacity: 0.7;
+  opacity: 0.9;
+  border-color: var(--ucl-mid-purple);
 }
 
 /* Always show the button (not the text) if you can't hover */
@@ -426,6 +427,16 @@ button[data-state="on"] {
   opacity: 0.2;
 }
 
+.unmet-prereqs {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.15) 0,
+    rgba(0, 0, 0, 0.15) 2px,
+    transparent 2px,
+    transparent 10px
+  );
+}
+
 .module.inactive-theme {
   display: none;
 }
@@ -492,13 +503,12 @@ main {
 
 input[type="text"] {
   font-family: "UCL Sans", "Segoe UI", "Roboto", "Arial", sans-serif;
-  padding: 6px 8px;
+  padding: 4px 10px;
   border: 1.5px solid #d1d5db;
   border-radius: 8px;
   width: 200px;
   box-shadow: 0 1px 4px rgba(60, 80, 120, 0.07);
   position: relative;
-  top: -2px;
 }
 
 @media screen and (min-width: 769px) {

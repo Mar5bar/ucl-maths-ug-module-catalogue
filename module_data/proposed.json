@@ -745,7 +745,7 @@
       "code": "MATH0078",
       "description": "Systematic methods for solving problems involving a small parameter, enabling progress where exact solutions are unavailable.",
       "level": "7",
-      "prereqs": ["MATH2000"],
+      "prereqs": ["MATH2000", "MATH0056"],
       "term": "2",
       "title": "Asymptotic Approximation Methods",
       "years": ["4"]

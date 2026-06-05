@@ -99,7 +99,7 @@ function processModuleData(moduleData) {
     const module = moduleData[moduleCode];
     let level = module.level;
     let year = module.years.join("/");
-    let recYear = module.recommendedYear;
+    let recYear = module.catalogueYear;
     if (!recYear) {
       // If no recommended year is given, use the first years in years if the module is level 4, 5, or 6.
       if (level == "4" || level == "5" || level == "6") {
@@ -471,38 +471,29 @@ function processModuleData(moduleData) {
     themeButtonRow.appendChild(themeButton);
   }
 
-  // Place the action buttons row in the sticky container (remove any prior instance first).
-  document.getElementById("sticky-action-row")?.remove();
-  const stickyActionRow = document.createElement("div");
-  stickyActionRow.id = "sticky-action-row";
-
-  const selectModulesButton = document.createElement("button");
-  selectModulesButton.id = "select-modules-mode-button";
-  selectModulesButton.type = "button";
-  selectModulesButton.textContent = selectModulesModeEnabled ? "Confirm selection" : "Select modules";
-  selectModulesButton.title = "Toggle module selection mode so clicking modules marks them as taken.";
-  if (selectModulesModeEnabled) {
-    selectModulesButton.setAttribute("data-state", "on");
+  // Sync sticky action controls that are now rendered in index.html.
+  const selectModulesButton = document.getElementById("select-modules-mode-button");
+  if (selectModulesButton) {
+    selectModulesButton.textContent = selectModulesModeEnabled
+      ? "Confirm selection"
+      : "Select modules";
+    selectModulesButton.setAttribute(
+      "data-state",
+      selectModulesModeEnabled ? "on" : "off",
+    );
+    selectModulesButton.onclick = () => enterSelectModulesMode();
   }
-  selectModulesButton.onclick = () => enterSelectModulesMode();
-  stickyActionRow.appendChild(selectModulesButton);
 
-  const clearTakenButton = document.createElement("button");
-  clearTakenButton.id = "clear-taken-modules-button";
-  clearTakenButton.type = "button";
-  clearTakenButton.textContent = "Clear taken modules";
-  clearTakenButton.disabled = modulesTaken.size === 0;
-  clearTakenButton.onclick = () => clearTakenModules();
-  stickyActionRow.appendChild(clearTakenButton);
+  const clearTakenButton = document.getElementById("clear-taken-modules-button");
+  if (clearTakenButton) {
+    clearTakenButton.textContent =
+      modulesTaken.size > 0
+        ? `Clear modules (${modulesTaken.size})`
+        : "Clear modules";
+    clearTakenButton.disabled = modulesTaken.size === 0;
+    clearTakenButton.onclick = () => clearTakenModules();
+  }
 
-  document.getElementById("sticky-row-container").appendChild(stickyActionRow);
-
-  // Place the taken-gutter inside the sticky container, below the action row.
-  document.getElementById("taken-gutter")?.remove();
-  const takenGutter = document.createElement("div");
-  takenGutter.id = "taken-gutter";
-  takenGutter.hidden = true;
-  document.getElementById("sticky-row-container").appendChild(takenGutter);
   updateTakenGutter();
 
   // Ensure links point to the right place by loading a manifest for the current year. If a module is in the manifest, change the syllabus link to the pdf relevant for the current year.
@@ -1477,6 +1468,10 @@ function styleTakenButtons() {
   }
   const clearBtn = document.getElementById("clear-taken-modules-button");
   if (clearBtn) {
+    clearBtn.textContent =
+      modulesTaken.size > 0
+        ? `Clear modules (${modulesTaken.size})`
+        : "Clear modules";
     clearBtn.disabled = !hasTaken;
   }
   updateTakenGutter();
