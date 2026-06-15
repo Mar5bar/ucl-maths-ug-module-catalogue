@@ -955,11 +955,7 @@
       "description": "Core principles and practical applications of machine learning and artificial intelligence.",
       "level": "6",
       "prereqs": [
-        "MATH0003",
-        "MATH0004",
-        "MATH0005",
-        "MATH0006",
-        "MATH0011",
+        ["MATH0003", "MATH0004", "MATH0005", "MATH0006", "MATH0011"],
         "MATH0014"
       ],
       "related": ["MATH0057"],
