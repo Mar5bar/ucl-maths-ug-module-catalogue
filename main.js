@@ -1533,3 +1533,22 @@ input.addEventListener("keydown", function (event) {
     button.click(); // Trigger the button's click event
   }
 });
+
+(function () {
+  const stickyContainer = document.getElementById("sticky-row-container");
+  let lastScrollY = window.scrollY;
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY && currentScrollY > 275) {
+        stickyContainer.classList.add("sticky-hidden");
+      } else {
+        stickyContainer.classList.remove("sticky-hidden");
+      }
+      lastScrollY = currentScrollY;
+    },
+    { passive: true }
+  );
+})();

@@ -81,6 +81,7 @@ a {
 #sticky-row-container {
   background: #ffffff;
   border-bottom: 1px solid var(--ucl-dark-purple);
+  transition: transform 0.25s ease;
 }
 
 .module-section {
@@ -380,7 +381,7 @@ button {
   margin: 0 2px;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 14px;
   background: #f7faff;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -393,7 +394,7 @@ button.theme-button {
   margin: 0 2px;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 14px;
   background: #f7faff;
 }
 
@@ -516,6 +517,10 @@ input[type="text"] {
     position: sticky;
     top: 0;
     z-index: 100;
+  }
+
+  #sticky-row-container.sticky-hidden {
+    transform: translateY(-100%);
   }
 }
 
