@@ -118,6 +118,9 @@ function processModuleData(moduleData) {
     recYears.add(recYear);
     if (module.themes) {
       module.themes.forEach((theme) => themes.add(theme));
+      module.themes = new Set(module.themes);
+    } else {
+      module.themes = new Set();
     }
     if (module.groups) {
       // If groups is a string, convert to array.
@@ -164,31 +167,31 @@ function processModuleData(moduleData) {
 
   // Build a map from themes to modules.
   for (const theme of themes) {
-    themesToModules[theme] = [];
+    themesToModules[theme] = new Set();
     for (const moduleCode in moduleData) {
       const module = moduleData[moduleCode];
-      if (module.themes && module.themes.includes(theme)) {
-        themesToModules[theme].push(moduleCode);
+      if (module.themes && module.themes.has(theme)) {
+        themesToModules[theme].add(moduleCode);
       }
     }
   }
 
   // Add in themes for each group at the end of the list of themes.
-  themes = Array.from(themes);
   for (const group of groups) {
     const themeName = "Group " + group;
-    themes.push(themeName);
-    themesToModules[themeName] = [];
+    themes.add(themeName);
+    themesToModules[themeName] = new Set();
     for (const moduleCode in moduleData) {
       const module = moduleData[moduleCode];
       if (module.groups && module.groups.includes(group)) {
-        themesToModules[themeName].push(moduleCode);
+        themesToModules[themeName].add(moduleCode);
+        module.themes.add(themeName);
       }
     }
   }
 
-  // Save the map without prerequisites for later use when highlighting modules in a theme.
-  themesToModulesNoPrereqs = JSON.parse(JSON.stringify(themesToModules));
+  // Save the map without prerequisites for later use when highlighting modules in a theme, taking care with the set-valued map.
+  themesToModulesNoPrereqs = structuredClone(themesToModules);
 
   if (themePrereqsEnabled) {
     // Update the themesToModules mapping to include prerequistites.
@@ -209,20 +212,8 @@ function processModuleData(moduleData) {
           });
         }
       }
-      themesToModules[theme] = Array.from(allModuleCodes);
+      themesToModules[theme] = allModuleCodes;
     }
-  }
-
-  // Assign themes based on the themesToModules mapping. This will now include prerequisites if themePrereqsEnabled is true.
-  for (const theme of themes) {
-    const moduleCodes = themesToModules[theme] || [];
-    moduleCodes.forEach((code) => {
-      const module = moduleData[code];
-      if (module) {
-        module.themes = module.themes || [];
-        module.themes.push(theme);
-      }
-    });
   }
 
   // Convert levels, years, and themes to sorted arrays.
@@ -380,7 +371,7 @@ function processModuleData(moduleData) {
         themeElement.className = "themes-list";
         themeElement.innerHTML = "<strong>Themes:</strong> ";
         // Add each theme as a button.
-        for (const theme of module.themes.sort()) {
+        for (const theme of Array.from(module.themes).sort()) {
           const themeButton = createThemeButton(theme);
           themeElement.appendChild(themeButton);
         }
@@ -617,17 +608,20 @@ function toggleThemeOnClick(theme) {
 function activateTheme(theme) {
   deactivateTheme();
   activeTheme = theme;
-  // Highlight modules matching the selected theme.
+  // Label all modules as inactive.
   for (const moduleCode in moduleData) {
     const module = moduleData[moduleCode];
     const moduleElement = module.element;
-    if (module.themes && module.themes.includes(theme)) {
-      moduleElement.classList.add("active-theme");
-      moduleElement.classList.remove("inactive-theme");
-    } else {
-      moduleElement.classList.remove("active-theme");
-      moduleElement.classList.add("inactive-theme");
-    }
+    moduleElement.classList.remove("active-theme");
+    moduleElement.classList.add("inactive-theme");
+  }
+  
+  // Highlight modules matching the selected theme.
+  for (const moduleCode of themesToModules[theme]) {
+    const module = moduleData[moduleCode];
+    const moduleElement = module.element;
+    moduleElement.classList.add("active-theme");
+    moduleElement.classList.remove("inactive-theme");
   }
   // Highlight theme buttons.
   for (const themeName in themeButtons) {
