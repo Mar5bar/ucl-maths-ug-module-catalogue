@@ -26,7 +26,6 @@ let activeTheme;
 let activeModule;
 let lines = [];
 
-let loadedThemesToModules;
 let themesToModules;
 let themesToModulesNoPrereqs;
 let ancillaryModules;
@@ -86,7 +85,7 @@ function processModuleData(moduleData) {
   prereqsMap = {};
   requiredForMap = {};
   themeButtons = {};
-  themesToModules = structuredClone(loadedThemesToModules) || {};
+  themesToModules = {};
   themesToModulesNoPrereqs = {};
   takenCheckboxes = [];
   takenLabels = [];
@@ -165,63 +164,67 @@ function processModuleData(moduleData) {
   // Rebuild the module title search index whenever module data is processed/refreshed.
   buildModuleSearchIndex(moduleData);
 
-  // We will override the themes.
-  if (themesOverride) {
-    themes = Array.from(Object.keys(themesToModules)) || [];
-    // Add in themes for each group.
-    for (const group of groups) {
-      const themeName = "Group " + group;
-      themes.push(themeName);
-      themesToModules[themeName] = [];
-      for (const moduleCode in moduleData) {
-        const module = moduleData[moduleCode];
-        if (module.groups && module.groups.includes(group)) {
-          themesToModules[themeName].push(moduleCode);
-        }
-      }
-    }
-    // Clear existing themes from modules.
+  // Build a map from themes to modules.
+  for (const theme of themes) {
+    themesToModules[theme] = [];
     for (const moduleCode in moduleData) {
-      delete moduleData[moduleCode].themes;
-    }
-
-    if (themePrereqsEnabled) {
-      // Update the themesToModules mapping to include prerequistites.
-      for (const theme in themesToModules) {
-        const moduleCodes = themesToModules[theme];
-        themesToModulesNoPrereqs[theme] = Array.from(moduleCodes).filter(
-          (code) => moduleData[code],
-        );
-        const toConsider = [...moduleCodes];
-        const allModuleCodes = new Set(moduleCodes);
-        while (toConsider.length > 0) {
-          const code = toConsider.pop();
-          const module = moduleData[code];
-          if (module && module.prereqs) {
-            module.prereqs.forEach((prereq) => {
-              const unpackedPrereqs = unpackPrereqs(prereq);
-              for (const p of unpackedPrereqs) {
-                allModuleCodes.add(p);
-                toConsider.push(p);
-              }
-            });
-          }
-        }
-        themesToModules[theme] = Array.from(allModuleCodes);
+      const module = moduleData[moduleCode];
+      if (module.themes && module.themes.includes(theme)) {
+        themesToModules[theme].push(moduleCode);
       }
     }
+  }
 
-    // Assign themes based on the themesToModules mapping.
-    for (const theme of themes) {
-      const moduleCodes = themesToModules[theme] || [];
-      moduleCodes.forEach((code) => {
-        const module = moduleData[code];
-        if (module) {
-          module.themes = module.themes || [];
-          module.themes.push(theme);
-        }
-      });
+  // Add in themes for each group at the end of the list of themes.
+  themes = Array.from(themes);
+  for (const group of groups) {
+    const themeName = "Group " + group;
+    themes.push(themeName);
+    themesToModules[themeName] = [];
+    for (const moduleCode in moduleData) {
+      const module = moduleData[moduleCode];
+      if (module.groups && module.groups.includes(group)) {
+        themesToModules[themeName].push(moduleCode);
+      }
     }
+  }
+
+  // Save the map without prerequisites for later use when highlighting modules in a theme.
+  themesToModulesNoPrereqs = JSON.parse(JSON.stringify(themesToModules));
+
+  if (themePrereqsEnabled) {
+    // Update the themesToModules mapping to include prerequistites.
+    for (const theme of themes) {
+      const moduleCodes = themesToModules[theme];
+      const toConsider = [...moduleCodes];
+      const allModuleCodes = new Set(moduleCodes);
+      while (toConsider.length > 0) {
+        const code = toConsider.pop();
+        const module = moduleData[code];
+        if (module && module.prereqs) {
+          module.prereqs.forEach((prereq) => {
+            const unpackedPrereqs = unpackPrereqs(prereq);
+            for (const p of unpackedPrereqs) {
+              allModuleCodes.add(p);
+              toConsider.push(p);
+            }
+          });
+        }
+      }
+      themesToModules[theme] = Array.from(allModuleCodes);
+    }
+  }
+
+  // Assign themes based on the themesToModules mapping. This will now include prerequisites if themePrereqsEnabled is true.
+  for (const theme of themes) {
+    const moduleCodes = themesToModules[theme] || [];
+    moduleCodes.forEach((code) => {
+      const module = moduleData[code];
+      if (module) {
+        module.themes = module.themes || [];
+        module.themes.push(theme);
+      }
+    });
   }
 
   // Convert levels, years, and themes to sorted arrays.
@@ -472,7 +475,9 @@ function processModuleData(moduleData) {
   }
 
   // Sync sticky action controls that are now rendered in index.html.
-  const selectModulesButton = document.getElementById("select-modules-mode-button");
+  const selectModulesButton = document.getElementById(
+    "select-modules-mode-button",
+  );
   if (selectModulesButton) {
     selectModulesButton.textContent = selectModulesModeEnabled
       ? "Confirm selection"
@@ -484,7 +489,9 @@ function processModuleData(moduleData) {
     selectModulesButton.onclick = () => enterSelectModulesMode();
   }
 
-  const clearTakenButton = document.getElementById("clear-taken-modules-button");
+  const clearTakenButton = document.getElementById(
+    "clear-taken-modules-button",
+  );
   if (clearTakenButton) {
     clearTakenButton.textContent =
       modulesTaken.size > 0
@@ -1063,7 +1070,6 @@ function loadYear(year, updating = false) {
         moduleData[module.code] = module;
       }
       modulesTaken = getTakenModulesFromQuery(new Set(Object.keys(moduleData)));
-      loadedThemesToModules = data.themesToModules;
       processModuleData(moduleData);
       syncTakenModulesQueryParameters();
       styleTakenButtons();
