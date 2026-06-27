@@ -1,24 +1,16 @@
 let hideAncillaryModules = true;
-let themesOverride = true;
 
 let moduleData = {};
 
-let themes = new Set();
 let levels = new Set();
-let themesList = [];
 let levelsList = [];
 let prereqsMap = {};
 let requiredForMap = {};
 let modulesAtLevel = {};
-let themeButtons = {};
-
-let userActivatedTheme = null;
-let activeTheme = null;
 
 let activeModule = null;
 let lines = [];
 
-let themesToModules = {};
 let ancillaryModules;
 
 const defaultSyllabusBaseURL = "./pdfs";
@@ -27,7 +19,6 @@ const defaultDetailPreferences = {
   syllabus: "on",
   prereqs: "on",
   reqfors: "off",
-  themes: "off",
 };
 
 const urlParams = new URLSearchParams(window.location.search);
@@ -78,7 +69,6 @@ function loadYear(year, updating = false) {
         }
         moduleData[module.code] = module;
       }
-      themesToModules = data.themesToModules;
       processModuleData(moduleData);
     })
     .catch((error) => {
@@ -99,11 +89,8 @@ function processModuleData(moduleData) {
   for (const moduleCode in moduleData) {
     const module = moduleData[moduleCode];
     const level = module.level;
-    // Record levels and themes.
+    // Record levels.
     levels.add(level);
-    if (module.themes) {
-      module.themes.forEach((theme) => themes.add(theme));
-    }
     // Record this module in the corresponding level.
     if (!modulesAtLevel[level]) {
       modulesAtLevel[level] = [];
@@ -121,47 +108,8 @@ function processModuleData(moduleData) {
     }
   }
 
-  // We will override the themes.
-  if (themesOverride) {
-    themesList = Array.from(Object.keys(themesToModules)) || [];
-    // Clear existing themes from modules.
-    for (const moduleCode in moduleData) {
-      delete moduleData[moduleCode].themes;
-    }
-    // Update the themesToModules mapping to include prerequistites.
-    for (const theme in themesToModules) {
-      const moduleCodes = themesToModules[theme];
-      const toConsider = [...moduleCodes];
-      const allModuleCodes = new Set(moduleCodes);
-      while (toConsider.length > 0) {
-        const code = toConsider.pop();
-        const module = moduleData[code];
-        if (module && module.prereqs) {
-          module.prereqs.forEach((prereq) => {
-            allModuleCodes.add(prereq);
-            toConsider.push(prereq);
-          });
-        }
-      }
-      themesToModules[theme] = Array.from(allModuleCodes);
-    }
-
-    // Assign themes based on the themesToModules mapping.
-    for (const theme of themesList) {
-      const moduleCodes = themesToModules[theme] || [];
-      moduleCodes.forEach((code) => {
-        const module = moduleData[code];
-        if (module) {
-          module.themes = module.themes || [];
-          module.themes.push(theme);
-        }
-      });
-    }
-  }
-
-  // Convert levels and themes to sorted arrays.
+  // Convert levels to sorted arrays.
   levelsList = Array.from(levels).sort();
-  themesList = Array.from(themes).sort();
 
   // Build the grid of modules. Each level gets its own section.
   const moduleGrid = document.getElementById("module-grid");
