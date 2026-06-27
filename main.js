@@ -1061,7 +1061,7 @@ function loadYear(year, updating = false) {
     .then((data) => {
       for (const module of data.modules) {
         // Skip modules not listed as being in the catalogue.
-        if (!module.inCatalogue) {
+        if (!module.in_catalogue) {
           continue;
         }
         moduleData[module.code] = module;
