@@ -1,4 +1,3 @@
-let hideAncillaryModules = true;
 let themesOverride = true;
 
 let moduleData = {};
@@ -28,7 +27,6 @@ let lines = [];
 
 let themesToModules;
 let themesToModulesNoPrereqs;
-let ancillaryModules;
 let moduleSearchIndex = null;
 
 const defaultSyllabusBaseURL = "./pdfs";
@@ -1061,10 +1059,9 @@ function loadYear(year, updating = false) {
       return response.json();
     })
     .then((data) => {
-      ancillaryModules = new Set(data.ancillaryModules || []);
       for (const module of data.modules) {
-        // Skip ancillary modules.
-        if (hideAncillaryModules && ancillaryModules.has(module.code)) {
+        // Skip modules not listed as being in the catalogue.
+        if (!module.inCatalogue) {
           continue;
         }
         moduleData[module.code] = module;

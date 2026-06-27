@@ -1,5 +1,3 @@
-let hideAncillaryModules = true;
-
 let moduleData = {};
 
 let levels = new Set();
@@ -10,8 +8,6 @@ let modulesAtLevel = {};
 
 let activeModule = null;
 let lines = [];
-
-let ancillaryModules;
 
 const defaultSyllabusBaseURL = "./pdfs";
 const defaultDetailPreferences = {
@@ -61,10 +57,9 @@ function loadYear(year, updating = false) {
       return response.json();
     })
     .then((data) => {
-      ancillaryModules = new Set(data.ancillaryModules || []);
       for (const module of data.modules) {
-        // Skip ancillary modules.
-        if (hideAncillaryModules && ancillaryModules.has(module.code)) {
+        // Skip modules not listed as being in the catalogue.
+        if (!module.inCatalogue) {
           continue;
         }
         moduleData[module.code] = module;
