@@ -132,8 +132,7 @@
         1
       ],
       "themes": [
-        "Applied",
-        "Pure"
+        "Applied"
       ]
     },
     {
@@ -148,8 +147,7 @@
       ],
       "themes": [
         "Applied",
-        "Numerics",
-        "Pure"
+        "Numerics"
       ],
       "prereqs": [
         "MATH0010"
@@ -234,8 +232,7 @@
         2
       ],
       "themes": [
-        "Applied",
-        "Pure"
+        "Applied"
       ],
       "prereqs": [
         "MATH0011"
@@ -776,7 +773,7 @@
     {
       "code": "MATH0050",
       "description": "Introductory first order logic, computability, and undecidability.",
-      "in_catalogue": true,
+      "in_catalogue": false,
       "level": "6",
       "term": "2",
       "title": "Logic",

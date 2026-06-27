@@ -962,10 +962,13 @@ window.addEventListener("resize", () => {
 
 function svgResize() {
   const svg = document.getElementById("svg-lines");
+  const display_style = svg.style.display;
+  svg.style.display = "none"; // Temporarily set display to none so that the svg does not affect the scrollWidth and scrollHeight calculations.
   svg.setAttribute("width", document.body.scrollWidth + window.scrollX);
   svg.setAttribute("height", document.body.scrollHeight + window.scrollY);
   svg.style.width = document.body.scrollWidth + "px";
   svg.style.height = document.body.scrollHeight + "px";
+  svg.style.display = display_style; // Restore the original display style.
 }
 
 function toggleDetailLevel(className, enable) {
