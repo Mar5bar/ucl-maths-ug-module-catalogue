@@ -1262,7 +1262,8 @@
         3
       ],
       "themes": [
-        "Analysis"
+        "Analysis",
+        "Pure"
       ],
       "prereqs": [
         "MATH0019",
@@ -1452,6 +1453,10 @@
       "years": [
         3
       ],
+      "themes": [
+        "Applied",
+        "Modelling"
+      ],
       "prereqs": [
         [
           "MATH0033",
@@ -1468,6 +1473,10 @@
       "title": "Manifolds",
       "years": [
         3
+      ],
+      "themes": [
+        "Geometry and Topology",
+        "Pure"
       ],
       "prereqs": [
         "MATH0020"
@@ -1531,6 +1540,11 @@
       "years": [
         3
       ],
+      "themes": [
+        "Analysis",
+        "Geometry and Topology",
+        "Pure"
+      ],
       "prereqs": [
         "MATH0013",
         "MATH0051"
@@ -1590,7 +1604,7 @@
         4
       ],
       "themes": [
-        "Applied",
+        "Analysis",
         "Pure"
       ],
       "groups": "1A",
@@ -1612,6 +1626,10 @@
       "title": "Complex Function Theory",
       "years": [
         3
+      ],
+      "themes": [
+        "Analysis",
+        "Pure"
       ],
       "prereqs": [
         "MATH0013"
