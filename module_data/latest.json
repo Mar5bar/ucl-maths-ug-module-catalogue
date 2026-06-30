@@ -265,7 +265,8 @@
       "term": "1",
       "title": "Functional Analysis",
       "years": [
-        3
+        3,
+        4
       ],
       "themes": [
         "Analysis",
@@ -324,9 +325,11 @@
       "term": "2",
       "title": "Homological Algebra",
       "years": [
-        3
+        3,
+        4
       ],
       "themes": [
+        "Algebra",
         "Pure"
       ],
       "groups": "1B",
@@ -357,13 +360,15 @@
       "code": "MATH0023",
       "description": "Introductory algebraic and geometric topology via the homology of simplicial complexes.",
       "in_catalogue": true,
-      "level": "6",
+      "level": "7",
       "term": "1",
       "title": "Algebraic Topology",
       "years": [
-        3
+        3,
+        4
       ],
       "themes": [
+        "Algebra",
         "Geometry and Topology",
         "Pure"
       ],
@@ -404,7 +409,6 @@
       ],
       "themes": [
         "Applied",
-        "Geometry and Topology",
         "Physics"
       ],
       "groups": "2",
@@ -565,6 +569,7 @@
         2
       ],
       "themes": [
+        "Algebra",
         "Number Theory",
         "Pure"
       ],
@@ -583,6 +588,7 @@
         3
       ],
       "themes": [
+        "Algebra",
         "Number Theory",
         "Pure"
       ],
@@ -603,7 +609,8 @@
       "term": "2",
       "title": "Elliptic Curves",
       "years": [
-        3
+        3,
+        4
       ],
       "themes": [
         "Algebra",
@@ -924,6 +931,7 @@
         4
       ],
       "themes": [
+        "Algebra",
         "Number Theory",
         "Pure"
       ],
@@ -940,7 +948,8 @@
       "term": "2",
       "title": "Probability",
       "years": [
-        3
+        3,
+        4
       ],
       "themes": [
         "Analysis",
@@ -960,7 +969,8 @@
       "term": "1",
       "title": "Linear Partial Differential Equations",
       "years": [
-        3
+        3,
+        4
       ],
       "themes": [
         "Analysis",
@@ -1003,7 +1013,8 @@
       "term": "1",
       "title": "Representation Theory",
       "years": [
-        3
+        3,
+        4
       ],
       "themes": [
         "Algebra",
@@ -1025,9 +1036,11 @@
       "term": "1",
       "title": "Topology and Groups",
       "years": [
-        3
+        3,
+        4
       ],
       "themes": [
+        "Algebra",
         "Geometry and Topology",
         "Pure"
       ],
@@ -1044,7 +1057,8 @@
       "term": "2",
       "title": "Lie Groups and Lie Algebras",
       "years": [
-        3
+        3,
+        4
       ],
       "themes": [
         "Algebra",
@@ -1083,7 +1097,8 @@
       "term": "1",
       "title": "Real Fluids",
       "years": [
-        3
+        3,
+        4
       ],
       "themes": [
         "Applied",
@@ -1121,6 +1136,7 @@
       "term": "2",
       "title": "Cosmology",
       "years": [
+        3,
         4
       ],
       "themes": [
@@ -1139,7 +1155,8 @@
       "term": "2",
       "title": "Waves and Wave Scattering",
       "years": [
-        3
+        3,
+        4
       ],
       "themes": [
         "Applied",
@@ -1178,14 +1195,16 @@
       "term": "2",
       "title": "Prime Numbers and their Distribution",
       "years": [
-        3
+        3,
+        4
       ],
       "themes": [
+        "Algebra",
         "Analysis",
         "Number Theory",
         "Pure"
       ],
-      "groups": "1A 1B",
+      "groups": "1A",
       "prereqs": [
         "MATH0034",
         "MATH0014",
@@ -1259,7 +1278,7 @@
       "term": "2",
       "title": "Elliptic Partial Differential Equations",
       "years": [
-        3
+        4
       ],
       "themes": [
         "Analysis",
@@ -1282,14 +1301,15 @@
       "term": "2",
       "title": "Variational Methods for PDEs",
       "years": [
-        3
+        3,
+        4
       ],
       "themes": [
         "Analysis",
         "Numerics",
         "Pure"
       ],
-      "groups": "1A 2",
+      "groups": "1A",
       "prereqs": [
         "MATH0051"
       ]
@@ -1297,7 +1317,7 @@
     {
       "code": "MATH0101",
       "description": "Learn fundamental linear algebra concepts (vectors, matrices, and least squares) essential for data science applications.",
-      "in_catalogue": true,
+      "in_catalogue": false,
       "level": "5",
       "term": "2",
       "title": "Linear Algebra for Data Science",
@@ -1313,7 +1333,8 @@
       "term": "2",
       "title": "Applied Stochastic Methods",
       "years": [
-        3
+        3,
+        4
       ],
       "themes": [
         "Applied",
@@ -1353,9 +1374,12 @@
       "term": "1",
       "title": "Modular Forms",
       "years": [
-        3
+        3,
+        4
       ],
       "themes": [
+        "Algebra",
+        "Analysis",
         "Number Theory",
         "Pure"
       ],
@@ -1376,7 +1400,7 @@
       "term": "2",
       "title": "Probabilistic Method in Combinatorics",
       "years": [
-        3
+        4
       ],
       "themes": [
         "Analysis",
@@ -1400,11 +1424,12 @@
       "code": "MATH0108",
       "description": "Principles of commutative algebra and algebraic geometry, including integral extensions of rings.",
       "in_catalogue": true,
-      "level": "6",
-      "term": "2",
+      "level": "7",
+      "term": "1",
       "title": "Commutative Rings and Algebras",
       "years": [
-        3
+        3,
+        4
       ],
       "themes": [
         "Algebra",
@@ -1451,11 +1476,12 @@
       "term": "2",
       "title": "Frontiers in Computational Mathematics",
       "years": [
-        3
+        4
       ],
       "themes": [
         "Applied",
-        "Modelling"
+        "Modelling",
+        "Numerics"
       ],
       "prereqs": [
         [
@@ -1472,7 +1498,7 @@
       "term": "1",
       "title": "Manifolds",
       "years": [
-        3
+        4
       ],
       "themes": [
         "Geometry and Topology",
@@ -1519,7 +1545,8 @@
       "term": "1",
       "title": "Solid Mechanics",
       "years": [
-        3
+        3,
+        4
       ],
       "themes": [
         "Applied",
@@ -1538,7 +1565,7 @@
       "term": "2",
       "title": "Riemann Surfaces",
       "years": [
-        3
+        4
       ],
       "themes": [
         "Analysis",
@@ -1561,7 +1588,8 @@
       "term": "2",
       "title": "Spatial Mathematical Biology",
       "years": [
-        3
+        3,
+        4
       ],
       "themes": [
         "Applied",
@@ -1581,7 +1609,8 @@
       "term": "1",
       "title": "Mathematics for Quantum Mechanics",
       "years": [
-        3
+        3,
+        4
       ],
       "themes": [
         "Applied",
@@ -1622,15 +1651,16 @@
       "description": "Far-reaching theorems in complex analysis, including the Riemann mapping theorem.",
       "in_catalogue": true,
       "level": "7",
-      "term": "2",
+      "term": "1",
       "title": "Complex Function Theory",
       "years": [
-        3
+        4
       ],
       "themes": [
         "Analysis",
         "Pure"
       ],
+      "catalogue_year": "4",
       "prereqs": [
         "MATH0013"
       ]
