@@ -52,6 +52,10 @@ let activeYearOfEntry =
   urlParams.get("year") || localStorage.getItem("year") || "latest";
 let sectionBy =
   urlParams.get("sectionBy") || localStorage.getItem("sectionBy") || "recYear";
+// Override recYear.
+if (sectionBy == "recYear") {
+  sectionBy = "year";
+}
 setSectionByHandler(null, sectionBy);
 
 // If there is only 1 year button, hide anything with the year-select class.
