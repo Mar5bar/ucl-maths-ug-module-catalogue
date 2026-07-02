@@ -346,7 +346,7 @@ br.title-break {
 .module.active-module {
   border-color: var(--ucl-bright-purple) !important;
   z-index: 1;
-  box-shadow: inset 0 0 0 2px var(--ucl-bright-purple);
+  outline: 2px solid var(--ucl-bright-purple);
 }
 
 .module.prereq-module {
