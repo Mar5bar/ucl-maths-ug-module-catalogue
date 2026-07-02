@@ -882,7 +882,7 @@ function clearLines() {
 function equalizeTermRowModuleHeights() {
   // Only equalize heights when terms are actually laid out side-by-side
   // (see the ".term-row { display: flex }" rule in styles.css).
-  const isSideBySide = window.matchMedia("(min-width: 769px)").matches;
+  const isSideBySide = window.matchMedia("(min-width: 900px)").matches;
   document.querySelectorAll(".term-row").forEach((termRow) => {
     const modules = termRow.querySelectorAll(".module");
     // Reset to the natural height first so shrinking content (e.g. a
@@ -963,7 +963,7 @@ function drawLinesBetweenEls(linesAsElements) {
       { x: rect2.left, y: rect2.top + rect2.height / 2, label: "lr" }, // left
       { x: rect2.left + rect2.width / 2, y: rect2.top, label: "tb" }, // top
     ];
-    if (splitByTerm || isDashed) {
+    if (isDashed) {
       el1Points.push(
         { x: rect1.left, y: rect1.top + rect1.height / 2, label: "lr" }, // left
         { x: rect1.left + rect1.width / 2, y: rect1.top, label: "tb" }, // top

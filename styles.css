@@ -512,7 +512,7 @@ input[type="text"] {
   position: relative;
 }
 
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 900px) {
   #sticky-row-container {
     position: sticky;
     top: 0;
