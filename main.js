@@ -879,7 +879,39 @@ function clearLines() {
   svg.classList.add("empty");
 }
 
+function equalizeTermRowModuleHeights() {
+  // Only equalize heights when terms are actually laid out side-by-side
+  // (see the ".term-row { display: flex }" rule in styles.css).
+  const isSideBySide = window.matchMedia("(min-width: 769px)").matches;
+  document.querySelectorAll(".term-row").forEach((termRow) => {
+    const modules = termRow.querySelectorAll(".module");
+    // Reset to the natural height first so shrinking content (e.g. a
+    // low-detail toggle) isn't stuck at a stale, taller height.
+    modules.forEach((module) => {
+      module.style.height = "";
+    });
+    if (!isSideBySide) {
+      return;
+    }
+    let maxHeight = 0;
+    modules.forEach((module) => {
+      if (module.offsetParent !== null) {
+        maxHeight = Math.max(maxHeight, module.offsetHeight);
+      }
+    });
+    if (maxHeight === 0) {
+      return;
+    }
+    modules.forEach((module) => {
+      if (module.offsetParent !== null) {
+        module.style.height = `${maxHeight}px`;
+      }
+    });
+  });
+}
+
 function redrawLines() {
+  equalizeTermRowModuleHeights();
   clearLines();
   svgResize();
   drawLinesBetweenCodes(lines);
