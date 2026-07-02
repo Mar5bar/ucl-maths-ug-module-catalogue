@@ -522,6 +522,17 @@ input[type="text"] {
   #sticky-row-container.sticky-hidden {
     transform: translateY(-100%);
   }
+
+  .term-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .term-row > .module-section {
+    flex: 1 1 0;
+    min-width: 0;
+  }
 }
 
 @media screen and (max-width: 768px) {

@@ -253,200 +253,231 @@ function processModuleData(moduleData) {
   } else if (sectionBy === "recYear") {
     sections = recYears;
   }
+  // When splitting by term, group adjacent sections that differ only by
+  // their term number (e.g. "4: Term 1" / "4: Term 2") so that they can be
+  // rendered side-by-side rather than one after another.
+  const termSuffixRe = /: Term \d+$/;
+  const sectionGroups = [];
   for (const section of sections) {
-    const levelSection = document.createElement("div");
-    levelSection.className = "module-section";
-    const header = document.createElement("h2");
-    header.className = "section-header";
-    if (sectionBy === "level") {
-      header.textContent = `Level ${section}`;
-    } else if (sectionBy === "year") {
-      header.textContent = `Year ${section}`;
-    } else if (sectionBy === "recYear") {
-      header.textContent = `Year ${section}`;
+    const isTermSection = splitByTerm && termSuffixRe.test(section);
+    const base = isTermSection ? section.replace(termSuffixRe, "") : section;
+    const lastGroup = sectionGroups[sectionGroups.length - 1];
+    if (
+      isTermSection &&
+      lastGroup &&
+      lastGroup.isTermSection &&
+      lastGroup.base === base
+    ) {
+      lastGroup.items.push(section);
+    } else {
+      sectionGroups.push({ base, items: [section], isTermSection });
     }
-    levelSection.appendChild(header);
-    const moduleGroup = document.createElement("div");
-    moduleGroup.className = "module-group";
-    levelSection.appendChild(moduleGroup);
-    moduleGrid.appendChild(levelSection);
+  }
 
-    let moduleCodes;
-    if (sectionBy === "level") {
-      moduleCodes = modulesAtLevel[section] || [];
-    } else if (sectionBy === "year") {
-      moduleCodes = modulesAtYear[section] || [];
-    } else if (sectionBy === "recYear") {
-      moduleCodes = modulesAtRecYear[section] || [];
+  for (const group of sectionGroups) {
+    // Sections that share a base (i.e. differ only by term) are placed in a
+    // shared "term-row" container so they can be laid out side-by-side.
+    let sectionContainer = moduleGrid;
+    if (group.items.length > 1) {
+      sectionContainer = document.createElement("div");
+      sectionContainer.className = "term-row";
+      moduleGrid.appendChild(sectionContainer);
     }
-    // Sort module codes by prerequisites: a before b if a is a prerequisite of b.
-    moduleCodes = topologicalSort(moduleCodes);
-    for (const moduleCode of moduleCodes) {
-      const module = moduleData[moduleCode];
-      const moduleElement = document.createElement("div");
-      moduleElement.id = `module-${moduleCode}`;
-      moduleElement.className = "module";
-
-      // List the years or levels.
-      let yearOrLevelString = "";
+    for (const section of group.items) {
+      const levelSection = document.createElement("div");
+      levelSection.className = "module-section";
+      const header = document.createElement("h2");
+      header.className = "section-header";
       if (sectionBy === "level") {
-        if (module.years) {
-          yearOrLevelString = `<span>, Yr ${module.years.join("/")}</span>`;
-        }
+        header.textContent = `Level ${section}`;
       } else if (sectionBy === "year") {
-        if (module.level) {
-          yearOrLevelString = `<span>, Lvl ${module.level}</span>`;
-        }
+        header.textContent = `Year ${section}`;
       } else if (sectionBy === "recYear") {
-        yearOrLevelString = `<span>, Lvl ${module.level}</span>`;
-        if (module.years.length > 1) {
-          yearOrLevelString =
-            yearOrLevelString + `<span>, Yr ${module.years.join("/")}</span>`;
+        header.textContent = `Year ${section}`;
+      }
+      levelSection.appendChild(header);
+      const moduleGroup = document.createElement("div");
+      moduleGroup.className = "module-group";
+      levelSection.appendChild(moduleGroup);
+      sectionContainer.appendChild(levelSection);
+
+      let moduleCodes;
+      if (sectionBy === "level") {
+        moduleCodes = modulesAtLevel[section] || [];
+      } else if (sectionBy === "year") {
+        moduleCodes = modulesAtYear[section] || [];
+      } else if (sectionBy === "recYear") {
+        moduleCodes = modulesAtRecYear[section] || [];
+      }
+      // Sort module codes by prerequisites: a before b if a is a prerequisite of b.
+      moduleCodes = topologicalSort(moduleCodes);
+      for (const moduleCode of moduleCodes) {
+        const module = moduleData[moduleCode];
+        const moduleElement = document.createElement("div");
+        moduleElement.id = `module-${moduleCode}`;
+        moduleElement.className = "module";
+
+        // List the years or levels.
+        let yearOrLevelString = "";
+        if (sectionBy === "level") {
+          if (module.years) {
+            yearOrLevelString = `<span>, Yr ${module.years.join("/")}</span>`;
+          }
+        } else if (sectionBy === "year") {
+          if (module.level) {
+            yearOrLevelString = `<span>, Lvl ${module.level}</span>`;
+          }
+        } else if (sectionBy === "recYear") {
+          yearOrLevelString = `<span>, Lvl ${module.level}</span>`;
+          if (module.years.length > 1) {
+            yearOrLevelString =
+              yearOrLevelString + `<span>, Yr ${module.years.join("/")}</span>`;
+          }
         }
-      }
 
-      let termString = "";
-      if (!splitByTerm && module.term) {
-        termString = `<span>, Term ${module.term}</span>`;
-      }
-
-      // Add the title, code, description, etc.
-      moduleElement.innerHTML = `
-                <div class='top-container'>
-                <h3>${
-                  module.title
-                } <br class="title-break"> <span class="module-code">(${
-                  module.code + yearOrLevelString + termString
-                }<span class="groups-list">${
-                  module.groups ? ", Group " + module.groups.join("/") : ""
-                }</span>)</span></h3>
-                <p class="description">${module.description}</p>
-                </div>
-            `;
-
-      // Add related modules information.
-      const related = module.related || [];
-      if (related.length > 0) {
-        const relatedElement = document.createElement("p");
-        relatedElement.className = "related-list";
-        relatedElement.innerHTML = `<strong>Related:</strong> <span class="module-code">${related
-          .slice()
-          .sort()
-          .join(", ")}</span>`;
-        moduleElement.appendChild(relatedElement);
-      }
-
-      // Add prerequisite information.
-      if (module.prereqs && module.prereqs.length > 0) {
-        const prereqElement = document.createElement("p");
-        prereqElement.className = "prereqs-list";
-        let prereqsText = module.prereqs
-          .map((p) => {
-            if (Array.isArray(p)) {
-              return p
-                .sort()
-                .join(
-                  " <strong style='text-decoration:underline'>or</strong> ",
-                );
-            } else {
-              return p;
-            }
-          })
-          .sort()
-          .join(", ");
-        prereqElement.innerHTML = `<strong>Requires:</strong> <span class="module-code">${prereqsText}</span>`;
-        moduleElement.appendChild(prereqElement);
-      }
-
-      // Add dependent modules information.
-      const dependents = requiredForMap[moduleCode];
-      if (dependents && dependents.length > 0) {
-        const dependentElement = document.createElement("p");
-        dependentElement.className = "reqfors-list";
-        dependentElement.innerHTML = `<strong>Required for:</strong> <span class="module-code">${dependents
-          .sort()
-          .join(", ")}</span>`;
-        moduleElement.appendChild(dependentElement);
-      }
-
-      // Add themes information.
-      if (module.themes) {
-        const themeElement = document.createElement("p");
-        themeElement.className = "themes-list";
-        themeElement.innerHTML = "<strong>Themes:</strong> ";
-        // Add each theme as a button.
-        for (const theme of Array.from(module.themes).sort()) {
-          const themeButton = createThemeButton(theme);
-          themeElement.appendChild(themeButton);
+        let termString = "";
+        if (!splitByTerm && module.term) {
+          termString = `<span>, Term ${module.term}</span>`;
         }
-        moduleElement.appendChild(themeElement);
-      }
 
-      // Add a link to the syllabus. Default to the latest syllabus, which will then be updated if a relevant pdf is available.
-      const syllabusElement = document.createElement("a");
-      syllabusElement.id = `syllabus-link-${module.code}`;
-      syllabusElement.href =
-        module.syllabus ||
-        defaultSyllabusBaseURL +
-          "/" +
-          "latest" +
-          "/" +
-          module.code.toUpperCase() +
-          ".pdf";
-      syllabusElement.className = "syllabus";
-      syllabusElement.target = "_blank";
-      syllabusElement.onclick = (e) => {
-        e.stopPropagation();
-      };
-      syllabusElement.innerHTML = "Syllabus";
-      moduleElement.appendChild(syllabusElement);
-      // Add a checkbox to toggle if a module has been taken.
-      const takenCheckbox = document.createElement("input");
-      takenCheckbox.type = "checkbox";
-      takenCheckbox.className = "taken-checkbox";
-      takenCheckbox.checked = modulesTaken.has(moduleCode);
-      takenCheckbox.dataset.checked = takenCheckbox.checked;
-      const takenLabel = document.createElement("label");
-      takenLabel.className = "taken-label";
-      takenLabel.textContent = "Taken:";
-      function handler(e) {
-        e.stopPropagation();
-        takenLabel.dataset.checked = takenCheckbox.checked;
+        // Add the title, code, description, etc.
+        moduleElement.innerHTML = `
+                  <div class='top-container'>
+                  <h3>${
+                    module.title
+                  } <br class="title-break"> <span class="module-code">(${
+                    module.code + yearOrLevelString + termString
+                  }<span class="groups-list">${
+                    module.groups ? ", Group " + module.groups.join("/") : ""
+                  }</span>)</span></h3>
+                  <p class="description">${module.description}</p>
+                  </div>
+              `;
+
+        // Add related modules information.
+        const related = module.related || [];
+        if (related.length > 0) {
+          const relatedElement = document.createElement("p");
+          relatedElement.className = "related-list";
+          relatedElement.innerHTML = `<strong>Related:</strong> <span class="module-code">${related
+            .slice()
+            .sort()
+            .join(", ")}</span>`;
+          moduleElement.appendChild(relatedElement);
+        }
+
+        // Add prerequisite information.
+        if (module.prereqs && module.prereqs.length > 0) {
+          const prereqElement = document.createElement("p");
+          prereqElement.className = "prereqs-list";
+          let prereqsText = module.prereqs
+            .map((p) => {
+              if (Array.isArray(p)) {
+                return p
+                  .sort()
+                  .join(
+                    " <strong style='text-decoration:underline'>or</strong> ",
+                  );
+              } else {
+                return p;
+              }
+            })
+            .sort()
+            .join(", ");
+          prereqElement.innerHTML = `<strong>Requires:</strong> <span class="module-code">${prereqsText}</span>`;
+          moduleElement.appendChild(prereqElement);
+        }
+
+        // Add dependent modules information.
+        const dependents = requiredForMap[moduleCode];
+        if (dependents && dependents.length > 0) {
+          const dependentElement = document.createElement("p");
+          dependentElement.className = "reqfors-list";
+          dependentElement.innerHTML = `<strong>Required for:</strong> <span class="module-code">${dependents
+            .sort()
+            .join(", ")}</span>`;
+          moduleElement.appendChild(dependentElement);
+        }
+
+        // Add themes information.
+        if (module.themes) {
+          const themeElement = document.createElement("p");
+          themeElement.className = "themes-list";
+          themeElement.innerHTML = "<strong>Themes:</strong> ";
+          // Add each theme as a button.
+          for (const theme of Array.from(module.themes).sort()) {
+            const themeButton = createThemeButton(theme);
+            themeElement.appendChild(themeButton);
+          }
+          moduleElement.appendChild(themeElement);
+        }
+
+        // Add a link to the syllabus. Default to the latest syllabus, which will then be updated if a relevant pdf is available.
+        const syllabusElement = document.createElement("a");
+        syllabusElement.id = `syllabus-link-${module.code}`;
+        syllabusElement.href =
+          module.syllabus ||
+          defaultSyllabusBaseURL +
+            "/" +
+            "latest" +
+            "/" +
+            module.code.toUpperCase() +
+            ".pdf";
+        syllabusElement.className = "syllabus";
+        syllabusElement.target = "_blank";
+        syllabusElement.onclick = (e) => {
+          e.stopPropagation();
+        };
+        syllabusElement.innerHTML = "Syllabus";
+        moduleElement.appendChild(syllabusElement);
+        // Add a checkbox to toggle if a module has been taken.
+        const takenCheckbox = document.createElement("input");
+        takenCheckbox.type = "checkbox";
+        takenCheckbox.className = "taken-checkbox";
+        takenCheckbox.checked = modulesTaken.has(moduleCode);
         takenCheckbox.dataset.checked = takenCheckbox.checked;
-        if (takenCheckbox.checked) {
-          modulesTaken.add(moduleCode);
-        } else {
-          modulesTaken.delete(moduleCode);
+        const takenLabel = document.createElement("label");
+        takenLabel.className = "taken-label";
+        takenLabel.textContent = "Taken:";
+        function handler(e) {
+          e.stopPropagation();
+          takenLabel.dataset.checked = takenCheckbox.checked;
+          takenCheckbox.dataset.checked = takenCheckbox.checked;
+          if (takenCheckbox.checked) {
+            modulesTaken.add(moduleCode);
+          } else {
+            modulesTaken.delete(moduleCode);
+          }
+          syncTakenModulesQueryParameters();
+          styleTakenButtons();
+          styleModulesWithUnmetPrereqs();
         }
-        syncTakenModulesQueryParameters();
-        styleTakenButtons();
-        styleModulesWithUnmetPrereqs();
+        takenCheckbox.onclick = handler;
+        takenLabel.onclick = handler;
+        takenLabels.push(takenLabel);
+        takenCheckboxes.push(takenCheckbox);
+        takenLabel.appendChild(takenCheckbox);
+        moduleElement.appendChild(takenLabel);
+
+        // Make the module element clickable to highlight it.
+        moduleElement.addEventListener("click", () => {
+          if (selectModulesModeEnabled) {
+            toggleModuleTaken(moduleCode);
+            return;
+          }
+          clearHighlightedModules();
+          if (activeModule === moduleCode) {
+            // Deactivate the module.
+            deactivateModule();
+          } else {
+            // Activate the module.
+            activateModule(moduleCode);
+          }
+        });
+
+        moduleGroup.appendChild(moduleElement);
+        moduleData[moduleCode].element = moduleElement;
       }
-      takenCheckbox.onclick = handler;
-      takenLabel.onclick = handler;
-      takenLabels.push(takenLabel);
-      takenCheckboxes.push(takenCheckbox);
-      takenLabel.appendChild(takenCheckbox);
-      moduleElement.appendChild(takenLabel);
-
-      // Make the module element clickable to highlight it.
-      moduleElement.addEventListener("click", () => {
-        if (selectModulesModeEnabled) {
-          toggleModuleTaken(moduleCode);
-          return;
-        }
-        clearHighlightedModules();
-        if (activeModule === moduleCode) {
-          // Deactivate the module.
-          deactivateModule();
-        } else {
-          // Activate the module.
-          activateModule(moduleCode);
-        }
-      });
-
-      moduleGroup.appendChild(moduleElement);
-      moduleData[moduleCode].element = moduleElement;
     }
   }
   // Add in a row of buttons at the top for each theme.
