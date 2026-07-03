@@ -124,7 +124,7 @@ details h2 {
   display: block;
 }
 
-.term-row:not(:has(.active-theme)) {
+body:has(.active-theme) .term-row:not(:has(.active-theme)) {
   display: none;
 }
 
