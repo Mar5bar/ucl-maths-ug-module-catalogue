@@ -256,11 +256,13 @@ function processModuleData(moduleData) {
   // When splitting by term, group adjacent sections that differ only by
   // their term number (e.g. "4: Term 1" / "4: Term 2") so that they can be
   // rendered side-by-side rather than one after another.
-  const termSuffixRe = /: Term \d+$/;
+  const termSuffixRe = /: Term (\d+)$/;
   const sectionGroups = [];
   for (const section of sections) {
-    const isTermSection = splitByTerm && termSuffixRe.test(section);
-    const base = isTermSection ? section.replace(termSuffixRe, "") : section;
+    const match = splitByTerm ? section.match(termSuffixRe) : null;
+    const isTermSection = !!match;
+    const termNumber = isTermSection ? parseInt(match[1], 10) : null;
+    const base = isTermSection ? section.slice(0, match.index) : section;
     const lastGroup = sectionGroups[sectionGroups.length - 1];
     if (
       isTermSection &&
@@ -269,19 +271,47 @@ function processModuleData(moduleData) {
       lastGroup.base === base
     ) {
       lastGroup.items.push(section);
+      lastGroup.termNumbers.push(termNumber);
     } else {
-      sectionGroups.push({ base, items: [section], isTermSection });
+      sectionGroups.push({
+        base,
+        items: [section],
+        isTermSection,
+        termNumbers: isTermSection ? [termNumber] : [],
+      });
+    }
+  }
+
+  // A lone "Term 1" or "Term 2" section (i.e. the other term has no
+  // modules for this base) still gets laid out in a two-slot term row, with
+  // an empty placeholder taking up the other half, so the real content
+  // sits on the correct side (Term 1 on the left, Term 2 on the right)
+  // rather than being centred across the full width.
+  for (const group of sectionGroups) {
+    if (group.isTermSection && group.items.length === 1) {
+      const termNumber = group.termNumbers[0];
+      if (termNumber === 1) {
+        group.placeholderPosition = "after";
+      } else if (termNumber === 2) {
+        group.placeholderPosition = "before";
+      }
     }
   }
 
   for (const group of sectionGroups) {
-    // Sections that share a base (i.e. differ only by term) are placed in a
-    // shared "term-row" container so they can be laid out side-by-side.
+    // Sections that share a base (i.e. differ only by term), or a lone term
+    // section that needs a placeholder for the missing term, are placed in
+    // a shared "term-row" container so they can be laid out side-by-side.
     let sectionContainer = moduleGrid;
-    if (group.items.length > 1) {
+    if (group.items.length > 1 || group.placeholderPosition) {
       sectionContainer = document.createElement("div");
       sectionContainer.className = "term-row";
       moduleGrid.appendChild(sectionContainer);
+    }
+    if (group.placeholderPosition === "before") {
+      const placeholder = document.createElement("div");
+      placeholder.className = "module-section term-placeholder";
+      sectionContainer.appendChild(placeholder);
     }
     for (const section of group.items) {
       const levelSection = document.createElement("div");
@@ -296,6 +326,10 @@ function processModuleData(moduleData) {
         header.textContent = `Year ${section}`;
       }
       levelSection.appendChild(header);
+      const no_modules_warning = document.createElement("p");
+      no_modules_warning.className = "no-module-message";
+      no_modules_warning.textContent = "No matching modules.";
+      levelSection.appendChild(no_modules_warning);
       const moduleGroup = document.createElement("div");
       moduleGroup.className = "module-group";
       levelSection.appendChild(moduleGroup);
@@ -478,6 +512,11 @@ function processModuleData(moduleData) {
         moduleGroup.appendChild(moduleElement);
         moduleData[moduleCode].element = moduleElement;
       }
+    }
+    if (group.placeholderPosition === "after") {
+      const placeholder = document.createElement("div");
+      placeholder.className = "module-section term-placeholder";
+      sectionContainer.appendChild(placeholder);
     }
   }
   // Add in a row of buttons at the top for each theme.

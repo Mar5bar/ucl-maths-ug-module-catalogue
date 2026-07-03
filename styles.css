@@ -113,6 +113,29 @@ details h2 {
   display: block;
 }
 
+/* A lone Term 1/Term 2 section's placeholder should stay visible (and thus
+   keep the 50/50 split) whenever its real sibling section is shown because
+   it matches the active theme filter, not just when no filter is applied. */
+.term-row:has(> .module-section:has(.active-theme)) > .term-placeholder {
+  display: block;
+}
+
+.term-row > .module-section {
+  display: block;
+}
+
+.term-row:not(:has(.active-theme)) {
+  display: none;
+}
+
+.no-module-message {
+  display: none;
+}
+
+.term-row:has(.active-theme) .module-section:not(:has(.active-theme)) .no-module-message {
+  display: block;
+}
+
 .module-section h3 {
   text-align: center;
   font-weight: 400;
@@ -533,6 +556,13 @@ input[type="text"] {
   .term-row > .module-section {
     flex: 1 1 0;
     min-width: 0;
+  }
+
+  /* An empty stand-in for a missing term (e.g. a lone "Term 1" section
+     with no "Term 2" counterpart), so the real section takes up half the
+     row and sits on the correct side instead of being centred. */
+  .term-row > .term-placeholder {
+    pointer-events: none;
   }
 }
 
