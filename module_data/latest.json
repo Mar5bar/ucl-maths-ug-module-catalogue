@@ -5,8 +5,8 @@
       "description": "Fundamentals of economic resource allocation and analysis, focusing on both individual and aggregate economic principles.",
       "in_catalogue": false,
       "level": "4",
-      "term": "1",
-      "title": "Economics 1",
+      "term": "1 & 2",
+      "title": "Economics 1 - Combined Studies",
       "years": [
         1
       ]
@@ -86,6 +86,10 @@
       "title": "Algebra for Joint Honours",
       "years": [
         1
+      ],
+      "themes": [
+        "Algebra",
+        "Pure"
       ]
     },
     {
@@ -223,7 +227,7 @@
     },
     {
       "code": "MATH0016",
-      "description": "Fourier analysis, calculus of variations, partial differential equations, and vector calculus.",
+      "description": "Fourier analysis, calculus of variations, partial differential equations, and vector calculus",
       "in_catalogue": true,
       "level": "5",
       "term": "1",
@@ -252,7 +256,9 @@
         "Analysis",
         "Pure"
       ],
-      "groups": "1A",
+      "groups": [
+        "1A"
+      ],
       "prereqs": [
         "MATH0051"
       ]
@@ -272,7 +278,9 @@
         "Analysis",
         "Pure"
       ],
-      "groups": "1A",
+      "groups": [
+        "1A"
+      ],
       "prereqs": [
         "MATH0051"
       ]
@@ -292,7 +300,9 @@
         "Geometry and Topology",
         "Pure"
       ],
-      "groups": "1A",
+      "groups": [
+        "1A"
+      ],
       "prereqs": [
         "MATH0051"
       ]
@@ -332,7 +342,9 @@
         "Algebra",
         "Pure"
       ],
-      "groups": "1B",
+      "groups": [
+        "1B"
+      ],
       "prereqs": [
         "MATH0053"
       ]
@@ -351,7 +363,9 @@
         "Algebra",
         "Pure"
       ],
-      "groups": "1B",
+      "groups": [
+        "1B"
+      ],
       "prereqs": [
         "MATH0053"
       ]
@@ -372,7 +386,9 @@
         "Geometry and Topology",
         "Pure"
       ],
-      "groups": "1B",
+      "groups": [
+        "1B"
+      ],
       "prereqs": [
         "MATH0014"
       ]
@@ -391,7 +407,9 @@
         "Applied",
         "Continuum Mechanics"
       ],
-      "groups": "2",
+      "groups": [
+        "2"
+      ],
       "prereqs": [
         "MATH0015",
         "MATH0016"
@@ -399,7 +417,7 @@
     },
     {
       "code": "MATH0025",
-      "description": "Einstein\u2019s revolutionary theories of relativity, including gravity and electromagnetism.",
+      "description": "Einstein's revolutionary theories of relativity, including gravity and electromagnetism.",
       "in_catalogue": true,
       "level": "6",
       "term": "1",
@@ -411,7 +429,9 @@
         "Applied",
         "Physics"
       ],
-      "groups": "2",
+      "groups": [
+        "2"
+      ],
       "prereqs": [
         "MATH0016"
       ],
@@ -434,7 +454,9 @@
         "Biology",
         "Modelling"
       ],
-      "groups": "2",
+      "groups": [
+        "2"
+      ],
       "prereqs": [
         "MATH0011"
       ]
@@ -452,7 +474,9 @@
       "themes": [
         "Applied"
       ],
-      "groups": "2",
+      "groups": [
+        "2"
+      ],
       "prereqs": [
         "MATH0056"
       ]
@@ -472,7 +496,9 @@
         "Modelling",
         "Pure"
       ],
-      "groups": "2",
+      "groups": [
+        "2"
+      ],
       "prereqs": [
         "MATH0014"
       ]
@@ -491,7 +517,13 @@
         "Combinatorics",
         "Pure"
       ],
-      "groups": "1A 1B",
+      "groups": [
+        "1A",
+        "1B"
+      ],
+      "prereqs": [
+        "MATH0057"
+      ],
       "related": [
         "MATH0057"
       ]
@@ -511,7 +543,9 @@
         "Biology",
         "Modelling"
       ],
-      "groups": "2",
+      "groups": [
+        "2"
+      ],
       "prereqs": [
         "MATH0010"
       ]
@@ -551,10 +585,12 @@
         "Modelling",
         "Numerics"
       ],
-      "groups": "2",
+      "groups": [
+        "2"
+      ],
       "prereqs": [
         "MATH0004",
-        "MATH0006",
+        "MATH0005",
         "MATH0011"
       ]
     },
@@ -592,7 +628,9 @@
         "Number Theory",
         "Pure"
       ],
-      "groups": "1B",
+      "groups": [
+        "1B"
+      ],
       "prereqs": [
         "MATH0034",
         "MATH0053"
@@ -614,11 +652,12 @@
       ],
       "themes": [
         "Algebra",
-        "Geometry and Topology",
         "Number Theory",
         "Pure"
       ],
-      "groups": "1B",
+      "groups": [
+        "1B"
+      ],
       "prereqs": [
         "MATH0053",
         "MATH0034"
@@ -916,8 +955,11 @@
         "Numerics"
       ],
       "prereqs": [
-        "MATH0006",
+        "MATH0005",
         "MATH0010"
+      ],
+      "related": [
+        "MATH0011"
       ]
     },
     {
@@ -956,7 +998,9 @@
         "Probability",
         "Pure"
       ],
-      "groups": "1A",
+      "groups": [
+        "1A"
+      ],
       "prereqs": [
         "MATH0017"
       ]
@@ -976,7 +1020,9 @@
         "Analysis",
         "Pure"
       ],
-      "groups": "1A",
+      "groups": [
+        "1A"
+      ],
       "prereqs": [
         "MATH0013",
         "MATH0016",
@@ -1020,7 +1066,9 @@
         "Algebra",
         "Pure"
       ],
-      "groups": "1B",
+      "groups": [
+        "1B"
+      ],
       "prereqs": [
         "MATH0053"
       ],
@@ -1104,7 +1152,9 @@
         "Applied",
         "Continuum Mechanics"
       ],
-      "groups": "2",
+      "groups": [
+        "2"
+      ],
       "prereqs": [
         "MATH0015",
         "MATH0016",
@@ -1204,7 +1254,9 @@
         "Number Theory",
         "Pure"
       ],
-      "groups": "1A",
+      "groups": [
+        "1A"
+      ],
       "prereqs": [
         "MATH0034",
         "MATH0014",
@@ -1264,7 +1316,8 @@
         "Numerics"
       ],
       "prereqs": [
-        "MATH0016"
+        "MATH0016",
+        "MATH0057"
       ],
       "related": [
         "MATH0031"
@@ -1309,7 +1362,9 @@
         "Numerics",
         "Pure"
       ],
-      "groups": "1A",
+      "groups": [
+        "1A"
+      ],
       "prereqs": [
         "MATH0051"
       ]
@@ -1340,7 +1395,9 @@
         "Applied",
         "Modelling"
       ],
-      "groups": "2",
+      "groups": [
+        "2"
+      ],
       "prereqs": [
         "MATH0010",
         "MATH0011"
@@ -1355,7 +1412,7 @@
     {
       "code": "MATH0103",
       "description": "Developing a strong understanding of group theory and number theory through abstract concepts and rigorous proof techniques.",
-      "in_catalogue": true,
+      "in_catalogue": false,
       "level": "5",
       "term": "1",
       "title": "Discrete Mathematics",
@@ -1363,7 +1420,12 @@
         2
       ],
       "prereqs": [
-        "MATH0012"
+        [
+          "MATH0012",
+          "MATH0041",
+          "MATH0045",
+          "MATH0047"
+        ]
       ]
     },
     {
@@ -1378,12 +1440,13 @@
         4
       ],
       "themes": [
-        "Algebra",
         "Analysis",
         "Number Theory",
         "Pure"
       ],
-      "groups": "1B",
+      "groups": [
+        "1B"
+      ],
       "prereqs": [
         "MATH0013",
         "MATH0014"
@@ -1435,7 +1498,9 @@
         "Algebra",
         "Pure"
       ],
-      "groups": "1B",
+      "groups": [
+        "1B"
+      ],
       "prereqs": [
         "MATH0053"
       ],
@@ -1466,6 +1531,10 @@
       "title": "Analysis for Joint Honours",
       "years": [
         1
+      ],
+      "themes": [
+        "Analysis",
+        "Pure"
       ]
     },
     {
@@ -1634,10 +1703,12 @@
       ],
       "themes": [
         "Analysis",
+        "Geometry and Topology",
         "Pure"
       ],
-      "groups": "1A",
-      "catalogue_year": "4",
+      "groups": [
+        "1A"
+      ],
       "prereqs": [
         "MATH0017",
         [
@@ -1660,7 +1731,6 @@
         "Analysis",
         "Pure"
       ],
-      "catalogue_year": "4",
       "prereqs": [
         "MATH0013"
       ]
