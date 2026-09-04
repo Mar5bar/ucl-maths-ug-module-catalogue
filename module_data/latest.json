@@ -567,7 +567,10 @@
       ],
       "prereqs": [
         "MATH0016",
-        "MATH0057"
+        [
+          "MATH0057",
+          "STAT0005"
+        ]
       ]
     },
     {
@@ -589,7 +592,10 @@
         "2"
       ],
       "prereqs": [
-        "MATH0004",
+        [
+          "MATH0004",
+          "MATH0110"
+        ],
         "MATH0005",
         "MATH0011"
       ]
@@ -843,7 +849,10 @@
         "Pure"
       ],
       "prereqs": [
-        "MATH0004"
+        [
+          "MATH0004",
+          "MATH0110"
+        ]
       ]
     },
     {
@@ -878,7 +887,10 @@
         "Applied"
       ],
       "prereqs": [
-        "MATH0009",
+        [
+          "MATH0009",
+          "PHAS0010"
+        ],
         "MATH0011"
       ]
     },
@@ -1255,7 +1267,8 @@
         "Pure"
       ],
       "groups": [
-        "1A"
+        "1A",
+        "1B"
       ],
       "prereqs": [
         "MATH0034",
@@ -1363,7 +1376,8 @@
         "Pure"
       ],
       "groups": [
-        "1A"
+        "1A",
+        "2"
       ],
       "prereqs": [
         "MATH0051"
@@ -1595,9 +1609,10 @@
         "Modelling"
       ],
       "prereqs": [
-        "MATH0003",
-        "MATH0004",
-        "MATH0005",
+        [
+          "MATH0004",
+          "MATH0110"
+        ],
         "MATH0006",
         "MATH0011",
         "MATH0014"
