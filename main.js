@@ -692,8 +692,10 @@ function activateTheme(theme) {
   
   // Highlight modules matching the selected theme.
   for (const moduleCode of themesToModules[theme]) {
-    const module = moduleData[moduleCode];
-    const moduleElement = module.element;
+    const moduleElement = moduleData[moduleCode]?.element;
+    if (!moduleElement) {
+      continue;
+    }
     moduleElement.classList.add("active-theme");
     moduleElement.classList.remove("inactive-theme");
   }
