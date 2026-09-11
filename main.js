@@ -1480,17 +1480,39 @@ function deactivateModule() {
   clearQueryParameter("module");
 }
 
-function setQueryParameter(key, value) {
+function expandNumberToModuleCode(numberAsString) {
+  // Expand a number to a module code, e.g. 101 -> MATH0101.
+  // If the number is already a module code, return it as-is.
+  if (/^[A-Z]{4}\d{4}$/.test(numberAsString)) {
+    return numberAsString.toUpperCase();
+  }
+  // If the number is fewer than 4 digits, pad with leading zeros.
+  const paddedNumber = numberAsString.padStart(4, "0");
+  return "MATH" + paddedNumber;
+}
+
+function trimModuleCodeToNumber(moduleCode) {
+  return moduleCode.replace(/^MATH0*/, "");
+}
+
+function setQueryParameter(key, value, preserveCommas = true) {
   // Set query parameter in URL without reloading the page.
   const url = new URL(window.location);
   url.searchParams.set(key, encodeURI(value));
+  if (preserveCommas) {
+    // Preserve commas in the query string by replacing %2C with ,.
+    url.search = url.search.replace(/%2C/g, ",");
+  }
   window.history.replaceState({}, "", url);
 }
 
 function getTakenModulesFromQuery(validModuleCodes = null) {
   const url = new URL(window.location);
   const takenModules = new Set();
-  for (const value of url.searchParams.getAll("taken")) {
+  // Get the taken modules from the query string.
+  const fromCompressedQueryString = url.searchParams.get("t").split(",").map((v) => expandNumberToModuleCode(v.trim()));
+  const fromQueryString = url.searchParams.getAll("taken").concat(fromCompressedQueryString);
+  for (const value of fromQueryString) {
     for (const moduleCode of value.split(",")) {
       const normalizedCode = moduleCode.trim().toUpperCase();
       if (!normalizedCode) {
@@ -1508,12 +1530,15 @@ function getTakenModulesFromQuery(validModuleCodes = null) {
 function syncTakenModulesQueryParameters() {
   const url = new URL(window.location);
   url.searchParams.delete("taken");
+  url.searchParams.delete("t");
+  let compressedCodes = [];
   Array.from(modulesTaken)
     .sort()
     .forEach((moduleCode) => {
-      url.searchParams.append("taken", moduleCode);
+      // Remove "MATH" and any leading zeros from the module code for a compressed query string.
+      compressedCodes.push(trimModuleCodeToNumber(moduleCode));
     });
-  window.history.replaceState({}, "", url);
+  setQueryParameter("t", compressedCodes.join(","), true);
 }
 
 function clearQueryParameter(key) {
