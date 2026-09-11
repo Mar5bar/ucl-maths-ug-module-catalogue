@@ -9,6 +9,10 @@ let recYears;
 let sections;
 let groups;
 let prereqsMap;
+// Structured version of prereqsMap: each value is a list of entries, where
+// each entry is either a single required module code (AND) or an array of
+// alternative module codes of which only one is required (OR).
+let prereqGroupsMap;
 let requiredForMap;
 let modulesAtLevel;
 let modulesAtYear;
@@ -85,6 +89,7 @@ function processModuleData(moduleData) {
   modulesAtYear = {};
   modulesAtRecYear = {};
   prereqsMap = {};
+  prereqGroupsMap = {};
   requiredForMap = {};
   themeButtons = {};
   themesToModules = {};
@@ -153,6 +158,10 @@ function processModuleData(moduleData) {
 
     if (module.prereqs) {
       prereqsMap[moduleCode] = unpackPrereqs(module.prereqs);
+      // Also keep the structured form (entries are either a single required
+      // module code, or an array of alternative module codes of which only
+      // one is required) so that "OR" groups can be checked correctly.
+      prereqGroupsMap[moduleCode] = module.prereqs;
       // Populate a reverse mapping of prerequisites.
       for (const prereq of prereqsMap[moduleCode]) {
         if (!requiredForMap[prereq]) {
@@ -1217,9 +1226,15 @@ function loadYear(year, updating = false) {
 
 function arePrereqsMet(moduleCode) {
   // Check if all prerequisites for the given module code are met. Do not chase chains.
-  const prereqs = prereqsMap[moduleCode] || [];
-  for (const prereq of prereqs) {
-    if (!modulesTaken.has(prereq)) {
+  // Each entry is either a single required module code (AND), or an array of
+  // alternative module codes of which only one needs to have been taken (OR).
+  const prereqGroups = prereqGroupsMap[moduleCode] || [];
+  for (const entry of prereqGroups) {
+    if (Array.isArray(entry)) {
+      if (!entry.some((prereq) => modulesTaken.has(prereq))) {
+        return false;
+      }
+    } else if (!modulesTaken.has(entry)) {
       return false;
     }
   }
