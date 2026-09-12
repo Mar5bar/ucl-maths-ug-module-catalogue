@@ -1510,8 +1510,8 @@ function getTakenModulesFromQuery(validModuleCodes = null) {
   const url = new URL(window.location);
   const takenModules = new Set();
   // Get the taken modules from the query string.
-  const fromCompressedQueryString = url.searchParams.get("t").split(",").map((v) => expandNumberToModuleCode(v.trim()));
-  const fromQueryString = url.searchParams.getAll("taken").concat(fromCompressedQueryString);
+  const fromCompressedQueryString = url.searchParams.get("t")?.split(",").map((v) => expandNumberToModuleCode(v.trim()));
+  const fromQueryString = url.searchParams.getAll("taken").concat(fromCompressedQueryString || []);
   for (const value of fromQueryString) {
     for (const moduleCode of value.split(",")) {
       const normalizedCode = moduleCode.trim().toUpperCase();
@@ -1538,6 +1538,10 @@ function syncTakenModulesQueryParameters() {
       // Remove "MATH" and any leading zeros from the module code for a compressed query string.
       compressedCodes.push(trimModuleCodeToNumber(moduleCode));
     });
+  if (compressedCodes.length === 0) {
+    clearQueryParameter("t");
+    return;
+  }
   setQueryParameter("t", compressedCodes.join(","), true);
 }
 
